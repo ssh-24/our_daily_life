@@ -1,0 +1,25 @@
+// preset
+// 늘 사용하는 패턴 등을 설정
+
+.screen-out {
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+// x방향 스크롤 모아놓은 스타일
+.scroll-x {
+    overflow-x: auto; // x축 자동
+    overflow-y: hidden; // y축은 숨김
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; // 모바일 터치 가속 스크롤링 지원
+    // Chrome은 스크롤바가 focus중일 때만 나타나지만 다른 브라우저는 아님
+    -ms-overflow-style: none; // IE 에서 스크롤바 제거
+    scrollbar-width: none; // firefox 에서 스크롤바 제거
+    &::-webkit-scrollbar {
+        display: none; // Chrome 스크롤바 감추기
+    }
+}

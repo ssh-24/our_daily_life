@@ -1,0 +1,13 @@
+// font
+// 공통으로 사용할 폰트 세트
+$font-default: -apple-system, BlinkMacSystemFont, helvetica, Apple SD Gothic Neo, sans-serif;
+
+// size
+// 모든 페이지, 다양한 브라우저에서 알고 있어야 될 정보 모아두는 것
+$m-padding: 18px; // 모바일에서는 대체로 18px의 패딩
+$place-header-height: 48px; // 상단의 header 높이
+$place-tab-height: 46px;
+
+$header-height: $place-header-height + $place-tab-height;
+
+$order-box-area-height: 70px;

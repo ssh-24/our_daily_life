@@ -1,0 +1,131 @@
+// reset.css (normalize.css)
+// 기본 스타일 초기화
+
+body {
+    min-width: 320px;
+    line-height: normal;
+    font-size: 14px;
+    color: $booking-color-text1;
+    scroll-behavior: smooth; // 스크롤할때 부드럽게
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; // 파이어폭스 브라우저에서 사용되는 부분
+}
+
+body,
+input,
+textarea,
+select,
+table,
+button,
+code {
+    font-family: $font-default;
+    font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // 클릭할때 번쩍거리는 효과 제거
+}
+
+.hidden,
+[hidden] {
+    display: none !important;
+}
+
+ul,
+ol,
+li {
+    list-style: none; // 리스트 요소 숫자, 점 제거
+}
+
+a {
+    color: inherit; // 부모 요소의 색상 상속받게 설정
+    cursor: pointer;
+    text-decoration: none; // 링크 밑줄 제거
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer; // 마우스 올리면 손가락 표시
+    &:disabled {
+        cursor: not-allowed; // 마우스 올리면 금지 표시
+    }
+}
+
+select,
+input,
+textarea,
+button {
+    -webkit-appearance: none; // 기본 제공 스타일 제거
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input:disabled {
+    background-color: rgba(255, 255, 255, 0);
+    cursor: not-allowed;
+}
+
+select {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    &::-ms-expand {
+        display: none;
+    }
+}
+
+input,
+textarea {
+    font-size: inherit;
+    border: 0;
+    &::placeholder {
+        /* Chrome, Safari, Firefox */
+        color: #c9c9c9;
+        opacity: 1;
+    }
+    &:-ms-input-placeholder {
+        /* IE, Edge */
+        color: #c9c9c9;
+        opacity: 1;
+    }
+    &[readonly],
+    &:disabled {
+        &::placeholder {
+            /* Chrome, Safari, Firefox */
+            color: rgba(#000, 0.2);
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            /* IE, Edge */
+            color: rgba(#000, 0.2);
+            opacity: 1;
+        }
+    }
+    &::-ms-clear,
+    &::-ms-reveal {
+        /* IE, Edge */
+        display: none; // 브라우저 자체 제공하는 X 버튼 제거
+    }
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+}
