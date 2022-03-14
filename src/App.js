@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-import React, { Component } from 'react';
-import Header from './layout/header';
-import Lists from './components/Lists';
-import './assets/css/styles.css';
-=======
 import React, { Component } from "react";
 import Header from "./layout/header";
 import Lists from "./components/Lists";
 import "./assets/css/styles.css";
->>>>>>> 77ebc21f24b954041e73f6897160a3bb2313bb68
 
 class App extends Component {
   constructor(props) {
