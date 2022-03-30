@@ -1,42 +1,49 @@
-import React, { Component } from "react";
-import Header from "./layout/header";
-import Lists from "./components/Lists";
+import React from "react";
+import create from 'zustand';
 import "./assets/css/styles.css";
+import Start from "./layout/start";
+import Nav from "./components/nav";
+import ContentTest from "./components/contentTest";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mode: "welcome",
-      header: { title: "Our Daily Life", sub: "우리의 일상" },
-      welcome: { title: "Welcome", desc: "Let's start!" },
-      list: [
-        { id: 1, title: "SSH", desc: "Some description" },
-        { id: 2, title: "DSH", desc: "Some description" },
-        { id: 3, title: "LSS", desc: "Some description" },
-        { id: 4, title: "HJH", desc: "Some description" },
-        { id: 5, title: "YSL", desc: "Some description" },
-        { id: 6, title: "LJM", desc: "Some description" },
-        { id: 7, title: "ACS", desc: "Some description" },
-        { id: 8, title: "SSJ", desc: "Some description" },
-      ],
-    };
+const URL = '';
+
+const stateStore = create((set) => ({
+  mode: "welcome",
+  changeMode(text) {
+    set((state) => ({mode : text}))
+  },
+  async ajaxRequest() {
+    const response = await fetch(URL);
+    console.log(await response.json());
   }
-  render() {
-    let _title,
-      _desc = null;
-    if (this.state.mode === "welcome") {
-      _title = this.state.welcome.title;
-      _desc = this.state.welcome.desc;
-    } else if (this.state.mode === "read") {
-      _title = this.state.header.title;
-      _desc = this.state.header.sub;
-    }
+}))
 
+function App() {
+  const {mode, changeMode} = stateStore();
+  if (mode === 'welcome') {
     return (
       <div className="App">
-        <Header title={_title} sub={_desc}></Header>
-        <Lists data={this.state.list}></Lists>
+          <Start mode={mode} onChangeMode={(e)=> {
+            if(e.target.className === 'start-btn') {
+              alert("START!");
+              changeMode('read');
+            }
+            else if (e.target.className === 'signup-btn'){
+              // 검증하는 로직 추가? 필요
+
+              
+              alert("회원가입 완료");
+              changeMode('read');
+            }
+          }}></Start>
+      </div>
+    );
+  }
+  else if (mode === 'read') {
+    return (
+      <div className="App">
+          <Nav mode={mode}></Nav>
+          <ContentTest mode={mode}></ContentTest>
       </div>
     );
   }
