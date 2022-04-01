@@ -208,10 +208,6 @@ textarea::-webkit-outer-spin-button {
   display: none;
 }
 
-.App {
-  text-align: center;
-}
-
 .login-area {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -245,6 +241,7 @@ textarea::-webkit-outer-spin-button {
 
 .form-container h2, .form-container p {
   margin-bottom: 24px;
+  letter-spacing: -0.3px;
 }
 
 .form-container input.form-control {
@@ -367,7 +364,19 @@ nav {
   width: 70%;
   min-width: 680px;
   height: 3000px;
-  background: black;
-  opacity: 0.05;
+  background-color: #eee;
+}
+
+.content-area .user-data-area {
+  margin: auto;
+  height: 1000px;
+  width: 70%;
+  background-color: #000;
+  color: white;
+}
+
+.content-area .lis-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 /*# sourceMappingURL=styles.css.map */

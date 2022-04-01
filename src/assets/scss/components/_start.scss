@@ -22,9 +22,10 @@
     border: 2px solid rgba(0, 0, 0, 0.055);
     border-radius: 30px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-
+    
     h2, p {
         margin-bottom: 24px;
+        letter-spacing: -0.3px;
     }
 
     input.form-control {

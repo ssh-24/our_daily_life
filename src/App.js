@@ -7,33 +7,46 @@ import ContentTest from "./components/contentTest";
 
 const URL = '';
 
-const stateStore = create((set) => ({
+const useStore = create((set) => ({
   mode: "welcome",
-  changeMode(text) {
+  userInfo: {
+    email: "",
+    name: "",
+    nickname: "",
+    password: "",
+  },
+  setMode(text) {
     set((state) => ({mode : text}))
   },
-  async ajaxRequest() {
-    const response = await fetch(URL);
-    console.log(await response.json());
-  }
+  setUserInfo(_email,_name,_nickname,_password) {
+    set((state) => ({userInfo:{
+        email: _email,
+        name: _name,
+        nickname: _nickname,
+        password: _password,
+      }
+    }));
+    set((state) => ({mode : 'read'}));
+  },
+  tempData: [
+    "하나","둘","셋","넷"
+  ],
+  // async ajaxRequest() {
+  //   const response = await fetch(URL);
+  //   console.log(await response.json());
+  // },
 }))
 
 function App() {
-  const {mode, changeMode} = stateStore();
+  // zustand state 보관함
+  const {mode, userInfo, setMode, setUserInfo, tempData} = useStore();
+
   if (mode === 'welcome') {
     return (
       <div className="App">
-          <Start mode={mode} onChangeMode={(e)=> {
-            if(e.target.className === 'start-btn') {
-              alert("START!");
-              changeMode('read');
-            }
-            else if (e.target.className === 'signup-btn'){
-              // 검증하는 로직 추가? 필요
-
-              
-              alert("회원가입 완료");
-              changeMode('read');
+          <Start signUp={setUserInfo} justStart={(e)=>{
+            if (e.target.className === 'start-btn') {
+              setMode('read');
             }
           }}></Start>
       </div>
@@ -42,8 +55,36 @@ function App() {
   else if (mode === 'read') {
     return (
       <div className="App">
-          <Nav mode={mode}></Nav>
-          <ContentTest mode={mode}></ContentTest>
+          <Nav userInfo={userInfo}></Nav>
+          <ContentTest userInfo={userInfo} data={tempData}></ContentTest>
+      </div>
+    );
+  }
+  else if (mode==='search') {
+    return (
+      <div className="App">
+        검색
+      </div>
+    );
+  }
+  else if (mode==='upload') {
+    return (
+      <div className="App">
+        게시물 업로드
+      </div>
+    );
+  }
+  else if (mode==='log') {
+    return (
+      <div className="App">
+        활동 기록
+      </div>
+    );
+  }
+  else if (mode==='myProfile') {
+    return (
+      <div className="App">
+        내 프로필
       </div>
     );
   }
