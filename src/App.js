@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Header from "./layout/Header";
+import Header from "./layout/header";
 import Lists from "./components/Lists";
 import Post from "./components/Post";
 import "./assets/css/styles.css";
+import "./assets/scss/components/Post.scss";
 
 class App extends Component {
   constructor(props) {
