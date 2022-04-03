@@ -1,23 +1,4 @@
 import React, { Component } from "react";
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-} from "react-native";
-import {
-  Card,
-  CardItem,
-  Thumbnail,
-  Body,
-  Left,
-  Right,
-  Button,
-  Icon,
-  Title,
-} from "native-base";
 import Header from "../layout/header";
 import Lists from "./Lists";
 import Icon from "@material-ui/core/Icon";
