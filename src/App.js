@@ -5,7 +5,7 @@ import Start from "./layout/start";
 import Nav from "./components/nav";
 import ContentTest from "./components/contentTest";
 
-const URL = '';
+// const URL = '';
 
 const useStore = create((set) => ({
   mode: "welcome",

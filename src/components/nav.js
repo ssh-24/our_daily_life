@@ -37,7 +37,7 @@ function Nav(props) {
         <nav>
             <div className="navigation">
                 <div className="refresh">
-                    <a href="" tabIndex="0" onClick={(e)=>{
+                    <a href="/renew" tabIndex="0" onClick={(e)=>{
                         e.preventDefault();
                         renewClicked(props.userInfo);
                     }}>
@@ -63,7 +63,7 @@ function Nav(props) {
             
                 <div className="btn-list">
                     <div className="btn-item">
-                        <a className="home-btn" href="" tabIndex="0" onClick={(e)=>{
+                        <a className="home-btn" href="/renew" tabIndex="0" onClick={(e)=>{
                             e.preventDefault();
                             renewClicked(props.userInfo);
                         }}>
@@ -75,7 +75,7 @@ function Nav(props) {
                     </div>
 
                     <div className="btn-item">
-                        <a className="upload-btn" href="" tabIndex="0" onClick={(e)=>{
+                        <a className="upload-btn" href="/upload" tabIndex="0" onClick={(e)=>{
                             e.preventDefault();
                             uploadClicked(props.userInfo);
                         }}>
@@ -87,7 +87,7 @@ function Nav(props) {
                     </div>
 
                     <div className="btn-item">
-                        <a className="log-btn" href="" tabIndex="0" onClick={(e)=>{
+                        <a className="log-btn" href="/log" tabIndex="0" onClick={(e)=>{
                             e.preventDefault();
                             logClicked(props.userInfo);
                         }}>                                
@@ -99,7 +99,7 @@ function Nav(props) {
                     </div>
 
                     <div className="btn-item">
-                        <a className="myprofile-btn" href="" tabIndex="0" onClick={(e)=>{
+                        <a className="myprofile-btn" href="/myprofile" tabIndex="0" onClick={(e)=>{
                             e.preventDefault();
                             myprofileClicked(props.userInfo);
                         }}>
