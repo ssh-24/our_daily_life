@@ -1,7 +1,6 @@
 nav {
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
     background-color: #fff;
     z-index: 5000;
@@ -25,7 +24,7 @@ nav {
 }
 
 .user-search {
-    padding: 0 50px;
+    padding: 0 40px;
     display: flex;
     justify-content: center;
     align-items: center;
