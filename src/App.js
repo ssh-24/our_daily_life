@@ -3,17 +3,19 @@ import create from 'zustand';
 import "./assets/css/styles.css";
 import Start from "./layout/start";
 import Nav from "./components/nav";
-import ContentTest from "./components/contentTest";
+import Feeds from "./components/feeds";
 
 // const URL = '';
 
 const useStore = create((set) => ({
   mode: "welcome",
   userInfo: {
-    email: "",
-    name: "",
-    nickname: "",
+    email: "", // 이메일(로그인시 id)
     password: "",
+    name: "", // 성명
+    nickname: "", // 닉네임
+    profileImage: "", // 프로필사진
+    statusMessage: "", // 상태메시지, 소개글
   },
   setMode(text) {
     set((state) => ({mode : text}))
@@ -28,8 +30,138 @@ const useStore = create((set) => ({
     }));
     set((state) => ({mode : 'read'}));
   },
-  tempData: [
-    "하나","둘","셋","넷"
+  // Post Mock Data List
+  postList: [
+    // 1
+    {
+      profileImage: "/assets/profile1.jpg",
+      nickname: "seunghwan",
+      postImage: "/assets/post1.jpg",
+      postText: "애옹이 귀여워..!🐈",
+      likes: 109, // 좋아요 수
+      replies: 2, // 댓글 수
+      peopleWhoLike: [
+        "Luffy",
+        "Zoro",
+        "Sanji",
+        "Chopper",
+        "Buggy",
+      ],
+      peopleWhoReply: [
+        {
+          nickname: "Luffy",
+          replyText: '나만 고양이 없어',
+        },
+        {
+          nickname: "Buggy",
+          replyText: '별로?',
+        }
+      ],
+    },
+    // 2
+    {
+      profileImage: "/assets/profile2.jpg",
+      nickname: "hwan",
+      postImage: "/assets/post2.jpg",
+      postText: "춥다...⛄",
+      likes: 5, // 좋아요 수
+      replies: 2, // 댓글 수
+      peopleWhoLike: [
+        "Luffy",
+        "Zoro",
+        "Sanji",
+        "Chopper",
+        "Buggy",
+      ],
+      peopleWhoReply: [
+        {
+          nickname: "Luffy",
+          replyText: '추우면 집에 가라',
+        },
+        {
+          nickname: "Buggy",
+          replyText: '별로?',
+        }
+      ],
+    },
+    // 3
+    {
+      profileImage: "/assets/profile3.jpg",
+      nickname: "Eric",
+      postImage: "/assets/post3.jpg",
+      postText: "SO CUTE :)",
+      likes: 5, // 좋아요 수
+      replies: 2, // 댓글 수
+      peopleWhoLike: [
+        "Luffy",
+        "Zoro",
+        "Sanji",
+        "Chopper",
+        "Buggy",
+      ],
+      peopleWhoReply: [
+        {
+          nickname: "Luffy",
+          replyText: 'agree',
+        },
+        {
+          nickname: "Buggy",
+          replyText: '별로?',
+        }
+      ],
+    },
+    // 4
+    {
+      profileImage: "/assets/profile4.jpg",
+      nickname: "muhammad",
+      postImage: "/assets/post4.jpg",
+      postText: "I Like Photo...☆",
+      likes: 5, // 좋아요 수
+      replies: 2, // 댓글 수
+      peopleWhoLike: [
+        "Luffy",
+        "Zoro",
+        "Sanji",
+        "Chopper",
+        "Buggy",
+      ],
+      peopleWhoReply: [
+        {
+          nickname: "Luffy",
+          replyText: '갬-성',
+        },
+        {
+          nickname: "Buggy",
+          replyText: '별로?',
+        }
+      ],
+    },
+    // 5
+    {
+      profileImage: "/assets/profile1.jpg",
+      nickname: "seunghwan",
+      postImage: "/assets/post5.jpg",
+      postText: "멍뭉이 귀여워..!🐶",
+      likes: 109, // 좋아요 수
+      replies: 2, // 댓글 수
+      peopleWhoLike: [
+        "Luffy",
+        "Zoro",
+        "Sanji",
+        "Chopper",
+        "Buggy",
+      ],
+      peopleWhoReply: [
+        {
+          nickname: "Luffy",
+          replyText: '인절미 귀여워',
+        },
+        {
+          nickname: "Buggy",
+          replyText: '별로?',
+        }
+      ],
+    },
   ],
   // async ajaxRequest() {
   //   const response = await fetch(URL);
@@ -39,7 +171,7 @@ const useStore = create((set) => ({
 
 function App() {
   // zustand state 보관함
-  const {mode, userInfo, setMode, setUserInfo, tempData} = useStore();
+  const {mode, userInfo, setMode, setUserInfo, postList} = useStore();
 
   if (mode === 'welcome') {
     return (
@@ -48,15 +180,15 @@ function App() {
             if (e.target.className === 'start-btn') {
               setMode('read');
             }
-          }}></Start>
+          }}/>
       </div>
     );
   }
   else if (mode === 'read') {
     return (
       <div className="App">
-          <Nav userInfo={userInfo}></Nav>
-          <ContentTest userInfo={userInfo} data={tempData}></ContentTest>
+          <Nav userInfo={userInfo}/>
+          <Feeds userInfo={userInfo} postList={postList}/>
       </div>
     );
   }
