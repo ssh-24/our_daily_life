@@ -38,6 +38,7 @@ const useStore = create((set) => ({
       nickname: "seunghwan",
       postImage: "/assets/post1.jpg",
       postText: "애옹이 귀여워..!🐈",
+      isLiked: true, // 좋아요 눌렀는지 여부
       likes: 109, // 좋아요 수
       replies: 2, // 댓글 수
       peopleWhoLike: [
@@ -64,6 +65,7 @@ const useStore = create((set) => ({
       nickname: "hwan",
       postImage: "/assets/post2.jpg",
       postText: "춥다...⛄",
+      isLiked: false, // 좋아요 눌렀는지 여부
       likes: 5, // 좋아요 수
       replies: 2, // 댓글 수
       peopleWhoLike: [
@@ -90,6 +92,7 @@ const useStore = create((set) => ({
       nickname: "Eric",
       postImage: "/assets/post3.jpg",
       postText: "SO CUTE :)",
+      isLiked: false, // 좋아요 눌렀는지 여부
       likes: 5, // 좋아요 수
       replies: 2, // 댓글 수
       peopleWhoLike: [
@@ -116,6 +119,7 @@ const useStore = create((set) => ({
       nickname: "muhammad",
       postImage: "/assets/post4.jpg",
       postText: "I Like Photo...☆",
+      isLiked: false, // 좋아요 눌렀는지 여부
       likes: 5, // 좋아요 수
       replies: 2, // 댓글 수
       peopleWhoLike: [
@@ -142,7 +146,8 @@ const useStore = create((set) => ({
       nickname: "seunghwan",
       postImage: "/assets/post5.jpg",
       postText: "멍뭉이 귀여워..!🐶",
-      likes: 109, // 좋아요 수
+      isLiked: true, // 좋아요 눌렀는지 여부
+      likes: 82, // 좋아요 수
       replies: 2, // 댓글 수
       peopleWhoLike: [
         "Luffy",
