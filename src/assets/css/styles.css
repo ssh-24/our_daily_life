@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 body {
   min-width: 320px;
@@ -368,6 +369,7 @@ nav {
 }
 
 .Post {
+  font-family: "PT Sans", sans-serif;
   border-radius: 3px;
   border: 1px solid rgba(122, 122, 122, 0.25);
   background-color: #ffffff;
@@ -378,7 +380,7 @@ nav {
   min-width: 450px;
 }
 
-.Post-user {
+.Post-user-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -388,12 +390,12 @@ nav {
           align-items: center;
 }
 
-.Post-user-profilepicture {
+.Post-user-profileImage {
   width: 30px;
   height: 30px;
 }
 
-.Post-user-profilepicture img {
+.Post-user-profileImage img {
   width: 100%;
   height: 100%;
   border-radius: 100%;
@@ -402,9 +404,7 @@ nav {
 }
 
 .Post-user-id {
-  margin-left: 10px;
-  font-family: "PT Sans", sans-serif;
-  padding: 0px 10px;
+  padding: 0px 12px;
   font-weight: bold;
 }
 
@@ -419,8 +419,9 @@ nav {
      object-fit: contain;
 }
 
-.Post_icon {
-  padding: 5px 5px 0px 5px;
+.Post-icon-btn-area {
+  padding: 8px 15px 2px;
+  border-bottom: 1px solid #eaeaeac2;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -429,41 +430,82 @@ nav {
           justify-content: space-between;
 }
 
-.Post_icon span {
-  padding-right: 5px;
+.Post-icon-btn-area .like-btn {
+  padding: 4px 5px;
 }
 
-.post_like {
-  padding: 0px 10px;
+.Post-icon-btn-area .reply-btn {
+  padding: 4px 5px;
 }
 
-.Post-content {
-  padding: 16px 16px;
+.Post-icon-btn-area .share-btn {
+  padding: 4px 5px;
 }
 
-.Post-content p {
-  font-family: "PT Sans", sans-serif;
+.Post-icon-btn-area .save-btn {
+  padding: 4px 5px;
 }
 
-.Post_text {
+.Post-like-area {
+  padding: 6px 16px 0px;
   font-size: 14px;
 }
 
-.reply_num {
-  font-size: 12px;
-  color: gray;
-  padding-left: 10px;
-  padding-bottom: 10px;
+.Post-like-area .Post-like-count::before {
+  content: "💓 ";
 }
 
-.Post_reply {
-  padding: 0px 10px;
+.Post-text-area {
+  padding: 8px 16px;
+}
+
+.Post-text-area .Post-text {
+  font-size: 14px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.Post-text-area .Post-text .Post-writer-name {
+  font-size: 15px;
+}
+
+.Post-text-area .Post-text .Post-text-postText {
+  padding-left: 8px;
+}
+
+.Post-reply-count {
+  font-size: 12px;
+  color: gray;
+  padding: 0 16px 8px;
+}
+
+.Post-reply-count::before {
+  content: "댓글 ";
+}
+
+.Post-reply-count::after {
+  content: "개 모두 보기";
+}
+
+.Post-reply-area {
+  padding: 0px 16px 8px;
+  font-size: 14px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.Post-reply-area .Post-reply {
+  padding-bottom: 2px;
+}
+
+.Post-reply-area .Post-reply .Post-reply-nickname {
+  padding-right: 2px;
+}
+
+.Post-reply-area .Post-reply .Post-reply-text {
+  padding-left: 2px;
 }
 /*# sourceMappingURL=styles.css.map */
