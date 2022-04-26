@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 
-// 22-04-23 스타일 수정 필요
-
 .Post {
+  font-family: "PT Sans", sans-serif;
   border-radius: 3px;
   border: 1px solid rgba(122, 122, 122, 0.25);
   background-color: #ffffff;
@@ -13,13 +12,13 @@
   min-width: 450px;
 }
 
-.Post-user {
+.Post-user-area {
   display: flex;
   padding: 10px;
   align-items: center;
 }
 
-.Post-user-profilepicture {
+.Post-user-profileImage {
   width: 30px;
   height: 30px;
   
@@ -32,9 +31,7 @@
 }
 
 .Post-user-id {
-  margin-left: 10px;
-  font-family: "PT Sans", sans-serif;
-  padding: 0px 10px;
+  padding: 0px 12px;
   font-weight: bold;
 }
 
@@ -49,42 +46,79 @@
   }
 }
 
-.Post_icon {
-  padding: 5px 5px 0px 5px;
+.Post-icon-btn-area {
+  padding: 8px 15px 2px;
+  border-bottom: 1px solid #eaeaeac2;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; // 양쪽 끝으로 분할
 
-  span {
-    padding-right: 5px;
+  .like-btn {
+    padding: 4px 5px;
+  }
+  .reply-btn {
+    padding: 4px 5px;
+  }
+  .share-btn {
+    padding: 4px 5px;
+  }
+  .save-btn {
+    padding: 4px 5px;
   }
 }
 
-.post_like {
-  // margin-left: 10px;
-  padding: 0px 10px;
-}
-
-.Post-content {
-  padding: 16px 16px;
-
-  p {
-    font-family: "PT Sans", sans-serif;
-  }
-}
-
-.Post_text {
+.Post-like-area {
+  padding: 6px 16px 0px;
   font-size: 14px;
+
+  .Post-like-count::before {
+    content: "💓 "
+  }
 }
 
-.reply_num {
+.Post-text-area {
+  padding: 8px 16px;
+  
+  .Post-text {
+    font-size: 14px;
+    display: flex;
+
+    .Post-writer-name {
+      font-size: 15px;
+    }
+    .Post-text-postText {
+      padding-left: 8px;
+    }
+  }
+}
+
+.Post-reply-count {
   font-size: 12px;
   color: gray;
-  padding-left: 10px;
-  padding-bottom: 10px;
+  padding: 0 16px 8px;
+
+  &::before{
+    content: "댓글 ";
+  }
+  &::after {
+    content: "개 모두 보기";
+  }
 }
 
-.Post_reply {
-  padding: 0px 10px;
-  display: flex;
+.Post-reply-area {
+  padding: 0px 16px 8px;
+  font-size: 14px;
   flex-direction: column;
+  
+  
+  .Post-reply {
+    padding-bottom: 2px;
+    
+    
+    .Post-reply-nickname {
+      padding-right: 2px;
+    }
+    .Post-reply-text {
+      padding-left: 2px;
+    }
+  }
 }
