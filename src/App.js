@@ -5,7 +5,7 @@ import Start from "./layout/start";
 import Nav from "./components/nav";
 import Feeds from "./components/feeds";
 
-// const URL = '';
+const url = 'http://ec2-3-37-21-161.ap-northeast-2.compute.amazonaws.com:8080/';
 
 const useStore = create((set) => ({
   mode: "welcome",
