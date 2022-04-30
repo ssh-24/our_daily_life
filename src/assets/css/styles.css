@@ -263,6 +263,11 @@ textarea::-webkit-outer-spin-button {
   color: #fff;
 }
 
+.login-area .form-container .signup-btn:focus, .login-area .form-container .signup-btn:hover {
+  background-color: #535353;
+  color: #fff;
+}
+
 .login-area .form-group {
   width: 300px;
   margin-bottom: 15px;
@@ -278,6 +283,11 @@ textarea::-webkit-outer-spin-button {
   border: 1px solid #000;
   border-radius: 5px;
   background-color: #000;
+  color: #fff;
+}
+
+.login-area .just-start .start-btn:focus, .login-area .just-start .start-btn:hover {
+  background-color: #535353;
   color: #fff;
 }
 
