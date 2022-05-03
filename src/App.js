@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import create from 'zustand';
 import "./assets/css/styles.css";
 import Start from "./layout/start";
@@ -177,6 +177,12 @@ const useStore = create((set) => ({
 function App() {
   // zustand state 보관함
   const {mode, userInfo, setMode, setUserInfo, postList} = useStore();
+
+  // Hooks
+  const [users, setUsers] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
 
   if (mode === 'welcome') {
     return (
