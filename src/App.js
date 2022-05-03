@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import create from 'zustand';
 import "./assets/css/styles.css";
 import Start from "./layout/start";
 import Nav from "./components/nav";
 import Feeds from "./components/feeds";
 
-// const URL = '';
+const url = 'http://ec2-3-37-21-161.ap-northeast-2.compute.amazonaws.com:8080/';
 
 const useStore = create((set) => ({
   mode: "welcome",
@@ -177,6 +177,12 @@ const useStore = create((set) => ({
 function App() {
   // zustand state 보관함
   const {mode, userInfo, setMode, setUserInfo, postList} = useStore();
+
+  // Hooks
+  const [users, setUsers] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
 
   if (mode === 'welcome') {
     return (
