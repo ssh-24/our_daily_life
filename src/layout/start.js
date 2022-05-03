@@ -1,17 +1,17 @@
 import React from "react";
 import Logo from "../assets/images/logo.png";
+import axios from "axios";
 
 function Start(props) {
     const signUpRequest = () => {
         alert('서버로 회원가입 요청!');
         // some logic
         
-        
-
     }
 
     const justStartClicked = () => {
         alert('회원가입 없이 시작');
+        
     }
 
     return (
