@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 import React, {useState} from "react";
 import create from 'zustand';
 import "./assets/css/styles.css";
@@ -12,7 +14,6 @@ const useStore = create((set) => ({
   userInfo: {
     email: "", // 이메일(로그인시 id)
     password: "",
-    name: "", // 성명
     nickname: "", // 닉네임
     profileImage: "", // 프로필사진
     statusMessage: "", // 상태메시지, 소개글
@@ -23,7 +24,6 @@ const useStore = create((set) => ({
   setUserInfo(_email,_name,_nickname,_password) {
     set((state) => ({userInfo:{
         email: _email,
-        name: _name,
         nickname: _nickname,
         password: _password,
       }
@@ -175,6 +175,7 @@ const useStore = create((set) => ({
 }))
 
 function App() {
+
   // zustand state 보관함
   const {mode, userInfo, setMode, setUserInfo, postList} = useStore();
 
