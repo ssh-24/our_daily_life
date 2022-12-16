@@ -1,26 +1,32 @@
 /*eslint-disable */
 
 import Logo from "../assets/images/logo.png";
-import {authService} from '../fBase';
+import {appAuth} from '../firebase/config';
 
 import axios from "axios";
 import {useState,useEffect} from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+
 
 
 
 function Start(props) {
     // Hook
-    const [isLogin, setLogin] = useState(authService.currentUser);// 유저 상태 할당
+    const [isLogin, setLogin] = useState(appAuth.currentUser);// 유저 상태 할당
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [nickname, setNickname] = useState("");
+    const [displayName, setDisplayName] = useState("");
     const [newAccount,setNewAccount] = useState(true);
+
+    // displayName은 파이어베이스에서 유저 정보에 저장 할 수 있는 속성중 하나입니다. 
+    // 다른 변수명을 사용하면 안된다. ( 참고 : https://firebase.google.com/docs/reference/js/auth.md#updateprofile)
+
 
     // 파이어베이스가 실행되는 초기에 유저가 로그인 되어있는지 확인하는 로직은 비동기로 작동하기 때문에 
   // 시간이 필요합니다.
     useEffect(() => {
-        authService.onAuthStateChanged((user) => {
+        appAuth.onAuthStateChanged((user) => {
+            console.log(user)
           if (user) {
             setLogin(true);
           } else {
@@ -43,7 +49,7 @@ function Start(props) {
         } else if (inputData.type === "password") {
             setPassword(inputData.value);
         } else if (inputData.type === "text") {
-            setNickname(inputData.value);
+            setDisplayName(inputData.value);
         }
     }
 
@@ -51,27 +57,46 @@ function Start(props) {
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
         const user_email = e.target.Email.value;
-        const user_nickname= e.target.Nickname.value;
+        const user_nickname= e.target.DisplayName.value;
         const user_password= e.target.Password.value;
-        // 제출하기 전에 검증을 받아야할까? 서버에 보내서 확인받으면 상태 변경하도록..
-        signUpRequest();
         
+        // 서버로 회원가입 요청!
+        signUpRequest();
+
         // 검증받은 정보를 상태변경하는 setUserInfo에 넘기기
         props.signUp(user_email,user_nickname,user_password);
+        
     }
 
     const signUpRequest = () => {
         console.log('서버로 회원가입 요청!');
         // some logic
 
-        // 로그인 관련한 코드를 추가합니다.
-        const auth = getAuth();
+        // 회원가입 관련한 코드를 추가합니다.
         let user;
         try {
             if (newAccount) {
-                createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                createUserWithEmailAndPassword(appAuth, email, password).then((userCredential) => {
                     // Signed up
+
+                    console.log(user);
                     console.log(userCredential.user);
+
+                    if(!user){
+                        throw new Error('회원가입에 실패했습니다.');
+                    }
+        
+                    // 회원가입이 완료되면 가입된 회원에 닉네임 저장시키기
+                    // updateProfile(appAuth,currentUser,{displayName})
+                    // .then(()=>{
+                    //     dispatch({type: 'login', payload:user})
+                    // }).catch((error) => {
+                    //     console.log(error)
+
+                    // })
+
+                    updateProfile({displayName:displayName})
+                    
 
                 });
             } else {
@@ -85,6 +110,7 @@ function Start(props) {
             console.log(error)
         }
         
+
     }
 
     const justStartClicked = () => {
@@ -107,7 +133,7 @@ function Start(props) {
                         <input type="email" value={email} onChange={onChange} className="form-control" name="Email" placeholder="이메일 주소" required/>
                     </div>
                     <div className="form-group">
-                        <input type="text" value={nickname} onChange={onChange} className="form-control" name="Nickname" placeholder="사용자 이름" required/>
+                        <input type="text" value={displayName} onChange={onChange} className="form-control" name="DisplayName" placeholder="사용자 이름" required/>
                     </div>
                     <div className="form-group">
                         <input type="password" value={password} onChange={onChange} className="form-control" name="Password" placeholder="비밀번호" required/>
