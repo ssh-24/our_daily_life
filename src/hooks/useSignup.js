@@ -1,55 +1,55 @@
-/*eslint-disable */
+/* eslint-disable*/
 
-import { useState } from 'react'
-import { appAuth } from '../firebase/config'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { useState } from "react"
+import {appAuth} from '../firebase/config';
+import {createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { useAuthContext } from "./useAuthContext";
 
-// 회원가입 훅
 export const useSignup = () => {
+    // 회원가입 시 에러가 발생했을 때 에러 정보를 저장함
+    const [error,setError] = useState(null);
 
-    // 에러 정보 저장.
-    const [error, setError] = useState(null);
-    // 현재 서버와 통신중인 상태 저장.
-    const [isPending, setIsPending] = useState(false);
+    // 현재 서버와 통신 상태를 저장
+    const [isPending,setIsPending] = useState(false);
+    
+    // 인증과 관련된 훅
+    const {dispatch} = useAuthContext();
 
-    // 유저정보를 전역에서 활용할 수 있도록 dispatch 함수를 통해 업데이트 (회원가입으로ㄱ)
-    const { dispatch } = useAuthContext();
+    // 회원가입
+    const signup = (email, password, displayName) =>{
+        console.log('인자로 받아옴??',displayName);
+        setError(null); // 아직 에러가 없음...
+        setIsPending(true); // 통신을 진행중입니다...
 
-
-    const signup = (email, password, displayName) => {
-        setError(null); // 처음엔 에러 없을테니까 일단 null 처리
-        setIsPending(true); // 현재 통신중이여서 true 값 할당.
-
-
-        // 회원가입ㄱ
+        // 회원가입 진행
         createUserWithEmailAndPassword(appAuth, email, password)
-            .then((userCredential) => {
-                
-                const user = userCredential.user;
-                console.log(user);
-                
-                if (!user) {
-                    throw new Error('회원가입에 실패했습니다.');
-                }
+        .then((userCredential)=>{
+            const user = userCredential.user;
+            console.log('회원가입user: ',user);
 
-                // 회원 닉네임 저장
-                updateProfile(appAuth.currentUser, { displayName })
-                    .then(() => {
-                        dispatch({ type: 'login', payload: user });// 닉네임 설정
-                        setError(null);// 에러없음!
-                        setIsPending(false);//통신끄기
-                    }).catch((err) => {
-                        setError(err.message);
-                        setIsPending(false)//통신끄기
-                        console.log(error);
-                    });
-            })
-            .catch((err) => {
+            if(!user){
+                throw new Error('회원가입에 실패했습니다.');
+            }
+
+            // 회원가입이 완료되면 가입된 회원에 닉네임 저장시키기
+            updateProfile(appAuth.currentUser,{displayName})
+            .then(()=>{
+                dispatch({type: 'login', payload:user})
+                setError(null); //에러없다고 넣어주고
+                setIsPending(false); //통신끊어주기
+            }).catch((err) => {
                 setError(err.message);
                 setIsPending(false);
-                console.log(error);
-            });
-    }
+                console.log(err.message);
+            })
 
-    return { error, isPending, signup }//에러상태,통신상태, signup return
+        })
+        .catch((err) => {
+            setError(err.message);
+            setIsPending(false);
+            console.log(err.message);
+        })
+
+    }
+    return {error, isPending,signup}
 }
