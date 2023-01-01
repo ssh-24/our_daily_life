@@ -1,8 +1,14 @@
 import React from "react";
 import Logo from "../assets/images/logo.png";
+import { useAuthContext } from '../hooks/useAuthContext';
+import {useLogout} from '../hooks/useLogout';
 
 
 function Nav(props) {
+
+    const {logout} = useLogout();
+    const {user} = useAuthContext();
+
     const renewClicked = (userInfo) => {
         if (userInfo.email === '') return;
         alert('피드 갱신');
@@ -110,6 +116,9 @@ function Nav(props) {
                             </svg>
                         </a>
                     </div>
+
+                    <button type='button' onClick={logout}>로그아웃</button>
+
                 </div>
             </div>
         </nav>
