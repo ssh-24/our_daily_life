@@ -2,7 +2,7 @@ import React from "react";
 import create from 'zustand';
 import Nav from "../layout/nav";
 import Input from "./Input";
-import Post from "./Post";
+import Post from "./post";
 
 const useStore = create((set) => ({
 // Post Mock Data List
