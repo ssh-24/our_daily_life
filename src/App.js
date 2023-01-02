@@ -8,7 +8,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 import "./assets/css/styles.css";
 import Start from "./components/Start";
-import Nav from "./layout/nav";
+import Nav from "./layout/Nav";
 import Feeds from "./components/Feeds";
 import Input from "./components/Input";
 
