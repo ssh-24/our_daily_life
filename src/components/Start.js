@@ -17,7 +17,7 @@ function Start() {
 
     return (
        <>
-            {isSigned === false ? <Signup/> : <Signin/>}
+            {isSigned === false ? <Signin/> : <Signup/>}
        </>
     );
 }

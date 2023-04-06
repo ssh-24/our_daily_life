@@ -100,29 +100,13 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   color: #c9c9c9;
   opacity: 1;
 }
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  /* Chrome, Safari, Firefox */
-  color: #c9c9c9;
-  opacity: 1;
-}
 input::placeholder,
 textarea::placeholder {
   /* Chrome, Safari, Firefox */
   color: #c9c9c9;
   opacity: 1;
 }
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  /* IE, Edge */
-  color: #c9c9c9;
-  opacity: 1;
-}
 input[readonly]::-moz-placeholder, input:disabled::-moz-placeholder, textarea[readonly]::-moz-placeholder, textarea:disabled::-moz-placeholder {
-  /* Chrome, Safari, Firefox */
-  color: rgba(0, 0, 0, 0.2);
-  opacity: 1;
-}
-input[readonly]:-ms-input-placeholder, input:disabled:-ms-input-placeholder, textarea[readonly]:-ms-input-placeholder, textarea:disabled:-ms-input-placeholder {
   /* Chrome, Safari, Firefox */
   color: rgba(0, 0, 0, 0.2);
   opacity: 1;
