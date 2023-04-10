@@ -1,3 +1,4 @@
+/*eslint-disable */
 import React from "react";
 import create from 'zustand';
 import Nav from "../layout/Nav";
@@ -162,11 +163,11 @@ function Feeds(props) {
 
     return (
         <>
-        <Nav/>
-        {/* <Input/> */}
-        <div className="all-feeds">
-            {lis}
-        </div>
+            <Nav/>
+            {/* <Input/> */}
+            <div className="all-feeds">
+                {lis}
+            </div>
         </>
         
     );
