@@ -1,61 +1,89 @@
-nav {
+.navigation {
     position: fixed;
     top: 0;
     width: 100%;
     background-color: #fff;
     z-index: 5000;
     border-bottom: 1px solid rgba(122, 122, 122, 0.25);
-}
-
-.navigation {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 60px;
+    height: 6vh;
 }
 
 .refresh {
-    padding: 0 10px;
-}
-
-.logo_img {
-    height: 26px;
-}
-
-.user-search {
-    padding: 0 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.search_input {
-    border-radius: 8px;
-    padding-left: 5px;
-    margin-left: 10px;
-    letter-spacing: -0.3px;
-    height: 32px;
-    background-color: #EFEFEF;
-
-    &:focus {
-        background-color: #fff;
+    .logo_img {
+        height: 2.2vh;
+        &:hover {
+            -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+            transition: 0.1s;
+            cursor: pointer;
+        }
     }
 }
 
-.btn-list {
-    padding-right: 10px;
+.user-search {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 2vw;
+    
+    .search_input {
+        border-radius: 8px;
+        padding-left: 12px;
+        margin-left: 0.8vw;
+        letter-spacing: -0.3px;
+        height: 4vh;
+        background-color: #EFEFEF;
+        border: 1px solid #EFEFEF;
+    
+        &:focus {
+            border: 1px solid #b1b1b1;
+            background-color: #fff;
+        }
+
+        &:hover {
+            -webkit-transform: scale(1.01);
+            transform: scale(1.01);
+            transition: 0.1s;
+            border: 1px solid #b1b1b1;
+            background-color: #fff;
+        }
+    }
+
+    .search-btn {
+        margin-left: 1vh;
+        width: 2.5vh;
+        height: 2.5vh;
+    }
 }
 
-.btn-item {
-    padding-left: 16px;
-    width: 48px;
-    height: 48px;
 
-    svg {
-        margin-top: 8px;
+.btn-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 1.2vh;
+    
+    .btn-item {
+        margin-right: 0.8vw;
+        width: 2.5vh;
+        height: 2.5vh;
+        object-fit: cover;
+        &:hover {
+            -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+            transition: 0.1s;
+            cursor: pointer;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }

@@ -2,14 +2,12 @@
 
 .Post {
   font-family: "PT Sans", sans-serif;
-  border-radius: 3px;
   border: 1px solid rgba(122, 122, 122, 0.25);
+  border-radius: 3px;
   background-color: #ffffff;
-  margin-bottom: 20px;
-  margin-left: 20%;
-  margin-right: 20%;
   max-width: 720px;
-  min-width: 450px;
+  min-width: 320px; // 수축 방어
+  margin: 0 auto 20px;
 }
 
 .Post-user-area {
