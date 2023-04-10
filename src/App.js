@@ -1,15 +1,11 @@
 /*eslint-disable */
-
-import React, {useState} from "react";
-import create from 'zustand';
-import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuthContext } from "./hooks/useAuthContext";
-
-
-import "./assets/css/styles.css";
-import Start from "./components/Start";
-import Nav from "./layout/Nav";
-import Feeds from "./components/Feeds";
+import "./assets/css/styles.css"; // 최종 스타일로 지정
+import Start from './components/Start';
+import Feeds from './components/Feeds';
 import Input from "./components/Input";
 
 
@@ -21,19 +17,17 @@ function App() {
     {
       isAuthReady?
       (
-        <BrowserRouter>
-          <Routes>
-            {/*  */}
-            <Route path="/" 
-                   element={user
-                            ?<Feeds/>
-                            :<Start/>}
-            ></Route>
-            <Route path="/input" 
-                   element={<Input/>}
-            ></Route>
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          {/*  */}
+          <Route path="/" 
+                  element={user
+                          ?<Feeds/>
+                          :<Start/>}
+          ></Route>
+          <Route path="/input" 
+                  element={<Input/>}
+          ></Route>
+        </Routes>
       )
       : "loading..."
     }
