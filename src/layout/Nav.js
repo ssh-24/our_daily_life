@@ -33,7 +33,7 @@ function Nav(props) {
     }
 
     return (
-        <nav>
+        <nav className="nav-area">
             <div className="navigation">
                 <div className="refresh">
                     <a href="/renew" tabIndex="0" onClick={(e)=>{

@@ -3,9 +3,9 @@
 import React, {useState} from "react";
 import create from 'zustand';
 import "./assets/css/styles.css";
-import Start from "./components/start";
+// import Start from "./components/start";
 // import Nav from "./layout/nav";
-import Feeds from "./components/feeds";
+// import Feeds from "./components/feeds";
 
 const url = 'http://ec2-3-37-21-161.ap-northeast-2.compute.amazonaws.com:8080/';
 
