@@ -4,10 +4,7 @@ import {useState} from "react";
 import {useSignup} from '../hooks/useSignup';
 import Logo from "../assets/images/logo.png";
 
-
 function Signup(){
-
-    // Hook
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [displayName, setDisplayName] = useState("");
@@ -20,7 +17,7 @@ function Signup(){
             value: e.target.value
         };
 
-        // 인풋 타입에 따라 state 값을 변경합니다.
+        // 인풋 타입에 따라 state 값을 변경
         if (inputData.type === "email") {
             setEmail(inputData.value);
         } else if (inputData.type === "password") {
@@ -30,7 +27,7 @@ function Signup(){
         }
     }
 
-    // 폼이 제출되면 실행됨.
+    // 폼이 제출되면 실행
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
 
@@ -66,15 +63,8 @@ function Signup(){
                             <input type="password" value={password} onChange={onChange} className="form-control" name="Password" placeholder="비밀번호" required/>
                         </div>
 
-                        <input type="submit" className="signup-btn" value="가입하기"/>
+                        <input type="submit" className="signup-btn" value="회원가입"/>
                     </form>
-                </div>
-
-                <div className="just-start">
-                    {/* <button className="start-btn" onClick={(e)=>{
-                        justStartClicked();
-                        props.justStart(e);
-                    }}>그냥 시작하기</button> */}
                 </div>
             </div>
         </>
