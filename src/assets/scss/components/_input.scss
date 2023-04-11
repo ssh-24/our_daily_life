@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'HSSaemaul-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.input-area {
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    width: 40vw;
+    min-width: 500px; // 줄어들었을때 방어
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+
+    .form-container {
+        margin: auto;
+        padding: 40px 100px 40px;
+        border: 2px solid rgba(0, 0, 0, 0.055);
+        border-radius: 30px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        
+        h2, h3, p {
+            text-align: center;
+            margin-bottom: 24px;
+            letter-spacing: -0.3px;
+            /* 이쁜 글씨 */
+            font-family: 'HSSaemaul-Regular';
+        }
+    
+        input.form-control {
+            margin-right: 16px;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+    
+        .post-btn {
+            margin-top: 6px;
+            padding: 8px 24px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            background-color: #000;
+            color: #fff;
+            /* 이쁜 글씨 */
+            font-family: 'HSSaemaul-Regular';
+
+            &:focus,&:hover {
+                background-color: rgb(83, 83, 83);
+                color: #fff;
+                -webkit-transform: scale(1.02);
+                transform: scale(1.02);
+                transition: 0.1s;
+            }
+        }
+    }
+
+    .form-group {
+        width: 300px;
+        margin-bottom: 15px;
+    }
+
+    .img-input {
+        padding: 5px 10px;
+        width: calc(100% - 0.5vw);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+}

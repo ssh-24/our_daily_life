@@ -158,18 +158,23 @@ textarea::-webkit-outer-spin-button {
   display: none;
 }
 
+@font-face {
+  font-family: "HSSaemaul-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 .login-area {
   box-sizing: border-box;
   border: 1px solid #fff;
   border-radius: 20px;
-  width: 40%;
+  width: 40vw;
   min-width: 500px;
   max-width: 500px;
-  margin: 150px auto 150px;
+  margin: auto;
   padding: 10px;
   text-align: center;
   align-items: center;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 .login-area .logo_img {
   height: 36px;
@@ -183,45 +188,40 @@ textarea::-webkit-outer-spin-button {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 .login-area .form-container h2, .login-area .form-container p {
+  text-align: center;
   margin-bottom: 24px;
   letter-spacing: -0.3px;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
 }
 .login-area .form-container input.form-control {
+  width: calc(100% - 1.4vw);
   margin-right: 16px;
   margin-bottom: 10px;
-  padding: 5px 10px 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
 .login-area .form-container .signup-btn {
+  margin-top: 6px;
   padding: 8px 24px;
   border: 1px solid #000;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #000;
   color: #fff;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
 }
 .login-area .form-container .signup-btn:focus, .login-area .form-container .signup-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
 }
 .login-area .form-group {
   width: 300px;
   margin-bottom: 15px;
-}
-.login-area .just-start {
-  margin-top: 32px;
-  margin-bottom: 32px;
-}
-.login-area .just-start .start-btn {
-  padding: 8px 24px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  background-color: #000;
-  color: #fff;
-}
-.login-area .just-start .start-btn:focus, .login-area .just-start .start-btn:hover {
-  background-color: rgb(83, 83, 83);
-  color: #fff;
 }
 
 .nav-area {
@@ -425,4 +425,70 @@ textarea::-webkit-outer-spin-button {
 }
 .Post-reply-area .Post-reply .Post-reply-text {
   padding-left: 2px;
+}
+
+@font-face {
+  font-family: "HSSaemaul-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.input-area {
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  width: 40vw;
+  min-width: 500px;
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  align-items: center;
+}
+.input-area .form-container {
+  margin: auto;
+  padding: 40px 100px 40px;
+  border: 2px solid rgba(0, 0, 0, 0.055);
+  border-radius: 30px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+.input-area .form-container h2, .input-area .form-container h3, .input-area .form-container p {
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+}
+.input-area .form-container input.form-control {
+  margin-right: 16px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.input-area .form-container .post-btn {
+  margin-top: 6px;
+  padding: 8px 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+}
+.input-area .form-container .post-btn:focus, .input-area .form-container .post-btn:hover {
+  background-color: rgb(83, 83, 83);
+  color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
+}
+.input-area .form-group {
+  width: 300px;
+  margin-bottom: 15px;
+}
+.input-area .img-input {
+  padding: 5px 10px;
+  width: calc(100% - 0.5vw);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }/*# sourceMappingURL=styles.css.map */
