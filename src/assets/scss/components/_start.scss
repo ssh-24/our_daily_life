@@ -65,10 +65,43 @@
                 transition: 0.1s;
             }
         }
+
     }
+
 
     .form-group {
         width: 300px;
         margin-bottom: 15px;
+    }
+
+
+    .another-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 32px;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .another-btn {
+        margin-left: 13px;
+        padding: 6px 18px;
+        font-style: italic;
+        border-radius: 10px;
+        color: #252525;
+        /* 이쁜 글씨 */
+        font-family: 'HSSaemaul-Regular';
+        font-size: larger;
+
+        &:focus,&:hover {
+            background-color: rgb(83, 83, 83);
+            color: #fff;
+            -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+            transition: 0.1s;
+        }
     }
 }

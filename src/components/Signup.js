@@ -1,15 +1,22 @@
 /*eslint-disable */
-import React from "react";
-import {useState} from "react";
-import {useSignup} from '../hooks/useSignup';
-import Logo from "../assets/images/logo.png";
+import React from "react"
+import {useState} from "react"
+import {useSignup} from '../hooks/useSignup'
+import Logo from "../assets/images/logo.png"
+import { useSelector, useDispatch } from "react-redux"
+import { setIsSigned } from "../store/signedSlice"
 
 function Signup(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [displayName, setDisplayName] = useState("");
-    const {error, isPending, signup} = useSignup();// 만든 js 파일을 훅처럼 사용할 수 있음
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [displayName, setDisplayName] = useState("")
+    const {error, isPending, signup} = useSignup() // 만든 js 파일을 훅처럼 사용할 수 있음
+    const isSigned = useSelector((state) => state.isSigned) // 계정 보유 여부
+    let dispatch = useDispatch()
 
+    const goToSignin = () => {
+        dispatch(setIsSigned(!isSigned))
+    }
 
     const onChange = (e) => {
         const inputData = {
@@ -52,7 +59,7 @@ function Signup(){
                     <form onSubmit={onSubmit}>
                         <h2>시작하기</h2>
                         <p>우리의 일상을 함께 공유해봐요:)</p>
-                        {/* 이메일, 성명, 닉네임, 비밀번호, 가입 버튼 */}
+                        {/* 이메일, 성명, 닉네임, 비밀번호, 회원가입 버튼 */}
                         <div className="form-group">
                             <input type="email" value={email} onChange={onChange} className="form-control" name="Email" placeholder="이메일 주소" required/>
                         </div>
@@ -65,6 +72,11 @@ function Signup(){
 
                         <input type="submit" className="signup-btn" value="회원가입"/>
                     </form>
+
+                    <div className="another-area">
+                        <p>계정이 있어요!</p>
+                        <button className="another-btn" onClick={goToSignin}>로그인하기</button>
+                    </div>
                 </div>
             </div>
         </>

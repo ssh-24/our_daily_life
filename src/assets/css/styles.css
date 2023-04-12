@@ -223,6 +223,31 @@ textarea::-webkit-outer-spin-button {
   width: 300px;
   margin-bottom: 15px;
 }
+.login-area .another-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+}
+.login-area .another-area p {
+  margin: 0;
+}
+.login-area .another-btn {
+  margin-left: 13px;
+  padding: 6px 18px;
+  font-style: italic;
+  border-radius: 10px;
+  color: #252525;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
+}
+.login-area .another-btn:focus, .login-area .another-btn:hover {
+  background-color: rgb(83, 83, 83);
+  color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
+}
 
 .nav-area {
   position: fixed;

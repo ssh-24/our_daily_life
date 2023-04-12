@@ -1,23 +1,19 @@
 /*eslint-disable */
-
-import Logo from "../assets/images/logo.png";
 import {appAuth} from '../firebase/config';
-
 import {useState,useEffect} from "react";
 import Signup from "./Signup";
 import Signin from "./Signin"
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useSelector } from "react-redux"
 
 
 function Start() {
-
     const { isAuthReady, user } = useAuthContext();
-    const [isSigned, setIsSigned]  = useState(false);
-    console.log(isSigned);
+    const isSigned = useSelector((state) => state.isSigned) // 계정 보유 여부
 
     return (
        <>
-            {isSigned === false ? <Signin/> : <Signup/>}
+        {isSigned === true ? <Signin/> : <Signup/>}
        </>
     );
 }

@@ -1,14 +1,21 @@
 /*eslint-disable */
-import React from "react";
-import {useState} from "react";
-import {useLogin} from '../hooks/useLogin';
-import Logo from "../assets/images/logo.png";
+import React from "react"
+import {useState} from "react"
+import {useLogin} from '../hooks/useLogin'
+import Logo from "../assets/images/logo.png"
+import { useSelector, useDispatch } from "react-redux"
+import { setIsSigned } from "../store/signedSlice"
 
 function Signin(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const {error,isPending,login} = useLogin();
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const {error,isPending,login} = useLogin() // 만든 js 파일을 훅처럼 사용할 수 있음
+    const isSigned = useSelector((state) => state.isSigned) // 계정 보유 여부
+    let dispatch = useDispatch()
 
+    const goToSignup = () => {
+        dispatch(setIsSigned(!isSigned))
+    }
 
     const onChange = (e) => {
         const inputData = {
@@ -51,6 +58,11 @@ function Signin(){
 
                         <input type="submit" className="signup-btn" value="로그인"/>
                     </form>
+
+                    <div className="another-area">
+                        <p>계정이 없어요!</p>
+                        <button className="another-btn" onClick={goToSignup}>가입하기</button>
+                    </div>
                 </div>
             </div>
         </>
