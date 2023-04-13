@@ -1,13 +1,10 @@
+/*eslint-disable */
 import React from "react";
 
 function Post(props) {
-  const isLiked = (postLiked) => {
-    if (postLiked) return true; // 좋아요 눌린 상태면 true
-    return false;
-  }
-
-  const getLikeStatus = (isLiked) => {
-    if (isLiked) {
+  // 좋아요 눌린 상태에 따른 버튼 이미지 반환
+  const getLikeStatus = (likeYN) => {
+    if (likeYN) {
       return (
         <svg aria-label="좋아요 취소" color="#ed4956" fill="#ed4956"
               height="24" role="img" viewBox="0 0 48 48" width="24">
@@ -41,31 +38,36 @@ function Post(props) {
   return (
     <article className="Post">
       <div className="Post-area">
+
+        {/* 프로필 영역 */}
         <div className="Post-user-area">
           <div className="Post-user-profileImage">
             <img src={props.post.profileImage} alt="프로필사진"/>
           </div>
           <span className="Post-user-id">{props.post.nickname}</span>
         </div>
+
+        {/* 이미지 영역 */}
         <div className="Post-img">
           <div className="Post-img-bg">
             <img src={props.post.postImage} alt="게시물사진"/>
           </div>
         </div>
 
+        {/* 버튼 영역 */}
         <div className="Post-icon-btn-area">
           <div className="three-btn-area">
             <button className="like-btn" onClick={(e) => {
               alert('좋아요')
             }}>
               {/* 받아온 props를 확인해서 좋아요 버튼 반환*/}
-              {getLikeStatus(isLiked(props.post.isLiked))}
+              {getLikeStatus(props.post.isLiked)}
             </button>
             
             <button className="reply-btn" onClick={(e) => {
                alert('댓글쓰기')
             }}>
-              <svg aria-label="댓글 달기" color="#262626" fill="#262626"
+              <svg aria-label="댓글쓰기" color="#262626" fill="#262626"
               height="24" role="img" viewBox="0 0 24 24" width="24">
                 <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none"
                  stroke="currentColor" strokeLinejoin="round" strokeWidth="2">
@@ -76,7 +78,7 @@ function Post(props) {
             <button className="share-btn" onClick={(e) => {
                alert('보내기')
             }}>
-              <svg aria-label="게시물 보내기" color="#262626" fill="#262626"
+              <svg aria-label="보내기" color="#262626" fill="#262626"
               height="24" role="img" viewBox="0 0 24 24" width="24">
                 <line fill="none" stroke="currentColor" strokeLinejoin="round"
                   strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083">
@@ -88,11 +90,12 @@ function Post(props) {
             </button>
           </div>
 
+          {/* 떨어뜨린 곳에 저장 버튼 */}
           <div className="one-btn-area">
             <button className="save-btn" onClick={(e) => {
                alert('저장')
             }}>
-              <svg aria-label="게시물 저장" color="#262626" fill="#262626"
+              <svg aria-label="저장" color="#262626" fill="#262626"
                height="24" role="img" viewBox="0 0 24 24" width="24">
                 <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21"
                  stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
@@ -102,12 +105,14 @@ function Post(props) {
           </div>
         </div>
 
+        {/* 좋아요 Count */}
         <div className="Post-like-area">
           <p className="Post-like-count">
             <b>{props.post.likes}</b>
           </p>
         </div>
 
+        {/* 게시글 영역 */}
         <div className="Post-text-area">
           <div className="Post-text">
             <div className="Post-writer-name">
@@ -119,8 +124,10 @@ function Post(props) {
           </div>
         </div>
 
+        {/* 댓글 카운트, 나중에 전체보기 버튼화 시켜야함 */}
         <div className="Post-reply-count">{props.post.replies}</div>
 
+        {/* 댓글 2개 정도 보여주는 영역 */}
         <div className="Post-reply-area">
           <div className="Post-reply">
             <span className="Post-reply-nickname">
@@ -139,6 +146,7 @@ function Post(props) {
             </span>
           </div>
         </div>
+
       </div>
     </article>
   );
