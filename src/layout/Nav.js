@@ -1,93 +1,102 @@
 /*eslint-disable */
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/images/logo.png";
 import { useAuthContext } from '../hooks/useAuthContext';
 import {useLogout} from '../hooks/useLogout';
+import { useDispatch } from "react-redux";
+import { setVisible } from "../store/inputSlice";
 
 
 function Nav(props) {
 
     const {logout} = useLogout();
     const {user} = useAuthContext();
+    let dispatch = useDispatch()
+
+    useEffect(()=> {
+      console.log("이메일 :",user.email)
+      console.log("닉네임 :",user.displayName)
+    },[])
 
     const renewClicked = () => {
-        // 갱신 요청 logic
-        alert('피드 갱신')
+      // 갱신 요청 logic
+      alert('피드 갱신')
     }
 
     const searchAjaxRequest = (search_text) => {
-        console.log(search_text);
-        // Ajax 통신 필요
+      console.log(search_text);
+      // Ajax 통신 필요
     }
 
     const uploadClicked = () => {
-        alert('게시물 업로드')
+      alert('게시물 업로드')
+      dispatch(setVisible(true)) // 새 게시물 등록 모달 보이게
     }
 
     const logClicked = () => {
-        alert(`활동 로그 조회`)
+      alert(`활동 로그 조회`)
     }
 
     const myprofileClicked = () => {
-        alert(`프로필 조회`)
+      alert(`프로필 조회`)
     }
 
     return (
-        <nav className="nav-area">
-            <div className="navigation">
-                <div className="refresh">
-                    <a href="/renew" tabIndex="0" onClick={(e)=>{
-                        e.preventDefault();
-                        renewClicked();
-                    }}>
-                        <div className="logo_div">
-                            <img alt="Our Daily Life" className="logo_img" src={Logo}/>
-                        </div>
-                    </a>
-                </div>
+      <nav className="nav-area">
+          <div className="navigation">
+              <div className="refresh">
+                  <a href="/renew" tabIndex="0" onClick={(e)=>{
+                      e.preventDefault();
+                      renewClicked();
+                  }}>
+                      <div className="logo_div">
+                          <img alt="Our Daily Life" className="logo_img" src={Logo}/>
+                      </div>
+                  </a>
+              </div>
 
-                <div className="user-search">
-                    <SearchBtn className="search-btn"/>
-                    <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
-                        onChange={(e)=> {
-                            // Ajax 통신으로 관련 리스트 호출해오는 로직 구현
-                            searchAjaxRequest(e.target.value);
-                    }}/>
-                </div>
-            
-                <div className="btn-list">
-                    <div className="btn-item">
-                        <HomeBtn onClick={(e)=>{
-                            e.preventDefault();
-                            renewClicked()}}/>
-                    </div>
-                    <div className="btn-item">
-                        <AddBtn onClick={(e)=>{
-                            e.preventDefault();
-                            uploadClicked();
-                        }}/>
-                    </div>
+              <div className="user-search">
+                  <SearchBtn className="search-btn"/>
+                  <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
+                      onChange={(e)=> {
+                          // Ajax 통신으로 관련 리스트 호출해오는 로직 구현
+                          searchAjaxRequest(e.target.value);
+                  }}/>
+              </div>
+          
+              <div className="btn-list">
+                  <div className="btn-item">
+                      <HomeBtn onClick={(e)=>{
+                          e.preventDefault();
+                          renewClicked()}}/>
+                  </div>
+                  <div className="btn-item">
+                      <AddBtn onClick={(e)=>{
+                          e.preventDefault();
+                          uploadClicked();
+                      }}/>
+                  </div>
 
-                    <div className="btn-item">
-                        <LikeBtn onClick={(e)=>{
-                            e.preventDefault();
-                            logClicked();
-                        }}/>
-                    </div>
+                  <div className="btn-item">
+                      <LikeBtn onClick={(e)=>{
+                          e.preventDefault();
+                          logClicked();
+                      }}/>
+                  </div>
 
-                    <div className="btn-item">
-                        <ProfileBtn onClick={(e)=>{
-                            e.preventDefault();
-                            myprofileClicked();
-                        }}/>
-                    </div>
+                  <div className="btn-item">
+                      <ProfileBtn onClick={(e)=>{
+                          e.preventDefault();
+                          myprofileClicked();
+                      }}/>
+                  </div>
 
-                    <div className="btn-item">
-                       <LogoutBtn onClick={logout}/>
-                    </div>
-                </div>
-            </div>
-        </nav>
+                  <div className="btn-item">
+                      <LogoutBtn onClick={logout}/>
+                  </div>
+              </div>
+          </div>
+      </nav>
     );
 }
 
