@@ -7,6 +7,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import Loading from './layout/Loading';
 import Error404 from './layout/Error404';
 const Start = lazy(()=> import('./components/Start'))
+const Nav = lazy(()=> import('./layout/Nav'))
 const Feeds = lazy(()=> import('./components/Feeds'))
 const Input = lazy(()=> import('./components/Input'))
 
@@ -24,7 +25,10 @@ function App() {
               <Route path="/" 
                 element={
                   user ?
-                   <Feeds/>
+                   <>
+                    <Nav/>
+                    <Feeds/>
+                   </>
                  : <Start/>
                 }
               />
