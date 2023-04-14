@@ -29,8 +29,8 @@ function Nav(props) {
     }
 
     const uploadClicked = () => {
-      alert('게시물 업로드')
-      dispatch(setVisible(true)) // 새 게시물 등록 모달 보이게
+      // 새 게시물 등록 모달 보이게
+      dispatch(setVisible(true))
     }
 
     const logClicked = () => {
