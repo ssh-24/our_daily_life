@@ -5,25 +5,61 @@
     font-style: normal;
 }
 
+.dimmed-layer {
+    position: fixed;
+    z-index: 200;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.3;
+
+}
+
+.close-btn {
+    position: fixed;
+    z-index: 300;
+    width: 2.5vh;
+    height: 2.5vh;
+    top: 10vh;
+    right: 5vw;
+    object-fit: cover;
+    &:hover, &:focus {
+        border: 1px solid #fff;
+        border-radius: 5px;
+        background-color: #000;
+        -webkit-transform: scale(1.02);
+        transform: scale(1.02);
+        transition: 0.1s;
+        cursor: pointer;
+    }
+}
+
 .input-area {
+    position: fixed;
+    z-index: 300;
+    top: 20vh;
+    right: 0;
+    left: 0;
+    background: #fff;
+    margin: auto;
+    width: 40vw;
     box-sizing: border-box;
     border: 1px solid #fff;
-    border-radius: 20px;
-    width: 40vw;
-    min-width: 500px; // 줄어들었을때 방어
-    max-width: 500px;
-    margin: auto;
-    padding: 10px;
+    border-radius: 30px;
+    min-width: 400px; // 줄어들었을때 방어
+    max-width: 400px;
+    padding: 5px;
     text-align: center;
     align-items: center;
 
     .form-container {
-        margin: auto;
-        padding: 40px 100px 40px;
+        padding: 40px 10px 40px;
         border: 2px solid rgba(0, 0, 0, 0.055);
         border-radius: 30px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-        
+
         h2, h3, p {
             text-align: center;
             margin-bottom: 24px;
@@ -32,7 +68,7 @@
             font-family: 'HSSaemaul-Regular';
         }
     
-        input.form-control {
+        .form-control {
             margin-right: 16px;
             margin-bottom: 10px;
             padding: 5px 10px;
@@ -41,7 +77,7 @@
         }
     
         .post-btn {
-            margin-top: 6px;
+            margin-top: 12px;
             padding: 8px 24px;
             border: 1px solid #000;
             border-radius: 10px;
@@ -61,13 +97,12 @@
     }
 
     .form-group {
-        width: 300px;
+        margin: auto 10px;
         margin-bottom: 15px;
     }
 
     .img-input {
         padding: 5px 10px;
-        width: calc(100% - 0.5vw);
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 10px;
     }

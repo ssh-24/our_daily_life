@@ -6,6 +6,7 @@ import "./assets/css/styles.css"; // 최종 스타일로 지정
 import { useAuthContext } from "./hooks/useAuthContext";
 import Loading from './layout/Loading';
 import Error404 from './layout/Error404';
+import { useSelector } from 'react-redux';
 const Start = lazy(()=> import('./components/Start'))
 const Nav = lazy(()=> import('./layout/Nav'))
 const Feeds = lazy(()=> import('./components/Feeds'))
@@ -14,6 +15,7 @@ const Input = lazy(()=> import('./components/Input'))
 
 function App() {
   const {isAuthReady, user } = useAuthContext();
+  const visible = useSelector((state) => state.inputState.visible); // input 모달 여부
 
   return(
     <>
@@ -26,15 +28,12 @@ function App() {
                 element={
                   user ?
                    <>
+                    { visible && <Input/> }
                     <Nav/>
                     <Feeds/>
                    </>
                  : <Start/>
                 }
-              />
-              
-              <Route path="/input" 
-                      element={<Input/>}
               />
 
               <Route path="/log" 

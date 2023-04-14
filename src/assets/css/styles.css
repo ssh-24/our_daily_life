@@ -254,7 +254,7 @@ textarea::-webkit-outer-spin-button {
   top: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 5000;
+  z-index: 100;
   border-bottom: 1px solid rgba(122, 122, 122, 0.25);
   margin: 0vh auto 0vh;
 }
@@ -458,21 +458,56 @@ textarea::-webkit-outer-spin-button {
   font-weight: normal;
   font-style: normal;
 }
+.dimmed-layer {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.3;
+}
+
+.close-btn {
+  position: fixed;
+  z-index: 300;
+  width: 2.5vh;
+  height: 2.5vh;
+  top: 10vh;
+  right: 5vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.close-btn:hover, .close-btn:focus {
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #000;
+  transform: scale(1.02);
+  transition: 0.1s;
+  cursor: pointer;
+}
+
 .input-area {
+  position: fixed;
+  z-index: 300;
+  top: 20vh;
+  right: 0;
+  left: 0;
+  background: #fff;
+  margin: auto;
+  width: 40vw;
   box-sizing: border-box;
   border: 1px solid #fff;
-  border-radius: 20px;
-  width: 40vw;
-  min-width: 500px;
-  max-width: 500px;
-  margin: auto;
-  padding: 10px;
+  border-radius: 30px;
+  min-width: 400px;
+  max-width: 400px;
+  padding: 5px;
   text-align: center;
   align-items: center;
 }
 .input-area .form-container {
-  margin: auto;
-  padding: 40px 100px 40px;
+  padding: 40px 10px 40px;
   border: 2px solid rgba(0, 0, 0, 0.055);
   border-radius: 30px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -484,7 +519,7 @@ textarea::-webkit-outer-spin-button {
   /* 이쁜 글씨 */
   font-family: "HSSaemaul-Regular";
 }
-.input-area .form-container input.form-control {
+.input-area .form-container .form-control {
   margin-right: 16px;
   margin-bottom: 10px;
   padding: 5px 10px;
@@ -492,7 +527,7 @@ textarea::-webkit-outer-spin-button {
   border-radius: 10px;
 }
 .input-area .form-container .post-btn {
-  margin-top: 6px;
+  margin-top: 12px;
   padding: 8px 24px;
   border: 1px solid #000;
   border-radius: 10px;
@@ -508,12 +543,11 @@ textarea::-webkit-outer-spin-button {
   transition: 0.1s;
 }
 .input-area .form-group {
-  width: 300px;
+  margin: auto 10px;
   margin-bottom: 15px;
 }
 .input-area .img-input {
   padding: 5px 10px;
-  width: calc(100% - 0.5vw);
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }

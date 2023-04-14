@@ -47,6 +47,9 @@ function Input(){
 
     return(
         <>
+            {/* 뒤에 요소들 덮어서 모달만 보이게 */}
+            <div className="dimmed-layer"/>
+
             <div className="input-area">
                 <div className="form-container">
                     <form onSubmit={onSubmit}>
@@ -58,6 +61,12 @@ function Input(){
                             <input type="text" value={inputState.postText} onChange={onChange} className="form-control" name="postText" placeholder="문구 입력" required/>
                         </div>
                         <input type="submit" className="post-btn" value="공유하기"/>
+                        <div className="close-btn">
+                            <CloseBtn onClick={(e)=>{
+                                e.preventDefault()
+                                dispatch(setVisible(false))
+                            }}/>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -66,3 +75,21 @@ function Input(){
 }
 
 export default Input;
+
+
+const CloseBtn = (props) => (
+    <svg
+        // width="800px"
+        // height="800px"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        {...props}
+    >
+    <title>{"close"}</title>
+    <path
+      fill="#FFFFFF"
+      d="M12.78 4.28a.75.75 0 00-1.06-1.06L8 6.94 4.28 3.22a.75.75 0 00-1.06 1.06L6.94 8l-3.72 3.72a.75.75 0 101.06 1.06L8 9.06l3.72 3.72a.75.75 0 101.06-1.06L9.06 8l3.72-3.72z"
+    />
+  </svg>
+);
