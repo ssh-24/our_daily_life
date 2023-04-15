@@ -1,12 +1,24 @@
 /*eslint-disable */
 import {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPostImageUrl, setPostText, setVisible } from "../store/inputSlice";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { setUserEmail, setUID, setPostText, setVisible } from "../store/inputSlice";
+import { useFirestore } from "../hooks/useFirestore";
 
 function Input(){
+    
     const inputState = useSelector((state) => state.inputState)
+    const { isAuthReady, user } = useAuthContext();
     let dispatch = useDispatch()
-
+    let [showImg, setShowImg] = useState('')
+    let [saveImg, setSaveImg] = useState('')
+    
+    /**************************************************************
+     * 글 저장
+     **************************************************************/
+    // 컬랙션 이름 파라미터로 넣어주기
+    const { addDocument, response } = useFirestore("FeedData");
+    
     // 인풋 타입에 따라 state 값을 변경
     const onChange = (e) => {
         const inputData = {
@@ -16,32 +28,52 @@ function Input(){
         if (inputData.type === 'text') {
             dispatch(setPostText(inputData.value))
         } else {
-            dispatch(setPostImageUrl(inputData.value))
+            // 이미지 미리보기, 실물파일 저장
+            setPreviewImg(e)
         }
     }
 
-    useEffect(()=>{
-        console.log(`게시물 :\n ${inputState.postImageUrl} \n ${inputState.postText}`);
-    },[inputState])
 
-    // unmount 시 초기화
+    // 이미지 value 값 넣기
+    // 이미지 미리보기
+    const setPreviewImg = (e) => {
+
+        let reader = new FileReader();
+
+        reader.onload = function(e) {
+            setShowImg(e.target.result);
+        };
+
+        reader.readAsDataURL(e.target.files[0]);
+        setSaveImg(e.target.files[0]);
+        console.log(e.target.files[0]);
+
+    }
+
+
     useEffect(()=>{
+        // mount
+        console.log(user);   
+        dispatch(setUserEmail(user.email))
+        dispatch(setUID(user.uid))
+        
+        // unmount 시 초기화
         return () => {
             dispatch(setVisible(false))
             dispatch(setPostText(''))
-            dispatch(setPostImageUrl(''))
+            dispatch(setUserEmail(''))
+            dispatch(setUID(''))
         }
     },[])
-
 
 
     // 폼이 제출되면 실행 [게시물 등록]
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
-        alert(`게시물 등록 ${inputState.postImageUrl}, ${inputState.postText}`);
+        console.log(`게시물 등록 ${inputState}`);
 
-        // FireBase 저장 로직 여기다가??
-
+        // [FireBase 저장 로직]
+        addDocument( inputState ,saveImg) //저장
         dispatch(setVisible(false))
     }
 
@@ -57,6 +89,10 @@ function Input(){
                         <div className="form-group">
                             <input accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime" className="img-input" multiple="" type="file" onChange={onChange} required/>
                         </div>
+
+                        {/* 이미지 미리보기 */}
+                        { showImg.length > 0 && <img src={showImg ?? showImg} alt="" style={{marginBottom : '13px',width : '80%', maxHeight:'200px'}}/>}
+                        
                         <div className="form-group">
                             <input type="text" value={inputState.postText} onChange={onChange} className="form-control" name="postText" placeholder="문구 입력" required/>
                         </div>

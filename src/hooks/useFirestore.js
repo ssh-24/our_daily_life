@@ -52,8 +52,8 @@ export const useFirestore = (transaction) => {
 		// 원하는 컬렉션의 참조를 인자로 보내주면 파이어스토어가 자동으로 해당 컬렉션을 생성해줌 
     const colRef = collection(appFireStore, transaction);
 
-      // 컬렉션에 문서를 저장(이미지 저장 시)
-      const addDocument = async (doc,pic) => {
+    // 컬렉션에 문서를 저장(이미지 저장 시)
+    const addDocument = async (doc,pic) => {
 
         // 시간 저장(order by 용)
         const createdTime = timestamp.fromDate(new Date());
