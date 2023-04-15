@@ -5,8 +5,9 @@ let inputState = createSlice({
     name : '글 등록',
     initialState : {
         visible : false,
-        postImageUrl : '',
-        postText : ''
+        postText : '',
+        userEmail : '',
+        UID : ''
     },
     reducers : {
         setVisible(state, action) {
@@ -15,11 +16,14 @@ let inputState = createSlice({
         setPostText(state, action) {
             state.postText = action.payload
         },
-        setPostImageUrl(state, action) {
-            state.postImageUrl = action.payload
-        }
+        setUserEmail(state, action) {
+            state.userEmail = action.payload
+        },
+        setUID(state, action) {
+            state.UID = action.payload
+        },
     }
 })
 
-export let { setVisible, setPostText, setPostImageUrl } = inputState.actions
+export let { setVisible, setPostText, setUserEmail, setUID } = inputState.actions
 export default inputState
