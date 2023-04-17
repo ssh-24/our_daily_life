@@ -70,10 +70,21 @@ function Input(){
     // 폼이 제출되면 실행 [게시물 등록]
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
-        console.log(`게시물 등록 ${inputState}`);
+
+        let savedData = {...inputState}
+        // 저장 시 없는 데이터 추가로 넣어주기
+        savedData.isLiked = false
+        savedData.likes = 0
+        savedData.replies = 0
+        savedData.profileImage = '' // downloadURL로 들어가서 mock 데이터와 형식 맞추기 위해 일단 추가
+        savedData.peopleWhoLike = []
+        savedData.peopleWhoReply = []
+
+        console.log("이거로 저장",savedData);
 
         // [FireBase 저장 로직]
-        addDocument( inputState ,saveImg) //저장
+        addDocument( savedData ,saveImg) //저장
+        // addDocument( inputState ,saveImg) //저장
         dispatch(setVisible(false))
     }
 

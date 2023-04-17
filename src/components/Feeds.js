@@ -18,7 +18,7 @@ function Feeds() {
                  {documents ? 
                     documents.map((a,i) => {
                         let post = {...a}
-                        console.log('ㅋㅋ',i, post);
+                        console.log(post);
 
                         // return (<Post key={i+1} post={{}}/>) 
                         return null

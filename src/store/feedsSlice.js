@@ -8,6 +8,10 @@ let feeds = createSlice({
         // 1
         {
             id : 1,
+            UID: '',
+            userEmail: '',
+            createdDate: '',
+            downloadURL: '',
             profileImage: "/assets/profile1.jpg",
             nickname: "seunghwan",
             postImage: "/assets/post1.jpg",
@@ -36,6 +40,10 @@ let feeds = createSlice({
         // 2
         {
             id : 2,
+            UID: '',
+            userEmail: '',
+            createdDate: '',
+            downloadURL: '',
             profileImage: "/assets/profile2.jpg",
             nickname: "hwan",
             postImage: "/assets/post2.jpg",
@@ -64,6 +72,10 @@ let feeds = createSlice({
         // 3
         {
             id : 3,
+            UID: '',
+            userEmail: '',
+            createdDate: '',
+            downloadURL: '',
             profileImage: "/assets/profile3.jpg",
             nickname: "Eric",
             postImage: "/assets/post3.jpg",
@@ -92,6 +104,10 @@ let feeds = createSlice({
         // 4
         {
             id : 4,
+            UID: '',
+            userEmail: '',
+            createdDate: '',
+            downloadURL: '',
             profileImage: "/assets/profile4.jpg",
             nickname: "muhammad",
             postImage: "/assets/post4.jpg",
@@ -118,6 +134,10 @@ let feeds = createSlice({
         // 5
         {
             id : 5,
+            UID: '',
+            userEmail: '',
+            createdDate: '',
+            downloadURL: '',
             profileImage: "/assets/profile1.jpg",
             nickname: "seunghwan",
             postImage: "/assets/post5.jpg",
