@@ -44,13 +44,19 @@ function Post(props) {
           <div className="Post-user-profileImage">
             <img src={props.post.profileImage} alt="프로필사진"/>
           </div>
-          <span className="Post-user-id">{props.post.nickname}</span>
+          <span className="Post-user-id">
+            {
+              props.post.nickname.length > 0 ?
+              props.post.nickname
+              : props.post.userEmail
+            }
+          </span>
         </div>
 
         {/* 이미지 영역 */}
         <div className="Post-img">
           <div className="Post-img-bg">
-            <img src={props.post.postImage} alt="게시물사진"/>
+            <img src={props.post.downloadURL} alt="게시물사진"/>
           </div>
         </div>
 
@@ -116,7 +122,13 @@ function Post(props) {
         <div className="Post-text-area">
           <div className="Post-text">
             <div className="Post-writer-name">
-              <b>{props.post.nickname}</b>
+              <b>
+                {
+                  props.post.nickname.length > 0 ?
+                    props.post.nickname
+                  : props.post.userEmail
+                }
+              </b>
             </div>
             <div className="Post-text-postText">
               {props.post.postText}
@@ -124,29 +136,34 @@ function Post(props) {
           </div>
         </div>
 
-        {/* 댓글 카운트, 나중에 전체보기 버튼화 시켜야함 */}
-        <div className="Post-reply-count">{props.post.replies}</div>
+        {
+          props.post.replies !== 0 ?
+          <>
+            {/* 댓글 카운트, 나중에 전체보기 버튼화 시켜야함 */}
+            <div className="Post-reply-count">{props.post.replies}</div>
 
-        {/* 댓글 2개 정도 보여주는 영역 */}
-        <div className="Post-reply-area">
-          <div className="Post-reply">
-            <span className="Post-reply-nickname">
-              <b>{props.post.peopleWhoReply[0].nickname}</b>
-            </span>
-            <span className="Post-reply-text">
-              {props.post.peopleWhoReply[0].replyText}
-            </span>
-          </div>
-          <div className="Post-reply">
-            <span className="Post-reply-nickname">
-              <b>{props.post.peopleWhoReply[1].nickname}</b>
-            </span>
-            <span className="Post-reply-text">
-              {props.post.peopleWhoReply[1].replyText}
-            </span>
-          </div>
-        </div>
-
+            {/* 댓글 2개 정도 보여주는 영역 */}
+            <div className="Post-reply-area">
+              <div className="Post-reply">
+                <span className="Post-reply-nickname">
+                  <b>{props.post.peopleWhoReply[0].nickname}</b>
+                </span>
+                <span className="Post-reply-text">
+                  {props.post.peopleWhoReply[0].replyText}
+                </span>
+              </div>
+              <div className="Post-reply">
+                <span className="Post-reply-nickname">
+                  <b>{props.post.peopleWhoReply[1].nickname}</b>
+                </span>
+                <span className="Post-reply-text">
+                  {props.post.peopleWhoReply[1].replyText}
+                </span>
+              </div>
+            </div>
+          </>
+          : null
+        }
       </div>
     </article>
   );

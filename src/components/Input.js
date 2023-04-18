@@ -16,7 +16,7 @@ function Input(){
     /**************************************************************
      * 글 저장
      **************************************************************/
-    // 컬랙션 이름 파라미터로 넣어주기
+    // 컬렉션 이름 파라미터로 넣어주기, 저장소에 해당 이름의 컬렉션으로 저장됨
     const { addDocument, response } = useFirestore("FeedData");
     
     // 인풋 타입에 따라 state 값을 변경
@@ -70,13 +70,13 @@ function Input(){
     // 폼이 제출되면 실행 [게시물 등록]
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
-
         let savedData = {...inputState}
         // 저장 시 없는 데이터 추가로 넣어주기
         savedData.isLiked = false
         savedData.likes = 0
         savedData.replies = 0
-        savedData.profileImage = '' // downloadURL로 들어가서 mock 데이터와 형식 맞추기 위해 일단 추가
+        savedData.profileImage = '/assets/default-profile.png' // 기본 프로필 이미지로 들어가도록
+        savedData.nickname = ''
         savedData.peopleWhoLike = []
         savedData.peopleWhoReply = []
 
@@ -84,7 +84,6 @@ function Input(){
 
         // [FireBase 저장 로직]
         addDocument( savedData ,saveImg) //저장
-        // addDocument( inputState ,saveImg) //저장
         dispatch(setVisible(false))
     }
 

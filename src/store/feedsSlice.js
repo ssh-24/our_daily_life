@@ -11,10 +11,9 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            downloadURL: '',
             profileImage: "/assets/profile1.jpg",
             nickname: "seunghwan",
-            postImage: "/assets/post1.jpg",
+            downloadURL: "/assets/post1.jpg",
             postText: "애옹이 귀여워..!🐈",
             isLiked: true, // 좋아요 눌렀는지 여부
             likes: 5, // 좋아요 수
@@ -43,10 +42,9 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            downloadURL: '',
             profileImage: "/assets/profile2.jpg",
             nickname: "hwan",
-            postImage: "/assets/post2.jpg",
+            downloadURL: "/assets/post2.jpg",
             postText: "춥다...⛄",
             isLiked: false, // 좋아요 눌렀는지 여부
             likes: 5, // 좋아요 수
@@ -75,10 +73,9 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            downloadURL: '',
             profileImage: "/assets/profile3.jpg",
             nickname: "Eric",
-            postImage: "/assets/post3.jpg",
+            downloadURL: "/assets/post3.jpg",
             postText: "SO CUTE :)",
             isLiked: false, // 좋아요 눌렀는지 여부
             likes: 5, // 좋아요 수
@@ -107,10 +104,9 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            downloadURL: '',
             profileImage: "/assets/profile4.jpg",
             nickname: "muhammad",
-            postImage: "/assets/post4.jpg",
+            downloadURL: "/assets/post4.jpg",
             postText: "I Like Photo...☆",
             isLiked: false, // 좋아요 눌렀는지 여부
             likes: 3, // 좋아요 수
@@ -137,10 +133,9 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            downloadURL: '',
             profileImage: "/assets/profile1.jpg",
             nickname: "seunghwan",
-            postImage: "/assets/post5.jpg",
+            downloadURL: "/assets/post5.jpg",
             postText: "멍뭉이 귀여워..!🐶",
             isLiked: true, // 좋아요 눌렀는지 여부
             likes: 4, // 좋아요 수
