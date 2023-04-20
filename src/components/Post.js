@@ -65,6 +65,10 @@ function Post(props) {
           <div className="three-btn-area">
             <button className="like-btn" onClick={(e) => {
               alert('좋아요')
+              console.log('누르기 전 상태', props.post.isLiked)
+              // 좋아요 state를 변경해보자
+              props.post.isLiked = !props.post.isLiked //ㅋㅋ안되넹
+              console.log('변경 후', props.post.isLiked)
             }}>
               {/* 받아온 props를 확인해서 좋아요 버튼 반환*/}
               {getLikeStatus(props.post.isLiked)}

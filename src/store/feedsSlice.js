@@ -159,6 +159,10 @@ let feeds = createSlice({
         },
     ],
     reducers : {
+        // 좋아요 버튼 누를 시
+        likeBtnclicked(state, action) {
+
+        }
         // addStock(state, action) {
         //     let num = state.findIndex((a)=>{ return a.id === action.payload.id }) // index를 남겨줌
         //     state[num].count += action.payload.count
@@ -171,4 +175,5 @@ let feeds = createSlice({
 })
 
 // export let { addStock, subStock } = feeds.actions
+export let { likeBtnclicked } = feeds.actions
 export default feeds
