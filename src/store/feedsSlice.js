@@ -12,7 +12,7 @@ let feeds = createSlice({
             userEmail: '',
             createdDate: '',
             profileImage: "/assets/profile1.jpg",
-            nickname: "seunghwan",
+            displayName: "seunghwan",
             downloadURL: "/assets/post1.jpg",
             postText: "애옹이 귀여워..!🐈",
             isLiked: true, // 좋아요 눌렀는지 여부
@@ -27,11 +27,11 @@ let feeds = createSlice({
             ],
             peopleWhoReply: [
                 {
-                nickname: "Luffy",
+                displayName: "Luffy",
                 replyText: '나만 고양이 없어',
                 },
                 {
-                nickname: "Buggy",
+                displayName: "Buggy",
                 replyText: '별로?',
                 }
             ],
@@ -43,7 +43,7 @@ let feeds = createSlice({
             userEmail: '',
             createdDate: '',
             profileImage: "/assets/profile2.jpg",
-            nickname: "hwan",
+            displayName: "hwan",
             downloadURL: "/assets/post2.jpg",
             postText: "춥다...⛄",
             isLiked: false, // 좋아요 눌렀는지 여부
@@ -58,11 +58,11 @@ let feeds = createSlice({
             ],
             peopleWhoReply: [
                 {
-                nickname: "Luffy",
+                displayName: "Luffy",
                 replyText: '추우면 집에 가라',
                 },
                 {
-                nickname: "Buggy",
+                displayName: "Buggy",
                 replyText: '별로?',
                 }
             ],
@@ -74,7 +74,7 @@ let feeds = createSlice({
             userEmail: '',
             createdDate: '',
             profileImage: "/assets/profile3.jpg",
-            nickname: "Eric",
+            displayName: "Eric",
             downloadURL: "/assets/post3.jpg",
             postText: "SO CUTE :)",
             isLiked: false, // 좋아요 눌렀는지 여부
@@ -89,11 +89,11 @@ let feeds = createSlice({
             ],
             peopleWhoReply: [
                 {
-                nickname: "Luffy",
+                displayName: "Luffy",
                 replyText: 'agree',
                 },
                 {
-                nickname: "Buggy",
+                displayName: "Buggy",
                 replyText: '별로?',
                 }
             ],
@@ -105,7 +105,7 @@ let feeds = createSlice({
             userEmail: '',
             createdDate: '',
             profileImage: "/assets/profile4.jpg",
-            nickname: "muhammad",
+            displayName: "muhammad",
             downloadURL: "/assets/post4.jpg",
             postText: "I Like Photo...☆",
             isLiked: false, // 좋아요 눌렀는지 여부
@@ -118,11 +118,11 @@ let feeds = createSlice({
             ],
             peopleWhoReply: [
                 {
-                nickname: "Luffy",
+                displayName: "Luffy",
                 replyText: '갬-성',
                 },
                 {
-                nickname: "Buggy",
+                displayName: "Buggy",
                 replyText: '별로?',
                 }
             ],
@@ -134,7 +134,7 @@ let feeds = createSlice({
             userEmail: '',
             createdDate: '',
             profileImage: "/assets/profile1.jpg",
-            nickname: "seunghwan",
+            displayName: "seunghwan",
             downloadURL: "/assets/post5.jpg",
             postText: "멍뭉이 귀여워..!🐶",
             isLiked: true, // 좋아요 눌렀는지 여부
@@ -148,11 +148,11 @@ let feeds = createSlice({
             ],
             peopleWhoReply: [
                 {
-                nickname: "Luffy",
+                displayName: "Luffy",
                 replyText: '인절미 귀여워',
                 },
                 {
-                nickname: "Buggy",
+                displayName: "Buggy",
                 replyText: '별로?',
                 }
             ],

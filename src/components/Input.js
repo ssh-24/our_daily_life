@@ -2,7 +2,7 @@
 import {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { setUserEmail, setUID, setPostText, setVisible } from "../store/inputSlice";
+import { setUserEmail, setUID, setPostText, setVisible, setDisplayName } from "../store/inputSlice";
 import { useFirestore } from "../hooks/useFirestore";
 
 function Input(){
@@ -56,6 +56,7 @@ function Input(){
         console.log(user);   
         dispatch(setUserEmail(user.email))
         dispatch(setUID(user.uid))
+        dispatch(setDisplayName(user.displayName))
         
         // unmount 시 초기화
         return () => {
@@ -72,11 +73,9 @@ function Input(){
         e.preventDefault(); // submit시 페이지 reload 방지
         let savedData = {...inputState}
         // 저장 시 없는 데이터 추가로 넣어주기
-        savedData.isLiked = false
         savedData.likes = 0
         savedData.replies = 0
         savedData.profileImage = '/assets/default-profile.png' // 기본 프로필 이미지로 들어가도록
-        savedData.nickname = ''
         savedData.peopleWhoLike = []
         savedData.peopleWhoReply = []
 
