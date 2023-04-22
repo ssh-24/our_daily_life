@@ -44,6 +44,7 @@ function Signup(){
             alert('비밀번호는 숫자로 입력해주세요');
         }else{
             signup(email,password,displayName);
+            // console.log(email,password,displayName);
         }
 
     }

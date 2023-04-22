@@ -17,10 +17,12 @@ export const useCollectionDtl = (transaction, myQuery, order="") => { // myQuery
         let q;
         if(order.length>0){
             q = query(collection(appFireStore, transaction),where(...myQuery),orderBy("createdTime","desc"));
-        }else{
+        }
+        else{
             q = query(collection(appFireStore, transaction),where(...myQuery));
         }
 
+        console.log(q);
         // onSnapshot: 가장 최근 컬랙션의 내용 반환 
         // unsubscribe: 데이터 수신을 중단(데이터 오는거 기다릴 필요가 없을때 사용.)
         const unsubscribe = onSnapshot(myQuery ? q : (collection(appFireStore, transaction)),
@@ -33,7 +35,7 @@ export const useCollectionDtl = (transaction, myQuery, order="") => { // myQuery
                     // document 데이터랑 id 값 push 해주기
                     result.push({ ...doc.data(), id: doc.id });
                 })
-
+                console.log(result);
                 setDocuments(result);
                 setError(null);
             },

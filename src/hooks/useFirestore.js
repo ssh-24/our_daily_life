@@ -52,6 +52,7 @@ export const useFirestore = (transaction) => {
 		// 원하는 컬렉션의 참조를 인자로 보내주면 파이어스토어가 자동으로 해당 컬렉션을 생성해줌 
     const colRef = collection(appFireStore, transaction);
 
+    
     // 컬렉션에 문서를 저장(이미지 저장 시)
     const addDocument = async (doc,pic) => {
 
@@ -105,6 +106,7 @@ export const useFirestore = (transaction) => {
 
     }
 
+
     // 컬렉션에 문서를 저장(댓글 저장)
     const addComment = async (doc) => {
 
@@ -137,6 +139,30 @@ export const useFirestore = (transaction) => {
 
     }
 
+
+    // 컬렉션에서 문서를 수정
+    const editDocument = async (documents,id) => {
+        dispatch({ type: "isPending" });
+        
+        // const 임시 = doc(appFireStore,'diary',id);
+
+        try {
+            // // 수정 날짜가 필요할 경우 사용하면 됨
+            // const createdTime = timestamp.fromDate(new Date());
+            // const createdDate = GetCurDayTime('/',':');
+
+            // docRef : 참조(컬랙션 이름)
+            // updateDoc : 컬렉션에 있는 문서 수정
+            // const docRef = await updateDoc(doc(colRef,id),{ ...documents, createdTime,createdDate});
+            const docRef = await updateDoc(doc(colRef,id),{ ...documents});
+            dispatch({ type: 'editDoc', payload: docRef });
+
+        } catch (error) {
+            dispatch({ type: 'error', payload: error.message });
+        }
+    }
+
+        
     // 컬렉션에서 문서를 삭제
     const deleteDocument = async (id) => {
 
@@ -149,25 +175,39 @@ export const useFirestore = (transaction) => {
         }
     }
 
-    // 컬렉션에서 문서를 수정
-    const editDocument = async (documents,id) => {
+    
+    // 유저 최초 저장
+    const addUser = async (doc) => {
+
+        // 시간 저장(order by 용)
+        const createdTime = timestamp.fromDate(new Date());
+        const createdDate = GetCurDayTime('/',':');
+
+        // 유일키 저장
+        const createdUqe = GetUniqueNum();
+
+
         dispatch({ type: "isPending" });
-        
-        // const 임시 = doc(appFireStore,'diary',id);
-
         try {
-            const createdTime = timestamp.fromDate(new Date());
-            const createdDate = GetCurDayTime('/',':');
 
-            // docRef : 참조(컬랙션 이름)
-            // updateDoc : 컬렉션에 있는 문서 수정
-            const docRef = await updateDoc(doc(colRef,id),{ ...documents, createdTime,createdDate});
-            dispatch({ type: 'editDoc', payload: docRef });
+                /*===============================================
+                * 데이터 저장
+                *===================================================*/
+                // docRef : 참조(컬랙션 이름)
+                // addDoc : 컬렉션에 문서를 추가
+                const docRef = addDoc(colRef,{ ...doc, createdTime, createdDate,createdUqe});
+                console.log(docRef);
+
+                dispatch({ type: 'addDoc', payload: docRef });
+                console.log('저장완료');               
+
 
         } catch (error) {
             dispatch({ type: 'error', payload: error.message });
         }
+
     }
-    return { addDocument,addComment, deleteDocument, editDocument, response }
+
+    return { addDocument,addComment, editDocument, deleteDocument, addUser, response }
 
 }

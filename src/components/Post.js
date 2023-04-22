@@ -1,7 +1,13 @@
 /*eslint-disable */
 import React from "react";
+import { useFirestore } from "../hooks/useFirestore";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Post(props) {
+  const { editDocument, response } = useFirestore("FeedData");// 컬랙션 이름 파라미터로 넣어주기
+  const { isAuthReady, user } = useAuthContext();
+
+
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
   const getLikeStatus = (likeYN) => {
     if (likeYN) {
@@ -46,8 +52,8 @@ function Post(props) {
           </div>
           <span className="Post-user-id">
             {
-              props.post.nickname.length > 0 ?
-              props.post.nickname
+              props.post.displayName.length > 0 ?
+              props.post.displayName
               : props.post.userEmail
             }
           </span>
@@ -64,14 +70,33 @@ function Post(props) {
         <div className="Post-icon-btn-area">
           <div className="three-btn-area">
             <button className="like-btn" onClick={(e) => {
-              alert('좋아요')
-              console.log('누르기 전 상태', props.post.isLiked)
-              // 좋아요 state를 변경해보자
-              props.post.isLiked = !props.post.isLiked //ㅋㅋ안되넹
-              console.log('변경 후', props.post.isLiked)
+              // alert('좋아요')
+              console.log('데이터뭐임', props)
+              console.log('user뭐임', user)
+              // let peopleWhoLike = [user.uid];
+              let peopleWhoLike = [...props.post.peopleWhoLike]
+              peopleWhoLike.push(user.uid)
+              console.log('user뭐임', peopleWhoLike)
+
+              // 좋아요 갯수
+              let likes = props.post.likes
+
+              // 좋아요 누른 게시물임?
+              let isLiked = props.post.peopleWhoLike.includes(user.uid);
+              console.log(isLiked);
+
+              // 수정 firebase 태우기
+              if (isLiked) {
+                peopleWhoLike = [];
+                likes--;
+                editDocument({ peopleWhoLike, likes }, props.post.id)
+              } else {
+                likes++;
+                editDocument({ peopleWhoLike, likes }, props.post.id)
+              }
             }}>
               {/* 받아온 props를 확인해서 좋아요 버튼 반환*/}
-              {getLikeStatus(props.post.isLiked)}
+              {getLikeStatus(props.post.peopleWhoLike.includes(user.uid))}
             </button>
             
             <button className="reply-btn" onClick={(e) => {
@@ -128,8 +153,8 @@ function Post(props) {
             <div className="Post-writer-name">
               <b>
                 {
-                  props.post.nickname.length > 0 ?
-                    props.post.nickname
+                  props.post.displayName.length > 0 ?
+                    props.post.displayName
                   : props.post.userEmail
                 }
               </b>
@@ -150,7 +175,7 @@ function Post(props) {
             <div className="Post-reply-area">
               <div className="Post-reply">
                 <span className="Post-reply-nickname">
-                  <b>{props.post.peopleWhoReply[0].nickname}</b>
+                  <b>{props.post.peopleWhoReply[0].displayName}</b>
                 </span>
                 <span className="Post-reply-text">
                   {props.post.peopleWhoReply[0].replyText}
@@ -158,7 +183,7 @@ function Post(props) {
               </div>
               <div className="Post-reply">
                 <span className="Post-reply-nickname">
-                  <b>{props.post.peopleWhoReply[1].nickname}</b>
+                  <b>{props.post.peopleWhoReply[1].displayName}</b>
                 </span>
                 <span className="Post-reply-text">
                   {props.post.peopleWhoReply[1].replyText}

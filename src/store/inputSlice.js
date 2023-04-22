@@ -7,6 +7,7 @@ let inputState = createSlice({
         visible : false,
         postText : '',
         userEmail : '',
+        displayName : '',
         UID : ''
     },
     reducers : {
@@ -22,8 +23,11 @@ let inputState = createSlice({
         setUID(state, action) {
             state.UID = action.payload
         },
+        setDisplayName(state, action) {
+            state.displayName = action.payload
+        },
     }
 })
 
-export let { setVisible, setPostText, setUserEmail, setUID } = inputState.actions
+export let { setVisible, setPostText, setUserEmail, setUID, setDisplayName } = inputState.actions
 export default inputState

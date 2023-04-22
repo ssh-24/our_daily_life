@@ -91,3 +91,31 @@
         }
     }
 }
+
+@media (max-width: 540px){
+    /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
+    .refresh{
+        margin-left: 2%;
+    }
+    .user-search{
+        input{
+            width: 80%;
+        }
+    }
+
+}
+@media (max-width: 425px){
+    /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
+    .refresh{
+        width: 80%;
+    }
+    .btn-list{
+        width: 80%;
+    }
+    .user-search{
+        input{
+            width: 80%;
+        }
+    }
+
+}
