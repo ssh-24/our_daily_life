@@ -5,27 +5,37 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import {useLogout} from '../hooks/useLogout';
 import { useDispatch } from "react-redux";
 import { setVisible } from "../store/inputSlice";
+import { useCollectionDtl } from '../hooks/useCollectionDtl';
 
 
 function Nav(props) {
 
     const {logout} = useLogout();
     const {user} = useAuthContext();
+    // 두개 동시에 못쓰는건 어케하누? 
+    // const {documents,error} = useCollectionDtl("FeedData", ["peopleWhoLike","array-contains",user.uid] );
+    const {documents,error} = useCollectionDtl("FeedData",["UID","==",user.uid]);
+
+
     let dispatch = useDispatch()
 
     useEffect(()=> {
+      console.log("documents :",documents)
+      console.log("user :",user)
       console.log("이메일 :",user.email)
       console.log("닉네임 :",user.displayName)
     },[])
 
     const renewClicked = () => {
-      // 갱신 요청 logic
-      alert('피드 갱신')
+      // 갱신 요청 ㄱ?
+      window.scrollTo({ top: 0, behavior: "smooth" });  
     }
+
 
     const searchAjaxRequest = (search_text) => {
       console.log(search_text);
-      // Ajax 통신 필요
+      // 검색 자동완성 기능
+      //-----보류-------
     }
 
     const uploadClicked = () => {
@@ -34,11 +44,18 @@ function Nav(props) {
     }
 
     const logClicked = () => {
-      alert(`활동 로그 조회`)
+      // 내가 좋아요 누른 게시물만 보이게
+
+
+
+      // 앞단에서 정렬 ㄱㄱ
+      console.log("조아요 리스트=======");
+      console.log(documents);
     }
 
     const myprofileClicked = () => {
-      alert(`프로필 조회`)
+      console.log("내가쓴글?",documents);
+
     }
 
     return (
