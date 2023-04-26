@@ -1,61 +1,45 @@
 /*eslint-disable */
 import React, { useEffect } from "react";
 import Logo from "../assets/images/logo.png";
-import { useAuthContext } from '../hooks/useAuthContext';
 import {useLogout} from '../hooks/useLogout';
 import { useDispatch } from "react-redux";
 import { setVisible } from "../store/inputSlice";
-import { useCollectionDtl } from '../hooks/useCollectionDtl';
+import { useNavigate } from "react-router-dom";
 
 
 function Nav(props) {
-
-    const {logout} = useLogout();
-    const {user} = useAuthContext();
-    // 두개 동시에 못쓰는건 어케하누? 
-    // const {documents,error} = useCollectionDtl("FeedData", ["peopleWhoLike","array-contains",user.uid] );
-    const {documents,error} = useCollectionDtl("FeedData",["UID","==",user.uid]);
-
-
+    const {logout} = useLogout()
+    let navigate = useNavigate() // 페이지 이동
     let dispatch = useDispatch()
 
-    useEffect(()=> {
-      console.log("documents :",documents)
-      console.log("user :",user)
-      console.log("이메일 :",user.email)
-      console.log("닉네임 :",user.displayName)
-    },[])
-
-    const renewClicked = () => {
-      // 갱신 요청 ㄱ?
-      window.scrollTo({ top: 0, behavior: "smooth" });  
+    // 로고 클릭, 메인페이지로 이동
+    const goMain = () => {
+      navigate('/')
     }
 
+    // 홈버튼 클릭, 상단으로 스크롤 이동
+    const homeClicked = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
-    const searchAjaxRequest = (search_text) => {
+    // 검색 자동완성 기능 *보류*
+    const searchRequest = (search_text) => {
       console.log(search_text);
-      // 검색 자동완성 기능
-      //-----보류-------
     }
 
+    // 등록버튼 클릭
     const uploadClicked = () => {
-      // 새 게시물 등록 모달 보이게
-      dispatch(setVisible(true))
+      dispatch(setVisible(true)) // 새 게시물 등록 모달 보이게
     }
 
+    // 로그버튼 클릭
     const logClicked = () => {
-      // 내가 좋아요 누른 게시물만 보이게
-
-
-
-      // 앞단에서 정렬 ㄱㄱ
-      console.log("조아요 리스트=======");
-      console.log(documents);
+      navigate('/log')
     }
-
-    const myprofileClicked = () => {
-      console.log("내가쓴글?",documents);
-
+    
+    // 프로필버튼 클릭
+    const profileClicked = () => {
+      navigate('/profile')
     }
 
     return (
@@ -64,7 +48,7 @@ function Nav(props) {
               <div className="refresh">
                   <a href="/renew" tabIndex="0" onClick={(e)=>{
                       e.preventDefault();
-                      renewClicked();
+                      goMain();
                   }}>
                       <div className="logo_div">
                           <img alt="Our Daily Life" className="logo_img" src={Logo}/>
@@ -76,36 +60,33 @@ function Nav(props) {
                   <SearchBtn className="search-btn"/>
                   <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
                       onChange={(e)=> {
-                          // Ajax 통신으로 관련 리스트 호출해오는 로직 구현
-                          searchAjaxRequest(e.target.value);
+                          // 관련 리스트 호출?
+                          searchRequest(e.target.value);
                   }}/>
               </div>
           
               <div className="btn-list">
                   <div className="btn-item">
                       <HomeBtn onClick={(e)=>{
-                          e.preventDefault();
-                          renewClicked()}}/>
+                          e.preventDefault()
+                          homeClicked()}}/>
                   </div>
                   <div className="btn-item">
                       <AddBtn onClick={(e)=>{
-                          e.preventDefault();
-                          uploadClicked();
-                      }}/>
+                          e.preventDefault()
+                          uploadClicked()}}/>
                   </div>
 
                   <div className="btn-item">
                       <LikeBtn onClick={(e)=>{
-                          e.preventDefault();
-                          logClicked();
-                      }}/>
+                          e.preventDefault()
+                          logClicked()}}/>
                   </div>
 
                   <div className="btn-item">
                       <ProfileBtn onClick={(e)=>{
-                          e.preventDefault();
-                          myprofileClicked();
-                      }}/>
+                          e.preventDefault()
+                          profileClicked()}}/>
                   </div>
 
                   <div className="btn-item">

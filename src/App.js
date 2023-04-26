@@ -11,6 +11,8 @@ const Start = lazy(()=> import('./components/Start'))
 const Nav = lazy(()=> import('./layout/Nav'))
 const Feeds = lazy(()=> import('./components/Feeds'))
 const Input = lazy(()=> import('./components/Input'))
+const Profile = lazy(()=> import('./components/Profile'))
+const Log = lazy(()=> import('./components/Log'))
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
         (
           <Suspense fallback={<Loading/>}> {/* Suspense로 감싸기(로딩중 보여줄 때) */}
             <Routes>
+              {/* 메인페이지 */}
               <Route path="/" 
                 element={
                   user ?
@@ -36,12 +39,26 @@ function App() {
                 }
               />
 
+              {/* 활동페이지 */}
               <Route path="/log" 
-                      // element={<Input/>}
+                element={
+                  <>
+                    { visible && <Input/> }
+                    <Nav/>
+                    <Log/>
+                  </>
+                }
               />
 
+              {/* 프로필페이지 */}
               <Route path="/profile" 
-                      // element={<Input/>}
+                element={
+                  <>
+                    { visible && <Input/> }
+                    <Nav/>
+                    <Profile/>
+                  </>
+                }
               />
 
               {/* Routes안에 명시되지 않은 페이지 주소 예외처리 */}
