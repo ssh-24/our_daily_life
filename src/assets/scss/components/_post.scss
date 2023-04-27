@@ -68,9 +68,14 @@
 .Post-like-area {
   padding: 6px 16px 0px;
   font-size: 14px;
+  font-family: 'HSSaemaul-Regular';
+  font-size: large;
 
   .Post-like-count::before {
-    content: "💓 "
+    content: "🤍 "
+  }
+  .Post-like-count::after {
+    content: " 명이 좋아해요"
   }
 }
 
@@ -121,4 +126,10 @@
       padding-left: 2px;
     }
   }
+}
+
+.Post-reply-border {
+  margin: 0 16px 8px;
+  border-bottom: 1px solid black;
+  opacity: 0.1;
 }
