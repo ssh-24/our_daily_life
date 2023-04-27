@@ -75,11 +75,12 @@ function Input(){
         // 저장 시 없는 데이터 추가로 넣어주기
         savedData.likes = 0
         savedData.replies = 0
-        savedData.profileImage = '/assets/default-profile.png' // 기본 프로필 이미지로 들어가도록
+        // 프로필 이미지도 등록해야되는데...
+        savedData.profileImage = '/assets/profile_default.png' // 기본 프로필 이미지로 들어가도록
         savedData.peopleWhoLike = []
         savedData.peopleWhoReply = []
 
-        console.log("이거로 저장",savedData);
+        console.log("게시할 Data :",savedData);
 
         // [FireBase 저장 로직]
         addDocument( savedData ,saveImg) //저장
