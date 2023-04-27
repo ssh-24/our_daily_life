@@ -1,9 +1,9 @@
 /*eslint-disable*/
 import { createSlice } from '@reduxjs/toolkit'
-import data from '../data_init'
 
 let feeds = createSlice({
     name : '피드',
+    // MockData
     initialState : [
         // 1
         {
@@ -11,24 +11,23 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            profileImage: "/assets/profile1.jpg",
-            displayName: "seunghwan",
-            downloadURL: "/assets/post1.jpg",
-            postText: "애옹이 귀여워..!🐈",
-            isLiked: true, // 좋아요 눌렀는지 여부
+            profileImage: "/assets/profile_Eric.jpg",
+            displayName: "Eric",
+            downloadURL: "/assets/post_cats.jpg",
+            postText: "SO CUTE :)",
             likes: 5, // 좋아요 수
             replies: 2, // 댓글 수
             peopleWhoLike: [
                 "Luffy",
                 "Zoro",
-                "Sanji",
-                "Chopper",
-                "Buggy"
+                "ymWAqGTsGqZ6Y0n4lS97S3tWGCR2",
+                "wD8fZ9o6UqaOPUPmeGUPWcHUKp22",
+                "XAWscmQPhKfVCCruNeITO7dgDz02"
             ],
             peopleWhoReply: [
                 {
                 displayName: "Luffy",
-                replyText: '나만 고양이 없어',
+                replyText: 'agree',
                 },
                 {
                 displayName: "Buggy",
@@ -42,79 +41,17 @@ let feeds = createSlice({
             UID: '',
             userEmail: '',
             createdDate: '',
-            profileImage: "/assets/profile2.jpg",
-            displayName: "hwan",
-            downloadURL: "/assets/post2.jpg",
-            postText: "춥다...⛄",
-            isLiked: false, // 좋아요 눌렀는지 여부
-            likes: 5, // 좋아요 수
-            replies: 2, // 댓글 수
-            peopleWhoLike: [
-                "Luffy",
-                "Zoro",
-                "Sanji",
-                "Chopper",
-                "Buggy"
-            ],
-            peopleWhoReply: [
-                {
-                displayName: "Luffy",
-                replyText: '추우면 집에 가라',
-                },
-                {
-                displayName: "Buggy",
-                replyText: '별로?',
-                }
-            ],
-        },
-        // 3
-        {
-            id : 3,
-            UID: '',
-            userEmail: '',
-            createdDate: '',
-            profileImage: "/assets/profile3.jpg",
-            displayName: "Eric",
-            downloadURL: "/assets/post3.jpg",
-            postText: "SO CUTE :)",
-            isLiked: false, // 좋아요 눌렀는지 여부
-            likes: 5, // 좋아요 수
-            replies: 2, // 댓글 수
-            peopleWhoLike: [
-                "Luffy",
-                "Zoro",
-                "Sanji",
-                "Chopper",
-                "Buggy"
-            ],
-            peopleWhoReply: [
-                {
-                displayName: "Luffy",
-                replyText: 'agree',
-                },
-                {
-                displayName: "Buggy",
-                replyText: '별로?',
-                }
-            ],
-        },
-        // 4
-        {
-            id : 4,
-            UID: '',
-            userEmail: '',
-            createdDate: '',
-            profileImage: "/assets/profile4.jpg",
+            profileImage: "/assets/profile_muhammad.jpg",
             displayName: "muhammad",
-            downloadURL: "/assets/post4.jpg",
+            downloadURL: "/assets/post_camera.jpg",
             postText: "I Like Photo...☆",
-            isLiked: false, // 좋아요 눌렀는지 여부
-            likes: 3, // 좋아요 수
+            likes: 4, // 좋아요 수
             replies: 2, // 댓글 수
             peopleWhoLike: [
                 "Luffy",
                 "Zoro",
-                "Sanji"
+                "Sanji",
+                "wD8fZ9o6UqaOPUPmeGUPWcHUKp22"
             ],
             peopleWhoReply: [
                 {
@@ -126,43 +63,9 @@ let feeds = createSlice({
                 replyText: '별로?',
                 }
             ],
-        },
-        // 5
-        {
-            id : 5,
-            UID: '',
-            userEmail: '',
-            createdDate: '',
-            profileImage: "/assets/profile1.jpg",
-            displayName: "seunghwan",
-            downloadURL: "/assets/post5.jpg",
-            postText: "멍뭉이 귀여워..!🐶",
-            isLiked: true, // 좋아요 눌렀는지 여부
-            likes: 4, // 좋아요 수
-            replies: 2, // 댓글 수
-            peopleWhoLike: [
-                "Luffy",
-                "Zoro",
-                "Sanji",
-                "Buggy"
-            ],
-            peopleWhoReply: [
-                {
-                displayName: "Luffy",
-                replyText: '인절미 귀여워',
-                },
-                {
-                displayName: "Buggy",
-                replyText: '별로?',
-                }
-            ],
-        },
+        }
     ],
     reducers : {
-        // 좋아요 버튼 누를 시
-        likeBtnclicked(state, action) {
-
-        }
         // addStock(state, action) {
         //     let num = state.findIndex((a)=>{ return a.id === action.payload.id }) // index를 남겨줌
         //     state[num].count += action.payload.count
@@ -175,5 +78,4 @@ let feeds = createSlice({
 })
 
 // export let { addStock, subStock } = feeds.actions
-export let { likeBtnclicked } = feeds.actions
 export default feeds
