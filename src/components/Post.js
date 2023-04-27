@@ -4,9 +4,8 @@ import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 function Post(props) {
-  const { editDocument, response } = useFirestore("FeedData");// 컬랙션 이름 파라미터로 넣어주기
+  const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const { isAuthReady, user } = useAuthContext();
-
 
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
   const getLikeStatus = (likeYN) => {
@@ -52,7 +51,7 @@ function Post(props) {
           </div>
           <span className="Post-user-id">
             {
-              props.post.displayName.length > 0 ?
+              props.post.displayName != null && props.post.displayName.length > 0 ?
               props.post.displayName
               : props.post.userEmail
             }
@@ -70,24 +69,29 @@ function Post(props) {
         <div className="Post-icon-btn-area">
           <div className="three-btn-area">
             <button className="like-btn" onClick={(e) => {
-              // alert('좋아요')
-              console.log('데이터뭐임', props)
-              console.log('user뭐임', user)
-              // let peopleWhoLike = [user.uid];
-              let peopleWhoLike = [...props.post.peopleWhoLike]
-              peopleWhoLike.push(user.uid)
-              console.log('user뭐임', peopleWhoLike)
-
               // 좋아요 갯수
               let likes = props.post.likes
-
-              // 좋아요 누른 게시물임?
-              let isLiked = props.post.peopleWhoLike.includes(user.uid);
-              console.log(isLiked);
-
-              // 수정 firebase 태우기
+              // 좋아요 여부
+              let isLiked = props.post.peopleWhoLike.includes(user.uid)
+              // 좋아요 누른 사람들
+              let peopleWhoLike = [...props.post.peopleWhoLike]
+              if (peopleWhoLike.includes(user.uid)) {
+                peopleWhoLike = peopleWhoLike.filter(a => a != user.uid)
+              } else {
+                peopleWhoLike.push(user.uid)
+              }
+              
               if (isLiked) {
-                peopleWhoLike = [];
+                console.log('좋아요 취소')
+              } else {
+                console.log('좋아요')
+              }
+              console.log('좋아하는 사람들', peopleWhoLike)
+
+              //=========================================================
+              // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
+              //=========================================================
+              if (isLiked) {
                 likes--;
                 editDocument({ peopleWhoLike, likes }, props.post.id)
               } else {
@@ -153,7 +157,7 @@ function Post(props) {
             <div className="Post-writer-name">
               <b>
                 {
-                  props.post.displayName.length > 0 ?
+                  props.post.displayName != null && props.post.displayName.length > 0 ?
                     props.post.displayName
                   : props.post.userEmail
                 }
@@ -165,31 +169,57 @@ function Post(props) {
           </div>
         </div>
 
+        {/* 댓글 카운트에 따라 분기처리 */}
         {
           props.post.replies !== 0 ?
           <>
-            {/* 댓글 카운트, 나중에 전체보기 버튼화 시켜야함 */}
-            <div className="Post-reply-count">{props.post.replies}</div>
+            {/* 전체보기 기능 구현 시켜야함 */}
+            {
+              props.post.replies > 2 ?
+              <div className="Post-reply-count" onClick={()=>{
+                  console.log('댓글 전체보기!')}
+                }>{props.post.replies}
+              </div>
+              : // 댓글 두개 이하면 구분선
+              <div className="Post-reply-border"></div>
+            }
 
-            {/* 댓글 2개 정도 보여주는 영역 */}
-            <div className="Post-reply-area">
-              <div className="Post-reply">
-                <span className="Post-reply-nickname">
-                  <b>{props.post.peopleWhoReply[0].displayName}</b>
-                </span>
-                <span className="Post-reply-text">
-                  {props.post.peopleWhoReply[0].replyText}
-                </span>
+            {
+              props.post.replies !== 1 ?
+              <>
+              {/* 댓글 2개 정도 보여주는 영역 */}
+              <div className="Post-reply-area">
+                <div className="Post-reply">
+                  <span className="Post-reply-nickname">
+                    <b>{props.post.peopleWhoReply[0].displayName}</b>
+                  </span>
+                  <span className="Post-reply-text">
+                    {props.post.peopleWhoReply[0].replyText}
+                  </span>
+                </div>
+                <div className="Post-reply">
+                  <span className="Post-reply-nickname">
+                    <b>{props.post.peopleWhoReply[1].displayName}</b>
+                  </span>
+                  <span className="Post-reply-text">
+                    {props.post.peopleWhoReply[1].replyText}
+                  </span>
+                </div>
               </div>
-              <div className="Post-reply">
-                <span className="Post-reply-nickname">
-                  <b>{props.post.peopleWhoReply[1].displayName}</b>
-                </span>
-                <span className="Post-reply-text">
-                  {props.post.peopleWhoReply[1].replyText}
-                </span>
-              </div>
-            </div>
+              </>
+              : <>
+                 <div className="Post-reply-area">
+                  <div className="Post-reply">
+                    <span className="Post-reply-nickname">
+                      <b>{props.post.peopleWhoReply[0].displayName}</b>
+                    </span>
+                    <span className="Post-reply-text">
+                      {props.post.peopleWhoReply[0].replyText}
+                    </span>
+                  </div>
+                 </div>
+                </>
+            }
           </>
           : null
         }
