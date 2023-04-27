@@ -12,9 +12,10 @@ function Nav(props) {
     let navigate = useNavigate() // 페이지 이동
     let dispatch = useDispatch()
 
-    // 로고 클릭, 메인페이지로 이동
+    // 로고 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
     const goMain = () => {
       navigate('/')
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     // 홈버튼 클릭, 상단으로 스크롤 이동
