@@ -1,6 +1,6 @@
 /*eslint-disable */
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/css/styles.css"; // 최종 스타일로 지정
 import { useAuthContext } from "./hooks/useAuthContext";
@@ -41,23 +41,25 @@ function App() {
 
               {/* 활동페이지 */}
               <Route path="/log" 
-                element={
+                element={user?
                   <>
                     { visible && <Input/> }
                     <Nav/>
                     <Log/>
                   </>
+                  :<Navigate replace={true} to="/" />
                 }
               />
 
               {/* 프로필페이지 */}
               <Route path="/profile" 
-                element={
+                element={user?
                   <>
                     { visible && <Input/> }
                     <Nav/>
                     <Profile/>
                   </>
+                  :<Navigate replace={true} to="/" />
                 }
               />
 
