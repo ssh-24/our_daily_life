@@ -638,22 +638,25 @@ section {
   border-radius: 50%;
 }
 
-h1 {
-  margin: 0;
-}
-
 .profile-info {
   display: flex;
   flex-direction: column;
   margin-left: 15px;
 }
 
-.profile-info h2 {
+.profile-info h3 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.profile-info h4 {
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .profile-info p {
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .profile-stats {
