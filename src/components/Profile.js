@@ -42,21 +42,22 @@ function Profile(props) {
                     </div>
                 </div>
 
-                <div className='content-list'>
-                    <div className='content-wrap'>
-                        {
-                            docReady && documents != null
-                            ? documents.map((a,i)=>{
-                                return (
-                                    <img key={i} src={a.downloadURL} alt='#' onClick={()=>{
-                                        console.log(a.postText);
-                                    }}/>
-                                )
-                            })
-                            : null
-                        }
-                    </div>
-                </div>
+    <div className='content-list'>
+        <div className='content-wrap'>
+            {
+                docReady && documents != null
+                ? documents.map((a,i)=>{
+                    return (
+                        <img key={i} src={a.downloadURL} alt='#' onClick={()=>{
+                            console.log(a.postText);
+                        }}/>
+                    )
+                })
+                : null
+            }
+        </div>
+    </div>
+
 
                 {/* <div className='content-list'>
                     <div className='content-wrap'>

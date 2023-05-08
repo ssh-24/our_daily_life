@@ -95,16 +95,20 @@ textarea {
   font-size: inherit;
   border: 0;
 }
+input::-moz-placeholder, textarea::-moz-placeholder {
+  /* Chrome, Safari, Firefox */
+  color: #c9c9c9;
+  opacity: 1;
+}
 input::placeholder,
 textarea::placeholder {
   /* Chrome, Safari, Firefox */
   color: #c9c9c9;
   opacity: 1;
 }
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  /* IE, Edge */
-  color: #c9c9c9;
+input[readonly]::-moz-placeholder, input:disabled::-moz-placeholder, textarea[readonly]::-moz-placeholder, textarea:disabled::-moz-placeholder {
+  /* Chrome, Safari, Firefox */
+  color: rgba(0, 0, 0, 0.2);
   opacity: 1;
 }
 input[readonly]::placeholder, input:disabled::placeholder,
@@ -212,7 +216,6 @@ textarea::-webkit-outer-spin-button {
 .login-area .form-container .signup-btn:focus, .login-area .form-container .signup-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
-  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -242,7 +245,6 @@ textarea::-webkit-outer-spin-button {
 .login-area .another-btn:focus, .login-area .another-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
-  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -274,7 +276,6 @@ textarea::-webkit-outer-spin-button {
   height: 2.2vh;
 }
 .refresh .logo_img:hover {
-  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
   cursor: pointer;
@@ -300,7 +301,6 @@ textarea::-webkit-outer-spin-button {
   background-color: #fff;
 }
 .user-search .search_input:hover {
-  -webkit-transform: scale(1.01);
   transform: scale(1.01);
   transition: 0.1s;
   border: 1px solid #b1b1b1;
@@ -322,10 +322,10 @@ textarea::-webkit-outer-spin-button {
   margin-right: 0.8vw;
   width: 2.5vh;
   height: 2.5vh;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .btn-list .btn-item:hover {
-  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
   cursor: pointer;
@@ -386,7 +386,8 @@ textarea::-webkit-outer-spin-button {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .Post-user-id {
@@ -400,7 +401,8 @@ textarea::-webkit-outer-spin-button {
 .Post-img img {
   display: block;
   width: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .Post-icon-btn-area {
@@ -507,13 +509,13 @@ textarea::-webkit-outer-spin-button {
   height: 2.5vh;
   top: 10vh;
   right: 5vw;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .close-btn:hover, .close-btn:focus {
   border: 1px solid #fff;
   border-radius: 5px;
   background-color: #000;
-  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
   cursor: pointer;
@@ -570,7 +572,6 @@ textarea::-webkit-outer-spin-button {
 .input-area .form-container .post-btn:focus, .input-area .form-container .post-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
-  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -682,6 +683,8 @@ section {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-left: 40px;
 }
 .content-wrap:nth-child(n+2) {
   margin-top: 7px;
@@ -690,7 +693,6 @@ section {
 .content-wrap img {
   width: 230px;
   height: 230px;
-}
-.content-wrap img:nth-child(2) {
-  margin-inline: 7px;
+  margin-left: 7px;
+  margin-top: 10px;
 }/*# sourceMappingURL=styles.css.map */
