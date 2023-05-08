@@ -60,7 +60,8 @@ section{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-
+    flex-wrap: wrap;
+    margin-left: 40px;
     &:nth-child(n+2){
         margin-top: 7px;  
     }
@@ -68,8 +69,10 @@ section{
 .content-wrap img{
     width: 230px;
     height: 230px;
+    margin-left: 7px;
+    margin-top: 10px;
 
-    &:nth-child(2){
-        margin-inline: 7px;  
-    }
+    // &:nth-child(n+2){
+    //     margin-inline: 7px;  
+    // }
 }
