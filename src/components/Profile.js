@@ -28,7 +28,11 @@ function Profile(props) {
             <section>
                 <div className="container">
                     <div className='container-wrap'>
-                        <img className="profile-img" src='/assets/profile_default.png' alt="프로필 사진"/>
+                        {
+                            docReady && documents != null
+                            ? <img className="profile-img" src={documents[0].profileImage} alt="프로필 사진"/>
+                            : <img className="profile-img" src='/assets/profile_default.png' alt="프로필 사진"/>
+                        }
                         <div className="profile-info">
                             <h3>{user.email}</h3>
                             <h4>@{user.displayName}</h4>
@@ -42,21 +46,21 @@ function Profile(props) {
                     </div>
                 </div>
 
-    <div className='content-list'>
-        <div className='content-wrap'>
-            {
-                docReady && documents != null
-                ? documents.map((a,i)=>{
-                    return (
-                        <img key={i} src={a.downloadURL} alt='#' onClick={()=>{
-                            console.log(a.postText);
-                        }}/>
-                    )
-                })
-                : null
-            }
-        </div>
-    </div>
+                <div className='content-list'>
+                    <div className='content-wrap'>
+                        {
+                            docReady && documents != null
+                            ? documents.map((a,i)=>{
+                                return (
+                                    <img key={i} src={a.downloadURL} alt='#' onClick={()=>{
+                                        console.log(a.postText);
+                                    }}/>
+                                )
+                            })
+                            : null
+                        }
+                    </div>
+                </div>
 
 
                 {/* <div className='content-list'>
