@@ -1,5 +1,5 @@
 /*eslint-disable */
-import {useEffect, useState} from "react";
+import {useEffect, useState,useRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { setUserEmail, setUID, setPostText, setVisible, setDisplayName } from "../store/inputSlice";
@@ -12,6 +12,26 @@ function Input(){
     let dispatch = useDispatch()
     let [showImg, setShowImg] = useState('')
     let [saveImg, setSaveImg] = useState('')
+    const targetRef = useRef("")
+    
+    const handleScroll = () => {
+        console.log("scrolling");
+        
+        if (window.scrollY > 0) {
+            // targetRef.current.style.overflow = "hidden";     
+            document.body.style.overflow = "hidden"; 
+        }
+    };
+
+    useEffect(() => {    
+        const timer = setInterval(() => {
+        window.addEventListener("scroll", handleScroll);
+        }, 100);
+        return () => {
+        clearInterval(timer);
+        window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
     
     /**************************************************************
      * 글 저장
@@ -92,7 +112,7 @@ function Input(){
             {/* 뒤에 요소들 덮어서 모달만 보이게 */}
             <div className="dimmed-layer"/>
 
-            <div className="input-area">
+            <div ref={targetRef} className="input-area">
                 <div className="form-container">
                     <form onSubmit={onSubmit}>
                         <h3>새 게시물 만들기</h3>

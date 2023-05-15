@@ -76,3 +76,15 @@ section{
     //     margin-inline: 7px;  
     // }
 }
+@media (max-width: 425px){
+    .container-wrap{
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-img{
+        margin-bottom: 30px;
+    }
+    section{
+        width: unset;
+    }
+}

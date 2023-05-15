@@ -695,4 +695,17 @@ section {
   height: 230px;
   margin-left: 7px;
   margin-top: 10px;
+}
+
+@media (max-width: 425px) {
+  .container-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-img {
+    margin-bottom: 30px;
+  }
+  section {
+    width: unset;
+  }
 }/*# sourceMappingURL=styles.css.map */
