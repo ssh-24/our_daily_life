@@ -6,33 +6,50 @@ import { setUserEmail, setUID, setPostText, setVisible, setDisplayName } from ".
 import { useFirestore } from "../hooks/useFirestore";
 
 function Input(){
-    
-    const inputState = useSelector((state) => state.inputState)
     const { isAuthReady, user } = useAuthContext();
+    const inputState = useSelector((state) => state.inputState)
+    const visible = useSelector((state) => state.inputState.visible); // input 모달 여부
     let dispatch = useDispatch()
-    let [showImg, setShowImg] = useState('')
-    let [saveImg, setSaveImg] = useState('')
+    let [showImg, setShowImg] = useState('') // 미리보기 이미지
+    let [saveImg, setSaveImg] = useState('') // 실물저장 이미지
     const targetRef = useRef("")
-    
-    const handleScroll = () => {
-        console.log("scrolling");
-        
-        if (window.scrollY > 0) {
-            // targetRef.current.style.overflow = "hidden";     
-            document.body.style.overflow = "hidden"; 
-        }
-    };
 
-    useEffect(() => {    
-        const timer = setInterval(() => {
-        window.addEventListener("scroll", handleScroll);
-        }, 100);
+    // 글 등록 모달 on --> 스크롤 X
+    // 이전 작성 정보 --> 글, 미리보기 이미지 초기화
+    useEffect(()=>{
+        document.body.style.overflow = visible? 'hidden' : '';
+        dispatch(setPostText(''))
+        setShowImg('')
+    },[visible])
+
+    useEffect(()=>{
+        // mount, 초기로딩 완료 --> 작성자 정보 미리 셋팅
+        console.log(user)
+        dispatch(setUserEmail(user.email))
+        dispatch(setUID(user.uid))
+        dispatch(setDisplayName(user.displayName))
+        
+        // unmount 시 초기화
         return () => {
-        clearInterval(timer);
-        window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+            dispatch(setVisible(false))
+            dispatch(setPostText(''))
+            dispatch(setUserEmail(''))
+            dispatch(setUID(''))
+        }
+    },[])
     
+    window.onkeydown = (e) => {
+        if(e.key === 'Escape') {
+            console.log('딸')
+        }
+    }
+    window.onkeyup = (e) => { 
+        if(e.key === 'Escape') {
+            console.log('깍')
+            dispatch(setVisible(false))
+        }
+    }
+
     /**************************************************************
      * 글 저장
      **************************************************************/
@@ -53,40 +70,21 @@ function Input(){
         }
     }
 
-
     // 이미지 value 값 넣기
     // 이미지 미리보기
     const setPreviewImg = (e) => {
-
         let reader = new FileReader();
 
         reader.onload = function(e) {
+            // 미리보기에 보여줄 state 변경
             setShowImg(e.target.result);
         };
 
-        reader.readAsDataURL(e.target.files[0]);
-        setSaveImg(e.target.files[0]);
         console.log(e.target.files[0]);
 
+        reader.readAsDataURL(e.target.files[0]);
+        setSaveImg(e.target.files[0]);
     }
-
-
-    useEffect(()=>{
-        // mount
-        console.log(user);   
-        dispatch(setUserEmail(user.email))
-        dispatch(setUID(user.uid))
-        dispatch(setDisplayName(user.displayName))
-        
-        // unmount 시 초기화
-        return () => {
-            dispatch(setVisible(false))
-            dispatch(setPostText(''))
-            dispatch(setUserEmail(''))
-            dispatch(setUID(''))
-        }
-    },[])
-
 
     // 폼이 제출되면 실행 [게시물 등록]
     const onSubmit = (e) => {
@@ -96,46 +94,53 @@ function Input(){
         savedData.likes = 0
         savedData.replies = 0
         // 프로필 이미지도 등록해야되는데...
-        savedData.profileImage = '/assets/profile_default.png' // 기본 프로필 이미지로 들어가도록
+        // 저장 시 회원의 프로필 사진 정보를 가져와서 넣어줘야 할 듯
+        savedData.profileImage = '/assets/profile_default.png' // (임시)기본 프로필 이미지로 들어가도록
         savedData.peopleWhoLike = []
         savedData.peopleWhoReply = []
 
         console.log("게시할 Data :",savedData);
 
         // [FireBase 저장 로직]
-        addDocument( savedData ,saveImg) //저장
+        addDocument( savedData ,saveImg) // 저장
         dispatch(setVisible(false))
     }
 
     return(
         <>
-            {/* 뒤에 요소들 덮어서 모달만 보이게 */}
-            <div className="dimmed-layer"/>
+            {
+                visible?
+                <>
+                    {/* 뒤에 요소들 덮어서 모달만 보이게 */}
+                    <div className="dimmed-layer"/>
 
-            <div ref={targetRef} className="input-area">
-                <div className="form-container">
-                    <form onSubmit={onSubmit}>
-                        <h3>새 게시물 만들기</h3>
-                        <div className="form-group">
-                            <input accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime" className="img-input" multiple="" type="file" onChange={onChange} required/>
-                        </div>
+                    <div ref={targetRef} className="input-area">
+                        <div className="form-container">
+                            <form onSubmit={onSubmit}>
+                                <h3>새 게시물 만들기</h3>
+                                <div className="form-group">
+                                    <input accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime" className="img-input" multiple="" type="file" onChange={onChange} required/>
+                                </div>
 
-                        {/* 이미지 미리보기 */}
-                        { showImg.length > 0 && <img src={showImg ?? showImg} alt="" style={{marginBottom : '13px',width : '80%', maxHeight:'200px'}}/>}
-                        
-                        <div className="form-group">
-                            <input type="text" value={inputState.postText} onChange={onChange} className="form-control" name="postText" placeholder="문구 입력" required/>
+                                {/* 이미지 미리보기 */}
+                                { showImg.length > 0 && <img src={showImg ?? showImg} alt="" style={{marginBottom : '13px',width : '80%', maxHeight:'200px'}}/>}
+                                
+                                <div className="form-group">
+                                    <input type="text" value={inputState.postText} onChange={onChange} className="form-control" name="postText" placeholder="문구 입력" required/>
+                                </div>
+                                <input type="submit" className="post-btn" value="공유하기"/>
+                                <div className="close-btn">
+                                    <CloseBtn onClick={(e)=>{
+                                        e.preventDefault()
+                                        dispatch(setVisible(false))
+                                    }}/>
+                                </div>
+                            </form>
                         </div>
-                        <input type="submit" className="post-btn" value="공유하기"/>
-                        <div className="close-btn">
-                            <CloseBtn onClick={(e)=>{
-                                e.preventDefault()
-                                dispatch(setVisible(false))
-                            }}/>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+                </>
+                : null
+            }
         </>
     )
 }
