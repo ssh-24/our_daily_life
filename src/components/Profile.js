@@ -2,13 +2,20 @@
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useCollectionDtl } from '../hooks/useCollectionDtl';
-// import basicImg from '/assets/profile_default.png';
+import { setVisible } from "../store/inputSlice";
+import { useDispatch } from "react-redux";
 
 function Profile(props) {
     const {user} = useAuthContext()
     const {documents,error} = useCollectionDtl("FeedData",["UID","==",user.uid])
     const [docReady, setDocReady] = useState(false)
+    let dispatch = useDispatch()
     
+    // 게시물 등록
+    const uploadClicked = () => {
+        dispatch(setVisible(true)) // 새 게시물 등록 모달 보이게
+    }
+
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(false)
@@ -29,7 +36,7 @@ function Profile(props) {
                 <div className="container">
                     <div className='container-wrap'>
                         {
-                            docReady && documents != null
+                            docReady && documents != null && documents.length !== 0
                             ? <img className="profile-img" src={documents[0].profileImage} alt="프로필 사진"/>
                             : <img className="profile-img" src='/assets/profile_default.png' alt="프로필 사진"/>
                         }
@@ -49,7 +56,7 @@ function Profile(props) {
                 <div className='content-list'>
                     <div className='content-wrap'>
                         {
-                            docReady && documents != null
+                            docReady && documents != null && documents.length !== 0
                             ? documents.map((a,i)=>{
                                 return (
                                     <img key={i} src={a.downloadURL} alt='#' onClick={()=>{
@@ -57,24 +64,15 @@ function Profile(props) {
                                     }}/>
                                 )
                             })
-                            : null
+                            : <div className="no-post">
+                                <p>작성된 게시물이 없어요!</p>
+                                <button className="upload-btn-profile" onClick={uploadClicked}>
+                                    게시물 작성하기
+                                </button>
+                              </div>
                         }
                     </div>
                 </div>
-
-
-                {/* <div className='content-list'>
-                    <div className='content-wrap'>
-                        <img src='/assets/post_camera.jpg' alt='#'/>
-                        <img src='/assets/post_cat.jpg' alt='#'/>
-                        <img src='/assets/post_dog.jpg' alt='#'/>
-                    </div>
-                    <div className='content-wrap'>
-                        <img src='/assets/post_camera.jpg' alt='#'/>
-                        <img src='/assets/post_cat.jpg' alt='#'/>
-                        <img src='/assets/post_dog.jpg' alt='#'/>
-                    </div>
-                </div> */}
 
             </section>
         </>
