@@ -660,6 +660,7 @@ section {
 .profile-info {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
   margin-left: 15px;
   /* 이쁜 글씨 */
   font-family: "HSSaemaul-Regular";
