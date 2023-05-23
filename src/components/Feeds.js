@@ -1,12 +1,14 @@
 /*eslint-disable */
 import React, { useEffect } from "react";
 import Post from "./Post";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useCollection } from '../hooks/useCollection';
+import { setUserList } from "../store/searchSlice";
 
 function Feeds() {
     const postList = useSelector((state) => state.feeds); // 로컬 샘플 데이터
     const {documents,error} = useCollection("FeedData"); // 서버 리얼 데이터
+    let dispatch = useDispatch()
 
     useEffect(()=>{
         console.log('Mock Data',postList)
@@ -14,6 +16,22 @@ function Feeds() {
 
     useEffect(()=>{
         console.log('Server Data',documents)
+        // 전체 글의 사용자 정보(UID , displayName)를 받아서 redux store에 넣기
+        let users = [] // 전체 유저
+        // 있을 때만 돌립시다?
+        documents?.map((a,i)=>{
+            users.push({UID : a.UID, Name : a.displayName})
+        });
+        let uniqUsers = [] // 중복 X 유저
+        // 중복 제거
+        uniqUsers = users.reduce((acc, cur)=>{
+            if (acc.findIndex(({ UID }) => UID === cur.UID) === -1) {
+                acc.push(cur)
+            }
+            return acc;
+        }, []);
+        console.log("유저 목록쓰", uniqUsers)
+        dispatch(setUserList(uniqUsers))
     }, [documents])
 
     return (
