@@ -2,6 +2,13 @@
     margin: 6vh auto 0vh;
     padding: 10px;
     background-color: #FAFAFA;
+
+    .menu-header {
+        text-align: center;
+        /* 이쁜 글씨 */
+        font-family: 'HSSaemaul-Regular';
+        font-size: x-large;
+    }
 }
 
 .no-like {
@@ -13,7 +20,7 @@
     p {
         /* 이쁜 글씨 */
         font-family: 'HSSaemaul-Regular';
-        font-size: larger;
+        font-size: x-large;
     }
 
     .lookaround-btn {

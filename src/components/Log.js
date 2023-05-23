@@ -38,6 +38,12 @@ function Log(props) {
             <div className="liked-feeds">
                 {
                     docReady && documents != null && documents.length !== 0
+                    ? <h2 className='menu-header'>좋아해요!</h2>
+                    : null
+                }
+
+                {
+                    docReady && documents != null && documents.length !== 0
                     ? documents.map((a,i) => {
                         let post = {...a}
                         return (<Post key={i} post={post}/>) 
