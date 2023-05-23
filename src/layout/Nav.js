@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Logo from "../assets/images/logo.png";
 import {useLogout} from '../hooks/useLogout';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setVisible } from "../store/inputSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -11,12 +11,12 @@ function Nav(props) {
     const {logout} = useLogout()
     let navigate = useNavigate() // 페이지 이동
     let dispatch = useDispatch()
-
+    const userList = useSelector((state) => state.userList); // 검색 자동완성에 쓰일 redux store data
 
     // 로고, 홈 버튼 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
     const goMain = () => {
       navigate('/')
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollTop()
     }
 
     // 상단으로 스크롤 이동
@@ -37,14 +37,14 @@ function Nav(props) {
     // 로그버튼 클릭
     const logClicked = () => {
       navigate('/log')
+      scrollTop()
     }
     
     // 프로필버튼 클릭
     const profileClicked = () => {
       navigate('/profile')
+      scrollTop()
     }
-
-
 
 
     return (
