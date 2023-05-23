@@ -1,5 +1,5 @@
 /*eslint-disable */
-import {useEffect, useState,useRef} from "react";
+import { useEffect, useState, useRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { setUserEmail, setUID, setPostText, setVisible, setDisplayName } from "../store/inputSlice";
@@ -12,6 +12,7 @@ function Input(){
     let dispatch = useDispatch()
     let [showImg, setShowImg] = useState('') // 미리보기 이미지
     let [saveImg, setSaveImg] = useState('') // 실물저장 이미지
+    let [fade, setFade] = useState('') // Animation Style State
     const targetRef = useRef("")
 
     // 글 등록 모달 on --> 스크롤 X
@@ -20,6 +21,7 @@ function Input(){
         document.body.style.overflow = visible? 'hidden' : '';
         dispatch(setPostText(''))
         setShowImg('')
+        setFade(visible? 'transition-end': '') // 애니메이션 효과
     },[visible])
 
     useEffect(()=>{
@@ -28,7 +30,7 @@ function Input(){
         dispatch(setUserEmail(user.email))
         dispatch(setUID(user.uid))
         dispatch(setDisplayName(user.displayName))
-        
+
         // unmount 시 초기화
         return () => {
             dispatch(setVisible(false))
@@ -112,9 +114,9 @@ function Input(){
                 visible?
                 <>
                     {/* 뒤에 요소들 덮어서 모달만 보이게 */}
-                    <div className="dimmed-layer"/>
+                    <div className={`dimmed-layer ${fade}`}/>
 
-                    <div ref={targetRef} className="input-area">
+                    <div ref={targetRef} className={`input-area transition-start ${fade}`}>
                         <div className="form-container">
                             <form onSubmit={onSubmit}>
                                 <h3>새 게시물 만들기</h3>

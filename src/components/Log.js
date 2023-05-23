@@ -11,6 +11,7 @@ function Log(props) {
     let navigate = useNavigate() // 페이지 이동
     const {documents,error} = useCollectionDtl("FeedData", ["peopleWhoLike","array-contains",user.uid] );
     const [docReady, setDocReady] = useState(false)
+    let [fade, setFade] = useState('') // Animation Style State
 
     // 메인페이지로 이동 + 상단으로 스크롤 이동
     const goMain = () => {
@@ -33,9 +34,13 @@ function Log(props) {
         console.log("좋아하는 글 :",documents)
     },[documents])
 
+    useEffect(()=>{
+        setFade(docReady? 'transition-end': '') // 애니메이션 효과
+    },[docReady])
+
     return (
         <>
-            <div className="liked-feeds">
+            <div className={`liked-feeds transition-start ${fade}`}>
                 {
                     docReady && documents != null && documents.length !== 0
                     ? <h2 className='menu-header'>좋아해요!</h2>

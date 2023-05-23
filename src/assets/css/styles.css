@@ -158,6 +158,15 @@ textarea::-webkit-outer-spin-button {
   display: none;
 }
 
+.transition-start {
+  opacity: 0;
+}
+
+.transition-end {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
 @font-face {
   font-family: "HSSaemaul-Regular";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff") format("woff");
@@ -695,7 +704,7 @@ section {
   font-family: "HSSaemaul-Regular";
   font-size: large;
 }
-.profile-info button:focus, .profile-info button:hover {
+.profile-info button:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
   transform: scale(1.02);

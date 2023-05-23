@@ -23,3 +23,13 @@
         display: none; // Chrome 스크롤바 감추기
     }
 }
+
+// 화면 전환 부드럽게
+.transition-start {
+    opacity: 0;
+}
+  
+.transition-end {
+    opacity: 1;
+    transition: opacity 0.5s;
+}

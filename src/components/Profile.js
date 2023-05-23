@@ -9,8 +9,16 @@ function Profile(props) {
     const {user} = useAuthContext()
     const {documents,error} = useCollectionDtl("FeedData",["UID","==",user.uid])
     const [docReady, setDocReady] = useState(false)
+    let [fade, setFade] = useState('') // Animation Style State
     let dispatch = useDispatch()
     
+    // 프로필 사진 변경
+    const profileChange = () => {
+        // 로직 구현해야 함..
+        window.blur()
+        alert("기능 구현 중 ^.^")
+    }
+
     // 게시물 등록
     const uploadClicked = () => {
         dispatch(setVisible(true)) // 새 게시물 등록 모달 보이게
@@ -30,10 +38,15 @@ function Profile(props) {
         console.log("내가 쓴글 :",documents)
     },[documents])
 
+    useEffect(()=>{
+        setFade(docReady? 'transition-end': '') // 애니메이션 효과
+    },[docReady])
+
+
     return (
         <>
             <section>
-                <div className="container">
+                <div className={`container transition-start ${fade}`}>
                     <div className='container-wrap'>
                         {
                             docReady && documents != null && documents.length !== 0
@@ -47,12 +60,15 @@ function Profile(props) {
                                 안녕하세요! 저의 프로필 페이지를 방문해주셔서 감사합니다
                                 {/* 소개글 내용이 짧을 때 줄어드는 거 막아야 할 듯*/}
                             </p>
-                            <button>프로필 변경</button>
+                            <button onClick={(e)=>{
+                                e.preventDefault()
+                                profileChange()
+                            }}>프로필 변경</button>
                         </div>
                     </div>
                 </div>
 
-                <div className='content-list'>
+                <div className={`content-list transition-start ${fade}`}>
                     <div className='content-wrap'>
                         {
                             docReady && documents != null && documents.length !== 0

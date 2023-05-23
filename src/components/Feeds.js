@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import { useSelector, useDispatch } from "react-redux";
 import { useCollection } from '../hooks/useCollection';
@@ -8,6 +8,7 @@ import { setUserList } from "../store/searchSlice";
 function Feeds() {
     const postList = useSelector((state) => state.feeds); // 로컬 샘플 데이터
     const {documents,error} = useCollection("FeedData"); // 서버 리얼 데이터
+    let [fade, setFade] = useState('') // Animation Style State
     let dispatch = useDispatch()
 
     useEffect(()=>{
@@ -16,6 +17,8 @@ function Feeds() {
 
     useEffect(()=>{
         console.log('Server Data',documents)
+        setFade(documents!= null && documents.length > 0? 'transition-end': '') // 애니메이션 효과
+
         // 전체 글의 사용자 정보(UID , displayName)를 받아서 redux store에 넣기
         let users = [] // 전체 유저
         // 있을 때만 돌립시다?
@@ -36,7 +39,7 @@ function Feeds() {
 
     return (
         <>
-            <div className="all-feeds">
+            <div className={`all-feeds transition-start ${fade}`}>
                 {/* 리얼 데이터 출력 */}
                 {
                     documents ? 

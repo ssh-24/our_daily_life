@@ -1,11 +1,22 @@
 /*eslint-disable */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const { isAuthReady, user } = useAuthContext();
+  let [fade, setFade] = useState('') // Animation Style State
+
+  useEffect(()=>{
+    // Automatic batching 때문에 타이머 준다
+    let timer = setTimeout(() => {setFade('transition-end')}, 100)
+    // cleanUp Func
+    return () => {
+      clearTimeout(timer)
+      setFade('')
+    }
+  },[])
 
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
   const getLikeStatus = (likeYN) => {
@@ -41,7 +52,7 @@ function Post(props) {
   }
 
   return (
-    <article className="Post">
+    <article className={`Post transition-start ${fade}`}>
       <div className="Post-area">
 
         {/* 프로필 영역 */}

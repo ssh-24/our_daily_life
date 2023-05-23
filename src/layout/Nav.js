@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/images/logo.png";
 import {useLogout} from '../hooks/useLogout';
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,12 @@ function Nav(props) {
     let navigate = useNavigate() // 페이지 이동
     let dispatch = useDispatch()
     const userList = useSelector((state) => state.userList); // 검색 자동완성에 쓰일 redux store data
+    let [fade, setFade] = useState('') // Animation Style State
+
+    // 스크롤 이벤트, 스크롤이 내려갔을 경우에만 상단으로 이동버튼 보이도록
+    window.addEventListener('scroll', () => {
+      setFade(window.scrollY > 0 ? 'transition-end': '') // 애니메이션 효과
+    });
 
     // 로고, 홈 버튼 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
     const goMain = () => {
@@ -102,7 +108,7 @@ function Nav(props) {
             </div>
         </nav>
       
-        <div className="go-top-btn">
+        <div className={`go-top-btn transition-start ${fade}`}>
           <UpBtn onClick={(e)=>{
               e.preventDefault()
               scrollTop()}}/>
