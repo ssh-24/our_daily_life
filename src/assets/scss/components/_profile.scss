@@ -26,18 +26,42 @@ section{
     display: flex;
     flex-direction: column;
     margin-left: 15px;
+    /* 이쁜 글씨 */
+    font-family: 'HSSaemaul-Regular';
 }
 .profile-info h3 {
     margin: 0;
     margin-bottom: 10px;
+    font-size: xx-large;
 }
 .profile-info h4 {
     margin-top: 0;
     margin-bottom: 10px;
+    font-size: x-large;
 }
 .profile-info p {
     margin-bottom: 10px;
     width: 100%;
+}
+.profile-info button {
+    width: 50%;
+    margin-top: 6px;
+    padding: 8px 24px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    /* 이쁜 글씨 */
+    font-family: 'HSSaemaul-Regular';
+    font-size: large;
+
+    &:focus,&:hover {
+        background-color: rgb(83, 83, 83);
+        color: #fff;
+        -webkit-transform: scale(1.02);
+        transform: scale(1.02);
+        transition: 0.1s;
+    }
 }
 .profile-stats {
     display: flex;
