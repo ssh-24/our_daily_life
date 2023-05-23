@@ -92,6 +92,28 @@
     }
 }
 
+// 위로 가기 버튼
+.go-top-btn {
+    position: fixed;
+    bottom: 3vh;
+    left: 6vw;
+    background-color: #000000;
+    border-radius: 5px;
+    z-index: 100;
+
+    &:hover {
+        -webkit-transform: scale(1.02);
+        transform: scale(1.02);
+        transition: 0.1s;
+        cursor: pointer;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
 @media (max-width: 540px){
     /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
     .refresh{

@@ -13,14 +13,14 @@ function Nav(props) {
     let dispatch = useDispatch()
 
 
-    // 로고 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
+    // 로고, 홈 버튼 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
     const goMain = () => {
       navigate('/')
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // 홈버튼 클릭, 상단으로 스크롤 이동
-    const homeClicked = () => {
+    // 상단으로 스크롤 이동
+    const scrollTop = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -48,58 +48,66 @@ function Nav(props) {
 
 
     return (
-      <nav className="nav-area">
-          <div className="navigation">
-              <div className="refresh">
-                  <a href="/renew" tabIndex="0" onClick={(e)=>{
-                      e.preventDefault();
-                      goMain();
-                  }}>
-                      <div className="logo_div">
-                          <img alt="Our Daily Life" className="logo_img" src={Logo}/>
-                      </div>
-                  </a>
-              </div>
+      <>
+        <nav className="nav-area">
+            <div className="navigation">
+                <div className="refresh">
+                    <a href="/renew" tabIndex="0" onClick={(e)=>{
+                        e.preventDefault();
+                        goMain();
+                    }}>
+                        <div className="logo_div">
+                            <img alt="Our Daily Life" className="logo_img" src={Logo}/>
+                        </div>
+                    </a>
+                </div>
 
-              <div className="user-search">
-                  <SearchBtn className="search-btn"/>
-                  <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
-                      onChange={(e)=> {
-                          // 관련 리스트 호출?
-                          searchRequest(e.target.value);
-                  }}/>
-              </div>
-          
-              <div className="btn-list">
-                  <div className="btn-item">
-                      <HomeBtn onClick={(e)=>{
-                          e.preventDefault()
-                          homeClicked()}}/>
-                  </div>
-                  <div className="btn-item">
-                      <AddBtn onClick={(e)=>{
-                          e.preventDefault()
-                          uploadClicked()}}/>
-                  </div>
+                <div className="user-search">
+                    <SearchBtn className="search-btn"/>
+                    <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
+                        onChange={(e)=> {
+                            // 관련 리스트 호출?
+                            searchRequest(e.target.value);
+                    }}/>
+                </div>
+            
+                <div className="btn-list">
+                    <div className="btn-item">
+                        <HomeBtn onClick={(e)=>{
+                            e.preventDefault()
+                            goMain()}}/>
+                    </div>
+                    <div className="btn-item">
+                        <AddBtn onClick={(e)=>{
+                            e.preventDefault()
+                            uploadClicked()}}/>
+                    </div>
 
-                  <div className="btn-item">
-                      <LikeBtn onClick={(e)=>{
-                          e.preventDefault()
-                          logClicked()}}/>
-                  </div>
+                    <div className="btn-item">
+                        <LikeBtn onClick={(e)=>{
+                            e.preventDefault()
+                            logClicked()}}/>
+                    </div>
 
-                  <div className="btn-item">
-                      <ProfileBtn onClick={(e)=>{
-                          e.preventDefault()
-                          profileClicked()}}/>
-                  </div>
+                    <div className="btn-item">
+                        <ProfileBtn onClick={(e)=>{
+                            e.preventDefault()
+                            profileClicked()}}/>
+                    </div>
 
-                  <div className="btn-item">
-                      <LogoutBtn onClick={logout}/>
-                  </div>
-              </div>
-          </div>
-      </nav>
+                    <div className="btn-item">
+                        <LogoutBtn onClick={logout}/>
+                    </div>
+                </div>
+            </div>
+        </nav>
+      
+        <div className="go-top-btn">
+          <UpBtn onClick={(e)=>{
+              e.preventDefault()
+              scrollTop()}}/>
+        </div>
+      </>
     );
 }
 
@@ -233,6 +241,24 @@ const LogoutBtn = (props) => (
   </svg>
 );
 
+const UpBtn = (props) => (
+<svg
+    width="36px"
+    height="36px"
+    viewBox="0 0 48 48"
+    fill="#ffffff"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M13 30L25 18L37 30"
+      stroke="#000000"
+      strokeWidth={1}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const LikeBtnColor = (props) => (
     <svg
