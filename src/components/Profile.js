@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useCollectionDtl } from '../hooks/useCollectionDtl';
 import { setVisible } from "../store/inputSlice";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 function Profile(props) {
     const {user} = useAuthContext()
     const {documents,error} = useCollectionDtl("FeedData",["UID","==",user.uid])
     const [docReady, setDocReady] = useState(false)
+    const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보
     let [fade, setFade] = useState('') // Animation Style State
     let dispatch = useDispatch()
     
@@ -35,7 +36,7 @@ function Profile(props) {
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(true)
-        console.log("내가 쓴글 :",documents)
+        console.log("내 글 :",documents)
     },[documents])
 
     useEffect(()=>{
@@ -48,16 +49,12 @@ function Profile(props) {
             <section>
                 <div className={`container transition-start ${fade}`}>
                     <div className='container-wrap'>
-                        {
-                            docReady && documents != null && documents.length !== 0
-                            ? <img className="profile-img" src={documents[0].profileImage} alt="프로필 사진"/>
-                            : <img className="profile-img" src='/assets/profile_default.png' alt="프로필 사진"/>
-                        }
+                        <img className="profile-img" src={loginUserInfo.profileImage} alt="프로필 사진"/>
                         <div className="profile-info">
                             <h3>{user.email}</h3>
                             <h4>@{user.displayName}</h4>
                             <p>
-                                안녕하세요! 저의 프로필 페이지를 방문해주셔서 감사합니다
+                                {loginUserInfo.profileIntro}
                                 {/* 소개글 내용이 짧을 때 줄어드는 거 막아야 할 듯*/}
                             </p>
                             <button onClick={(e)=>{
@@ -75,7 +72,8 @@ function Profile(props) {
                             ? documents.map((a,i)=>{
                                 return (
                                     <img key={i} src={a.downloadURL} alt='#' onClick={()=>{
-                                        console.log(a.postText);
+                                        // 상세 화면으로 이동하도록 기능 구현해야 함!
+                                        console.log(a);
                                     }}/>
                                 )
                             })
