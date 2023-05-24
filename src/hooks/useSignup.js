@@ -51,10 +51,11 @@ export const useSignup = () => {
                 console.log(err.message);
             }).finally(()=>{
                 let UID = user.uid;
-                let postILiked = [];
+                let profileIntro = '안녕하세요! 저의 프로필 페이지를 방문해주셔서 감사합니다'; // 기본 프로필 소개 글 추가
+                let profileImage = '/assets/profile_default.png'; // 최초가입 시 디폴트 이미지 추가
 
                 // 유저 최초 저장 시 컬렉션 생성
-                addUser({email, password, UID, postILiked});
+                addUser({email, password, UID, profileIntro, profileImage});
             })
 
         })
