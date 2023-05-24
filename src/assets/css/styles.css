@@ -422,6 +422,9 @@ textarea::-webkit-outer-spin-button {
   font-weight: bold;
 }
 
+.Post-img:hover {
+  cursor: pointer;
+}
 .Post-img .Post-img-bg {
   background-color: #efefef;
 }

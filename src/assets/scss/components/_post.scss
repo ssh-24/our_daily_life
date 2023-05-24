@@ -35,6 +35,9 @@
 }
 
 .Post-img {
+  &:hover {
+    cursor: pointer;
+  }
   .Post-img-bg {
     background-color: #efefef;
   }
