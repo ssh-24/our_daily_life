@@ -20,6 +20,11 @@ function Post(props) {
     }
   },[])
 
+  // 게시물 상세화면 이동 *구현중*
+  const goDetail = (props) => {
+    console.log("이놈",props);
+  }
+
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
   const getLikeStatus = (likeYN) => {
     if (likeYN) {
@@ -62,17 +67,12 @@ function Post(props) {
           <div className="Post-user-profileImage">
             <img src={props.post.profileImage} alt="프로필사진"/>
           </div>
-          <span className="Post-user-id">
-            {
-              props.post.displayName != null && props.post.displayName.length > 0 ?
-              props.post.displayName
-              : props.post.userEmail
-            }
-          </span>
+          <span className="Post-user-id">{props.post.displayName}</span>
         </div>
 
         {/* 이미지 영역 */}
-        <div className="Post-img">
+        {/* 클릭 시 상세 페이지로 이동 */}
+        <div className="Post-img" onClick={()=>{goDetail(props.post)}}>
           <div className="Post-img-bg">
             <img src={props.post.downloadURL} alt="게시물사진"/>
           </div>
@@ -168,13 +168,7 @@ function Post(props) {
         <div className="Post-text-area">
           <div className="Post-text">
             <div className="Post-writer-name">
-              <b>
-                {
-                  props.post.displayName != null && props.post.displayName.length > 0 ?
-                    props.post.displayName
-                  : props.post.userEmail
-                }
-              </b>
+              <b>{props.post.displayName}</b>
             </div>
             <div className="Post-text-postText">
               {props.post.postText}
