@@ -2,13 +2,17 @@
 import { useEffect, useState, useRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useCollectionDtl } from '../hooks/useCollectionDtl';
 import { setUserEmail, setUID, setPostText, setVisible, setDisplayName } from "../store/inputSlice";
 import { useFirestore } from "../hooks/useFirestore";
+import { setLoginUserInfo } from "../store/loginUserSlice";
 
 function Input(){
     const { isAuthReady, user } = useAuthContext();
+    const {documents,error} = useCollectionDtl("UserData",["UID","==",user.uid]) // firebase에 저장된 UserData 컬렉션에서 가져온다!
     const inputState = useSelector((state) => state.inputState)
-    const visible = useSelector((state) => state.inputState.visible); // input 모달 여부
+    const visible = useSelector((state) => state.inputState.visible) // input 모달 여부
+    const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보
     let dispatch = useDispatch()
     let [showImg, setShowImg] = useState('') // 미리보기 이미지
     let [saveImg, setSaveImg] = useState('') // 실물저장 이미지
@@ -39,6 +43,17 @@ function Input(){
             dispatch(setUID(''))
         }
     },[])
+
+    // 로그인 사용자 정보 받아와서, Redux State에도 저장한다
+    useEffect(()=>{
+        console.log("|현재 사용자 정보(firebase)|",documents)
+        if (documents != null && documents.length !== 0) {
+            let obj = documents[0]
+            delete obj.createdTime // createdTime이 객체 형태라서 non-serializable value 에러가 나서 지워줬다
+            dispatch(setLoginUserInfo(obj))
+            console.log("redux state에도 저장", loginUserInfo)
+        }
+    },[documents])
     
     window.onkeydown = (e) => {
         if(e.key === 'Escape') {
@@ -93,15 +108,14 @@ function Input(){
         e.preventDefault(); // submit시 페이지 reload 방지
         let savedData = {...inputState}
         // 저장 시 없는 데이터 추가로 넣어주기
-        savedData.likes = 0
-        savedData.replies = 0
-        // 프로필 이미지도 등록해야되는데...
-        // 저장 시 회원의 프로필 사진 정보를 가져와서 넣어줘야 할 듯
-        savedData.profileImage = '/assets/profile_default.png' // (임시)기본 프로필 이미지로 들어가도록
         savedData.peopleWhoLike = []
+        savedData.likes = 0
         savedData.peopleWhoReply = []
+        savedData.replies = 0
+        // 회원의 프로필 사진 정보를 가져와서 넣어줌, 프로필 사진은 회원가입(useSignup) 시, 기본 이미지로 등록된다
+        savedData.profileImage = documents[0].profileImage
 
-        console.log("게시할 Data :",savedData);
+        console.log("게시물 업로드! ",savedData);
 
         // [FireBase 저장 로직]
         addDocument( savedData ,saveImg) // 저장
