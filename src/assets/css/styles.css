@@ -484,6 +484,9 @@ textarea::-webkit-outer-spin-button {
   color: gray;
   padding: 0 16px 8px;
 }
+.Post-reply-count:hover {
+  cursor: pointer;
+}
 .Post-reply-count::before {
   content: "댓글 ";
 }

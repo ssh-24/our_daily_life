@@ -7,6 +7,7 @@ function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const { isAuthReady, user } = useAuthContext();
   let [fade, setFade] = useState('') // Animation Style State
+  let [isAll, setIsAll] = useState(false) // 댓글 모두보기 여부
 
   useEffect(()=>{
     // Automatic batching 때문에 타이머 준다
@@ -15,6 +16,7 @@ function Post(props) {
     return () => {
       clearTimeout(timer)
       setFade('')
+      setIsAll(false)
     }
   },[])
 
@@ -182,55 +184,76 @@ function Post(props) {
 
         {/* 댓글 카운트에 따라 분기처리 */}
         {
-          props.post.replies !== 0 ?
+          // 댓글이 있으면
+          props.post.replies > 0 ?
+
           <>
-            {/* 전체보기 기능 구현 시켜야함 */}
+            {/* 게시글/댓글 구분선 */}
             {
-              props.post.replies > 2 ?
+              // 모두보기 안눌렀고, 댓글 2개보다 많으면
+              !isAll && props.post.replies > 2 ?
               <div className="Post-reply-count" onClick={()=>{
-                  console.log('댓글 전체보기!')}
-                }>{props.post.replies}
+                  console.log('댓글 전체보기!')
+                  // 모두보기 on
+                  setIsAll(true)
+                }}>{props.post.replies}
               </div>
-              : // 댓글 두개 이하면 구분선
+              : // 이외에는 구분선
               <div className="Post-reply-border"></div>
             }
 
-            {
-              props.post.replies !== 1 ?
-              <>
-              {/* 댓글 2개 정도 보여주는 영역 */}
-              <div className="Post-reply-area">
-                <div className="Post-reply">
-                  <span className="Post-reply-nickname">
-                    <b>{props.post.peopleWhoReply[0].displayName}</b>
-                  </span>
-                  <span className="Post-reply-text">
-                    {props.post.peopleWhoReply[0].replyText}
-                  </span>
-                </div>
-                <div className="Post-reply">
-                  <span className="Post-reply-nickname">
-                    <b>{props.post.peopleWhoReply[1].displayName}</b>
-                  </span>
-                  <span className="Post-reply-text">
-                    {props.post.peopleWhoReply[1].replyText}
-                  </span>
-                </div>
-              </div>
-              </>
-              : <>
-                 <div className="Post-reply-area">
-                  <div className="Post-reply">
-                    <span className="Post-reply-nickname">
-                      <b>{props.post.peopleWhoReply[0].displayName}</b>
-                    </span>
-                    <span className="Post-reply-text">
-                      {props.post.peopleWhoReply[0].replyText}
-                    </span>
-                  </div>
-                 </div>
-                </>
-            }
+            {/* 댓글 표시 */}
+            <div className="Post-reply-area">
+              {
+                isAll && props.post.replies > 0 ?
+                  props.post.peopleWhoReply.map((a,i)=>{
+                    return (
+                      <>
+                        <div className="Post-reply" key={i}>
+                          <span className="Post-reply-nickname">
+                            <b>{a.displayName}</b>
+                          </span>
+                          <span className="Post-reply-text">
+                            {a.replyText}
+                          </span>
+                        </div>
+                      </>
+                    )
+                  })
+                : 
+                  props.post.replies >= 2 ?
+                    <>
+                      {/* 댓글 1 - 2개 정도 표시 */}
+                      <div className="Post-reply">
+                        <span className="Post-reply-nickname">
+                          <b>{props.post.peopleWhoReply[0].displayName}</b>
+                        </span>
+                        <span className="Post-reply-text">
+                          {props.post.peopleWhoReply[0].replyText}
+                        </span>
+                      </div>
+                      <div className="Post-reply">
+                        <span className="Post-reply-nickname">
+                          <b>{props.post.peopleWhoReply[1].displayName}</b>
+                        </span>
+                        <span className="Post-reply-text">
+                          {props.post.peopleWhoReply[1].replyText}
+                        </span>
+                      </div>
+                    </>
+                  : 
+                    <>
+                      <div className="Post-reply">
+                        <span className="Post-reply-nickname">
+                          <b>{props.post.peopleWhoReply[0].displayName}</b>
+                        </span>
+                        <span className="Post-reply-text">
+                          {props.post.peopleWhoReply[0].replyText}
+                        </span>
+                      </div>
+                    </>
+              }
+            </div>
           </>
           : null
         }

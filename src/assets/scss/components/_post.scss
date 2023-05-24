@@ -101,6 +101,9 @@
   color: gray;
   padding: 0 16px 8px;
 
+  &:hover {
+    cursor: pointer;
+  }
   &::before{
     content: "댓글 ";
   }
