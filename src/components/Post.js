@@ -129,7 +129,7 @@ function Post(props) {
             </button>
 
             <button className="share-btn" onClick={(e) => {
-               alert('보내기')
+              alert('보내기 구현중.. ^.^')
             }}>
               <svg aria-label="보내기" color="#262626" fill="#262626"
               height="24" role="img" viewBox="0 0 24 24" width="24">

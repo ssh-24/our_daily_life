@@ -12,7 +12,6 @@ const Feeds = lazy(()=> import('./components/Feeds'))
 const Input = lazy(()=> import('./components/Input'))
 const Profile = lazy(()=> import('./components/Profile'))
 const Log = lazy(()=> import('./components/Log'))
-const Post = lazy(()=> import('./components/Post'))
 const Detail = lazy(()=> import('./components/Detail'))
 
 
