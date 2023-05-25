@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/images/logo.png";
 import {useLogout} from '../hooks/useLogout';
 import { useSelector, useDispatch } from "react-redux";
@@ -9,19 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 function Nav(props) {
     const {logout} = useLogout()
-    let navigate = useNavigate() // 페이지 이동
+    let navigate = useNavigate()
     let dispatch = useDispatch()
     const userList = useSelector((state) => state.userList); // 검색 자동완성에 쓰일 redux store data
     let [fade, setFade] = useState('') // Animation Style State
     let [acShow, setAcShow] = useState('') // 자동완성 영역 표시 여부
-
-    // useRef 로 관리
-    const autoComplete = useRef(); // 자동완성 영역
-    const naviHeader = useRef(); // 전체 nav바 영역
-
-    const searchInput = document.querySelector('.search_input') // 검색입력 영역
-    const acList = document.querySelector('.ac-list') // 자동완성 ul
-
+    const searchInput = document.querySelector('.search_input') // input 영역
+    const acList = document.querySelector('.ac-list') // 모달 ul 영역
 
     // 스크롤 이벤트, 스크롤이 내려갔을 경우에만 상단으로 이동버튼 보이도록
     window.addEventListener('scroll', () => {
@@ -39,34 +33,57 @@ function Nav(props) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // 검색 자동완성 UI 표시
-    const searchRequest = (search_text) => {
-      setAcShow(search_text.length > 0 ? 'transition-end': ''); // input의 입력값이 있을 때만 보이도록
-    }
 
-    // input 포커스 벗어나면, 초기화 및 UI 숨기기
-    searchInput.addEventListener('blur', () => {
-      acList.innerHTML = ''
-      setAcShow('');
-    }, true);
+    //===========================================================
+    // 검색어 자동완성 기능
+    //===========================================================
+    // 사용자 리스트 state 입력되면 (in Feeds), 추천 li 채우기 (초기값)
+    useEffect(()=>{
+      fillAutoComplete()
+    },[userList])
 
-    // 자동완성 li 채우기
+    // 추천 li 초기값 셋팅
     const fillAutoComplete = () => {
-      acList.innerHTML = '' // 초기화 시켜주기
       if (userList != null && userList.length !== 0 && userList != undefined) {
+        acList.innerHTML = '' // 초기화
         userList.map((a,i)=>{
           const li = document.createElement("li")
           li.innerHTML = a.Name
-          console.log(li);
+          li.className = a.UID
+          li.addEventListener('click',(event) => {
+            acSelect(event.target.innerHTML)
+          })
           acList.appendChild(li);
         })
       }
       console.log("acList : ",acList)
     }
 
+    // input onChange --> 추천 UI 표시
+    const searchRequest = (search_text) => {
+      setAcShow(search_text.length > 0 ? 'transition-end': ''); // input 입력값이 있을 때만 표시
+    }
+    
+    // input 포커싱 --> UI 표시
+    const searchFocus = () => {
+      setAcShow(searchInput.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
+    }
+
+    // input 아웃 --> UI 숨기기
+    const searchBlur = () => {
+      setAcShow('');
+    }
+
+    // 추천 리스트에서 선택 --> input에 셋팅
+    const acSelect = (val) => {
+      searchInput.value = val
+    }
+    //===========================================================
+
+
     // 등록버튼 클릭
     const uploadClicked = () => {
-      dispatch(setVisible(true)) // 새 게시물 등록 모달 보이게
+      dispatch(setVisible(true)) // 새 게시물 등록 모달 표시
     }
 
     // 로그버튼 클릭
@@ -81,14 +98,6 @@ function Nav(props) {
       scrollTop()
     }
 
-
-    // 사용자 리스트 state 입력되면, 검색 자동완성 li 채우기
-    useEffect(()=>{
-      fillAutoComplete()
-    },[userList])
-
-
-
     // 컴포넌트의 사이즈를 동적으로 조절하기 위한 메서드
     const resizeComponents = () => {
       // **여기서 크기 조절하고 싶어**
@@ -100,7 +109,7 @@ function Nav(props) {
     return (
       <>
         <nav className="nav-area">
-            <div className="navigation" ref={naviHeader}>
+            <div className="navigation">
                 <div className="refresh">
                     <a href="/renew" tabIndex="0" onClick={(e)=>{
                         e.preventDefault();
@@ -114,22 +123,14 @@ function Nav(props) {
 
                 <div className="user-search">
                     <SearchBtn className="search-btn"/>
-                    <input aria-label="검색" ref={searchInput} autoCapitalize="none" className="search_input" placeholder="검색" type="text"
-                        onChange={(e)=> {
-                          searchRequest(e.target.value);
-                    }}/>
+                    <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
+                        onChange={(e)=> {searchRequest(e.target.value)}}
+                        onBlur={searchBlur}
+                        onFocus={searchFocus}/>
                     {/* 검색어 자동완성 리스트 목록 */}
-                    <div className={`auto-complete-area transition-start ${acShow}`} ref={autoComplete}>
-                      <ul className="ac-list" ref={acList}>
-                        {/* <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li>
-                        <li>zzzz</li> */}
+                    <div className={`auto-complete-area transition-start ${acShow}`}>
+                      <ul className="ac-list">
+                        {/* 추천될 li 가 들어간다 */}
                       </ul>
                     </div>
                 </div>
