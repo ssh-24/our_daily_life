@@ -12,6 +12,8 @@ const Feeds = lazy(()=> import('./components/Feeds'))
 const Input = lazy(()=> import('./components/Input'))
 const Profile = lazy(()=> import('./components/Profile'))
 const Log = lazy(()=> import('./components/Log'))
+const Post = lazy(()=> import('./components/Post'))
+const Detail = lazy(()=> import('./components/Detail'))
 
 
 function App() {
@@ -56,6 +58,18 @@ function App() {
                     <Input/>
                     <Nav/>
                     <Profile/>
+                  </>
+                  :<Navigate replace={true} to="/" />
+                }
+              />
+
+              {/* 상세페이지, uid (URL 파라미터) 로 분기처리 */}
+              <Route path="/detail/:uid"
+                element={user?
+                  <>
+                    <Input/>
+                    <Nav/>
+                    <Detail/>
                   </>
                   :<Navigate replace={true} to="/" />
                 }

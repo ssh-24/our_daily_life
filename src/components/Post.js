@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const { isAuthReady, user } = useAuthContext();
+  let navigate = useNavigate() // 페이지 이동
   let [fade, setFade] = useState('') // Animation Style State
   let [isAll, setIsAll] = useState(false) // 댓글 모두보기 여부
 
@@ -20,9 +22,9 @@ function Post(props) {
     }
   },[])
 
-  // 게시물 상세화면 이동 *구현중*
+  // 게시물 상세 화면으로 이동
   const goDetail = (props) => {
-    console.log("이놈",props);
+    navigate('/detail/'+props.id) // 게시물 id를 URL 파라미터로 넘긴다 (키값)
   }
 
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
@@ -116,9 +118,8 @@ function Post(props) {
               {getLikeStatus(props.post.peopleWhoLike.includes(user.uid))}
             </button>
             
-            <button className="reply-btn" onClick={(e) => {
-               alert('댓글쓰기')
-            }}>
+            {/* 댓글 작성 버튼 - Detail로 이동 */}
+            <button className="reply-btn" onClick={()=>{goDetail(props.post)}}>
               <svg aria-label="댓글쓰기" color="#262626" fill="#262626"
               height="24" role="img" viewBox="0 0 24 24" width="24">
                 <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none"

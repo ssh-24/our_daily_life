@@ -834,4 +834,28 @@ section {
   color: #fff;
   transform: scale(1.02);
   transition: 0.1s;
+}
+
+.detail-btn-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.detail-btn-area .go-main-btn {
+  margin-top: 6px;
+  padding: 8px 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
+}
+.detail-btn-area .go-main-btn:focus, .detail-btn-area .go-main-btn:hover {
+  background-color: rgb(83, 83, 83);
+  color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
 }/*# sourceMappingURL=styles.css.map */
