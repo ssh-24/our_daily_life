@@ -19,7 +19,7 @@ function Feeds() {
         console.log('Server Data',documents)
         setFade(documents!= null && documents.length > 0? 'transition-end': '') // 애니메이션 효과
 
-        // 전체 글의 사용자 정보(UID , displayName)를 받아서 redux store에 넣기
+        // 전체 글의 사용자 정보(UID , displayName)를 받아서 redux store에 넣기 (for 검색 자동완성)
         let users = [] // 전체 유저
         // 있을 때만 돌립시다?
         documents?.map((a,i)=>{
