@@ -39,8 +39,12 @@
     margin: 0 2vw;
     
     .search_input {
+        /* 이쁜 글씨 */
+        font-family: 'HSSaemaul-Regular';
+        font-size: larger;
         border-radius: 8px;
-        padding-left: 12px;
+        padding-left: 20px;
+        padding-right: 5px;
         margin-left: 0.8vw;
         letter-spacing: -0.3px;
         height: 4vh;
@@ -113,6 +117,45 @@
         height: 100%;
     }
 }
+
+.auto-complete-area {
+    position: fixed;
+    top: 46px; // 동적으로 .navigation 의 height 를 가져올 수 있으면 좋을텐데
+    width: 200px; // 동적으로 .search_input 의 width 를 가져올 수 있으면 좋을텐데
+    /* 이쁜 글씨 */
+    font-family: 'HSSaemaul-Regular';
+    font-size: larger;
+    padding: 12px;
+    // margin-left: 0.8vw; // 위에 input이 이만큼 떨어져 있음
+    margin-left: 3.4vw;
+    letter-spacing: 0.5px;
+    border: 2px solid #b1b1b1;
+    border-radius: 8px;
+    background-color: #fff;
+
+    &:hover {
+        -webkit-transform: scale(1.01);
+        transform: scale(1.01);
+        transition: 0.1s;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+    }
+
+    li {
+        padding-left: 8px;
+        margin-bottom: 3px;
+        &:hover {
+            -webkit-transform: scale(1.01);
+            transform: scale(1.01);
+            transition: 0.1s;
+        }
+    }
+}
+
 
 @media (max-width: 540px){
     /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
