@@ -5,7 +5,6 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useCollectionDtl } from '../hooks/useCollectionDtl';
 import { useNavigate } from "react-router-dom";
 
-
 function Log(props) {
     const {user} = useAuthContext()
     let navigate = useNavigate() // 페이지 이동
@@ -60,7 +59,19 @@ function Log(props) {
                         </button>
                       </div>
                 }
+
+                {
+                    docReady && documents != null && documents.length !== 0
+                    ?
+                    <div className="log-go-main-btn-area">
+                        <button className="go-main-btn" onClick={goMain}>
+                            돌아가기
+                        </button>
+                    </div>
+                    : null
+                }
             </div>
+            
         </>
     )
 }

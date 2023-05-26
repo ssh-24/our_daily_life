@@ -69,6 +69,12 @@
         margin-left: 1vh;
         width: 2.5vh;
         height: 2.5vh;
+        &:hover, &:focus {
+            cursor: pointer;
+            -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+            transition: 0.1s;
+        }
     }
 }
 

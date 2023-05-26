@@ -328,6 +328,11 @@ textarea::-webkit-outer-spin-button {
   width: 2.5vh;
   height: 2.5vh;
 }
+.user-search .search-btn:hover, .user-search .search-btn:focus {
+  cursor: pointer;
+  transform: scale(1.15);
+  transition: 0.1s;
+}
 
 .btn-list {
   display: flex;
@@ -836,6 +841,31 @@ section {
   transition: 0.1s;
 }
 
+.profile-go-main-btn-area {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-go-main-btn-area .go-main-btn {
+  margin-top: 6px;
+  padding: 8px 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
+}
+.profile-go-main-btn-area .go-main-btn:focus, .profile-go-main-btn-area .go-main-btn:hover {
+  background-color: rgb(83, 83, 83);
+  color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
+}
+
 .liked-feeds {
   margin: 6vh auto 0vh;
   padding: 10px;
@@ -871,6 +901,31 @@ section {
   font-size: larger;
 }
 .no-like .lookaround-btn:focus, .no-like .lookaround-btn:hover {
+  background-color: rgb(83, 83, 83);
+  color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
+}
+
+.log-go-main-btn-area {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.log-go-main-btn-area .go-main-btn {
+  margin-top: 6px;
+  padding: 8px 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
+}
+.log-go-main-btn-area .go-main-btn:focus, .log-go-main-btn-area .go-main-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
   transform: scale(1.02);

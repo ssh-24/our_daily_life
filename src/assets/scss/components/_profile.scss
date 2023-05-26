@@ -96,11 +96,8 @@ section{
     height: 230px;
     margin-left: 7px;
     margin-top: 10px;
-
-    // &:nth-child(n+2){
-    //     margin-inline: 7px;  
-    // }
 }
+
 @media (max-width: 425px){
     .container-wrap{
         flex-direction: column;
@@ -127,6 +124,34 @@ section{
     }
 
     .upload-btn-profile {
+        margin-top: 6px;
+        padding: 8px 24px;
+        border: 1px solid #000;
+        border-radius: 10px;
+        background-color: #000;
+        color: #fff;
+        /* 이쁜 글씨 */
+        font-family: 'HSSaemaul-Regular';
+        font-size: larger;
+
+        &:focus,&:hover {
+            background-color: rgb(83, 83, 83);
+            color: #fff;
+            -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+            transition: 0.1s;
+        }
+    }
+}
+
+.profile-go-main-btn-area {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .go-main-btn {
         margin-top: 6px;
         padding: 8px 24px;
         border: 1px solid #000;
