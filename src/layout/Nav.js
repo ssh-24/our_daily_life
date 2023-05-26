@@ -56,12 +56,34 @@ function Nav(props) {
           acList.appendChild(li);
         })
       }
-      console.log("acList : ",acList)
+      console.log("검색 추천 리스트: ",acList)
     }
 
     // input onChange --> 추천 UI 표시
     const searchRequest = (search_text) => {
       setAcShow(search_text.length > 0 ? 'transition-end': ''); // input 입력값이 있을 때만 표시
+      // children --> HTMLCollection 반환, 유사 배열 객체(Array-like Objects), for..of 사용
+      // childNodes --> NodeList 반환, forEach() 사용
+
+      // 각 요소별로 보이기/숨김 처리
+      acList.childNodes.forEach((a,i)=>{
+        // 두 개 입력받았을 때부터 자동완성 추천
+        if (search_text.length >= 2 ) {
+          // 입력값과 innerHTML의 첫 글자 다르면 숨김
+          if( search_text.substr(0,1) !== a.innerHTML.substr(0,1)) {
+            // d-none 없을때만 추가
+            if( !(a.className.includes("d-none")) ){
+              a.className = a.className + ' d-none'
+            }
+          } else {
+            //첫 글자가 같을 경우겠죠? 모든 d-none 제거해주기
+            a.className = a.className.replaceAll(' d-none','')
+          }
+        } else {
+          // 입력이 한 글자나 0일 경우, 모든 d-none 제거해주기 (초기값 다 보여주기)
+          a.className = a.className.replaceAll(' d-none','')
+        }
+      })
     }
     
     // input 포커싱 --> UI 표시
