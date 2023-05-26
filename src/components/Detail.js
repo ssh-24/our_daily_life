@@ -16,10 +16,10 @@ function Detail(props) {
   let [post, setPost] = useState([]) // 데이터 바인딩할 상세 정보 State
   let [ready, setReady] = useState(false)
 
-  // 메인페이지로 이동 + 상단으로 스크롤 이동
-  const goMain = () => {
-    navigate('/')
+  // 뒤로가기 + 상단으로 스크롤 이동
+  const goBack = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.back() // 뒤로가기
   }
 
   useEffect(()=>{
@@ -235,7 +235,7 @@ function Detail(props) {
       </article>
 
       <div className="detail-btn-area">
-        <button className="go-main-btn" onClick={goMain}>
+        <button className="go-main-btn" onClick={goBack}>
           돌아가기
         </button>
       </div>
