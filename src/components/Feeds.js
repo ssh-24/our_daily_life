@@ -33,7 +33,7 @@ function Feeds() {
             }
             return acc;
         }, []);
-        console.log("유저 목록쓰", uniqUsers)
+        console.log("유저 리스트", uniqUsers)
         dispatch(setUserList(uniqUsers))
     }, [documents])
 

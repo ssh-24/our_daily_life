@@ -12,7 +12,6 @@ function Input(){
     const {documents,error} = useCollectionDtl("UserData",["UID","==",user.uid]) // firebase에 저장된 UserData 컬렉션에서 가져온다!
     const inputState = useSelector((state) => state.inputState)
     const visible = useSelector((state) => state.inputState.visible) // input 모달 여부
-    const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보
     let dispatch = useDispatch()
     let [showImg, setShowImg] = useState('') // 미리보기 이미지
     let [saveImg, setSaveImg] = useState('') // 실물저장 이미지
@@ -30,7 +29,6 @@ function Input(){
 
     useEffect(()=>{
         // mount, 초기로딩 완료 --> 작성자 정보 미리 셋팅
-        console.log(user)
         dispatch(setUserEmail(user.email))
         dispatch(setUID(user.uid))
         dispatch(setDisplayName(user.displayName))
@@ -46,12 +44,11 @@ function Input(){
 
     // 로그인 사용자 정보 받아와서, Redux State에도 저장한다
     useEffect(()=>{
-        console.log("|현재 사용자 정보(firebase)|",documents)
+        console.log("로그인 유저(firebase)|",documents)
         if (documents != null && documents.length !== 0) {
             let obj = documents[0]
             delete obj.createdTime // createdTime이 객체 형태라서 non-serializable value 에러가 나서 지워줬다
-            dispatch(setLoginUserInfo(obj))
-            console.log("redux state에도 저장", loginUserInfo)
+            dispatch(setLoginUserInfo(obj)) // redux state에 저장
         }
     },[documents])
     
@@ -90,15 +87,13 @@ function Input(){
     // 이미지 value 값 넣기
     // 이미지 미리보기
     const setPreviewImg = (e) => {
-        let reader = new FileReader();
+        console.log("저장할 파일 -->", e.target.files[0]);
 
+        let reader = new FileReader();
         reader.onload = function(e) {
             // 미리보기에 보여줄 state 변경
             setShowImg(e.target.result);
         };
-
-        console.log(e.target.files[0]);
-
         reader.readAsDataURL(e.target.files[0]);
         setSaveImg(e.target.files[0]);
     }
@@ -115,7 +110,7 @@ function Input(){
         // 회원의 프로필 사진 정보를 가져와서 넣어줌, 프로필 사진은 회원가입(useSignup) 시, 기본 이미지로 등록된다
         savedData.profileImage = documents[0].profileImage
 
-        console.log("게시물 업로드! ",savedData);
+        console.log("게시물 등록 --> ",savedData);
 
         // [FireBase 저장 로직]
         addDocument( savedData ,saveImg) // 저장
