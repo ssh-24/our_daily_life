@@ -1,6 +1,6 @@
 /*eslint-disable */
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/css/styles.css"; // 최종 스타일로 지정
 import { useAuthContext } from "./hooks/useAuthContext";
@@ -50,8 +50,8 @@ function App() {
                 }
               />
 
-              {/* 프로필페이지 */}
-              <Route path="/profile" 
+              {/* 프로필페이지, uid (URL 파라미터) 분기처리 */}
+              <Route path="/profile/:uid" 
                 element={user?
                   <>
                     <Input/>
@@ -62,7 +62,7 @@ function App() {
                 }
               />
 
-              {/* 상세페이지, uid (URL 파라미터) 로 분기처리 */}
+              {/* 상세페이지, uid (URL 파라미터) 분기처리 */}
               <Route path="/detail/:uid"
                 element={user?
                   <>
