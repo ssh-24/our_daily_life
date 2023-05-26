@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useNavigate } from "react-router-dom";
 import { useCollection } from '../hooks/useCollection';
 import { useParams } from "react-router-dom";
 
@@ -10,7 +9,6 @@ function Detail(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const {documents,error} = useCollection("FeedData"); // 서버 리얼 데이터
   const { isAuthReady, user } = useAuthContext();
-  let navigate = useNavigate() // 페이지 이동
   let [fade, setFade] = useState('') // Animation Style State
   let {uid} = useParams() // 게시물 id 키값 (URL 파라미터)
   let [post, setPost] = useState([]) // 데이터 바인딩할 상세 정보 State
