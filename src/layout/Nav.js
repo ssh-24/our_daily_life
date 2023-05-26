@@ -35,11 +35,16 @@ function Nav(props) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  const reloadAndNavigate = (val) => {
+    navigate(`/profile/${val}`)
+    window.location.reload();
+  }
+
   // 검색 실행 --> 프로필 페이지로 이동
   const searchSubmit = () => {
     searchInfo.length === 0 ?
     alert('목록에서 선택해주세요! ( •̀ ω •́ )✧')
-    : navigate(`/profile/${searchInfo}`)
+    : reloadAndNavigate(searchInfo)
   }
 
   //===========================================================
@@ -127,10 +132,11 @@ function Nav(props) {
   
   // 프로필버튼 클릭
   const profileClicked = () => {
-    navigate(`/profile/${user.uid}`)
+    reloadAndNavigate(user.uid)
+    // navigate(`/profile/${user.uid}`)
     scrollTop()
   }
-  
+
 
   return (
     <>
