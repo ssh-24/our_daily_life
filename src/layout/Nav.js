@@ -1,200 +1,205 @@
 /*eslint-disable */
 import React, { useEffect, useState } from "react";
 import Logo from "../assets/images/logo.png";
-import {useLogout} from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useLogout } from '../hooks/useLogout';
 import { useSelector, useDispatch } from "react-redux";
 import { setVisible } from "../store/inputSlice";
 import { useNavigate } from "react-router-dom";
 
-
 function Nav(props) {
-    const {logout} = useLogout()
-    let navigate = useNavigate()
-    let dispatch = useDispatch()
-    const userList = useSelector((state) => state.userList); // 검색 자동완성에 쓰일 redux store data
-    let [fade, setFade] = useState('') // Animation Style State
-    let [acShow, setAcShow] = useState('') // 자동완성 영역 표시 여부
-    const searchInput = document.querySelector('.search_input') // input 영역
-    const acList = document.querySelector('.ac-list') // 모달 ul 영역
+  const {user} = useAuthContext()
+  const {logout} = useLogout()
+  let navigate = useNavigate()
+  let dispatch = useDispatch()
+  const userList = useSelector((state) => state.userList); // 검색 자동완성에 쓰일 redux store data
+  let [fade, setFade] = useState('') // Animation Style State
+  let [acShow, setAcShow] = useState('') // 자동완성 영역 표시 여부
+  let [searchInfo, setSearchInfo] = useState('') // 검색 버튼으로 날릴 state (유저 UID)
+  const searchInput = document.querySelector('.search_input') // input 영역
+  const acList = document.querySelector('.ac-list') // 모달 ul 영역
 
-    // 스크롤 이벤트, 스크롤이 내려갔을 경우에만 상단으로 이동버튼 보이도록
-    window.addEventListener('scroll', () => {
-      setFade(window.scrollY > 0 ? 'transition-end': '') // 애니메이션 효과
-    });
+  // 스크롤 이벤트, 스크롤이 내려갔을 경우에만 상단으로 이동버튼 보이도록
+  window.addEventListener('scroll', () => {
+    setFade(window.scrollY > 0 ? 'transition-end': '') // 애니메이션 효과
+  });
 
-    // 로고, 홈 버튼 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
-    const goMain = () => {
-      navigate('/')
-      scrollTop()
-    }
+  // 로고, 홈 버튼 클릭, 메인페이지로 이동 + 상단으로 스크롤 이동
+  const goMain = () => {
+    navigate('/')
+    scrollTop()
+  }
 
-    // 상단으로 스크롤 이동
-    const scrollTop = () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  // 상단으로 스크롤 이동
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
+  // 검색 실행 --> 프로필 페이지로 이동
+  const searchSubmit = () => {
+    searchInfo.length === 0 ?
+    alert('목록에서 선택해주세요! ( •̀ ω •́ )✧')
+    : navigate(`/profile/${searchInfo}`)
+  }
 
-    //===========================================================
-    // 검색어 자동완성 기능
-    //===========================================================
-    // 사용자 리스트 state 입력되면 (in Feeds), 추천 li 채우기 (초기값)
-    useEffect(()=>{
-      fillAutoComplete()
-    },[userList])
+  //===========================================================
+  // 검색어 자동완성 기능
+  //===========================================================
+  // 사용자 리스트 state 입력되면 (in Feeds), 추천 li 채우기 (초기값)
+  useEffect(()=>{
+    fillAutoComplete()
+  },[userList])
 
-    // 추천 li 초기값 셋팅
-    const fillAutoComplete = () => {
-      if (userList != null && userList.length !== 0 && userList != undefined) {
-        acList.innerHTML = '' // 초기화
-        userList.map((a,i)=>{
-          const li = document.createElement("li")
-          li.innerHTML = a.Name
-          li.className = a.UID
-          li.addEventListener('click',(event) => {
-            acSelect(event.target.innerHTML)
-          })
-          acList.appendChild(li);
+  // 추천 li 초기값 셋팅
+  const fillAutoComplete = () => {
+    if (userList != null && userList.length !== 0 && userList != undefined) {
+      acList != null ? acList.innerHTML = '' : null // 초기화, null 예외 처리
+      userList.map((a,i)=>{
+        const li = document.createElement("li")
+        li.innerHTML = a.Name
+        li.className = a.UID
+        li.addEventListener('click',(e) => {
+          acSelect(e)
         })
-      }
-      console.log("검색 추천 리스트: ",acList)
-    }
-
-    // input onChange --> 추천 UI 표시
-    const searchRequest = (search_text) => {
-      setAcShow(search_text.length > 0 ? 'transition-end': ''); // input 입력값이 있을 때만 표시
-      // children --> HTMLCollection 반환, 유사 배열 객체(Array-like Objects), for..of 사용
-      // childNodes --> NodeList 반환, forEach() 사용
-
-      // 각 요소별로 보이기/숨김 처리
-      acList.childNodes.forEach((a,i)=>{
-        // 두 개 입력받았을 때부터 자동완성 추천
-        if (search_text.length >= 2 ) {
-          // 입력값과 innerHTML의 첫 글자 다르면 숨김
-          if( search_text.substr(0,1) !== a.innerHTML.substr(0,1)) {
-            // d-none 없을때만 추가
-            if( !(a.className.includes("d-none")) ){
-              a.className = a.className + ' d-none'
-            }
-          } else {
-            //첫 글자가 같을 경우겠죠? 모든 d-none 제거해주기
-            a.className = a.className.replaceAll(' d-none','')
-          }
-        } else {
-          // 입력이 한 글자나 0일 경우, 모든 d-none 제거해주기 (초기값 다 보여주기)
-          a.className = a.className.replaceAll(' d-none','')
-        }
+        acList.appendChild(li);
       })
     }
+    console.log("검색 추천 리스트: ",acList)
+  }
+
+  // input onChange --> 추천 UI 표시
+  const searchRequest = (search_text) => {
+    setAcShow(search_text.length > 0 ? 'transition-end': ''); // input 입력값이 있을 때만 표시
+    // children --> HTMLCollection 반환, 유사 배열 객체(Array-like Objects), for..of 사용
+    // childNodes --> NodeList 반환, forEach() 사용
+
+    // 각 요소별로 보이기/숨김 처리
+    acList.childNodes.forEach((a,i)=>{
+      // 두 개 입력받았을 때부터 자동완성 추천
+      if (search_text.length >= 2 ) {
+        // 입력값과 innerHTML의 첫 글자 다르면 숨김
+        if( search_text.substr(0,1) !== a.innerHTML.substr(0,1)) {
+          // d-none 없을때만 추가
+          if( !(a.className.includes("d-none")) ){
+            a.className = a.className + ' d-none'
+          }
+        } else {
+          //첫 글자가 같을 경우겠죠? 모든 d-none 제거해주기
+          a.className = a.className.replaceAll(' d-none','')
+        }
+      } else {
+        // 입력이 한 글자나 0일 경우, 모든 d-none 제거해주기 (초기값 다 보여주기)
+        a.className = a.className.replaceAll(' d-none','')
+      }
+    })
+  }
+  
+  // input 포커싱 --> UI 표시
+  const searchFocus = () => {
+    setAcShow(searchInput.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
+    setSearchInfo('') // UID 초기화
+  }
+
+  // input 아웃 --> UI 숨기기
+  const searchBlur = () => {
+    setAcShow('');
+    setSearchInfo('') // UID 초기화
+  }
+
+  // 추천 리스트에서 선택 --> input에 표시되는 innerHTML / 실제 검색 키값 state 셋팅
+  const acSelect = (e) => {
+    searchInput.value = e.target.innerHTML
+    setSearchInfo(e.target.className) // 검색할 state --> UID로 변경 ( 선택 시에만 **유일하게 변경** )
+  }
+  //===========================================================
+
+
+  // 등록버튼 클릭
+  const uploadClicked = () => {
+    dispatch(setVisible(true)) // 새 게시물 등록 모달 표시
+  }
+
+  // 로그버튼 클릭
+  const logClicked = () => {
+    navigate('/log')
+    scrollTop()
+  }
+  
+  // 프로필버튼 클릭
+  const profileClicked = () => {
+    navigate(`/profile/${user.uid}`)
+    scrollTop()
+  }
+  
+
+  return (
+    <>
+      <nav className="nav-area">
+          <div className="navigation">
+              <div className="refresh">
+                  <a href="/renew" tabIndex="0" onClick={(e)=>{
+                      e.preventDefault();
+                      goMain();
+                  }}>
+                      <div className="logo_div">
+                          <img alt="Our Daily Life" className="logo_img" src={Logo}/>
+                      </div>
+                  </a>
+              </div>
+
+              <div className="user-search">
+                  {/* 검색 실행 */}
+                  <SearchBtn className="search-btn" onClick={searchSubmit}/>
+                  <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
+                      onChange={(e)=> {searchRequest(e.target.value)}}
+                      onBlur={searchBlur}
+                      onFocus={searchFocus}/>
+                  {/* 검색어 자동완성 리스트 목록 */}
+                  <div className={`auto-complete-area transition-start ${acShow}`}>
+                    <ul className="ac-list">
+                      {/* 추천될 li 가 들어간다 */}
+                    </ul>
+                  </div>
+              </div>
+          
+              <div className="btn-list">
+                  <div className="btn-item">
+                      <HomeBtn onClick={(e)=>{
+                          e.preventDefault()
+                          goMain()}}/>
+                  </div>
+                  <div className="btn-item">
+                      <AddBtn onClick={(e)=>{
+                          e.preventDefault()
+                          uploadClicked()}}/>
+                  </div>
+
+                  <div className="btn-item">
+                      <LikeBtn onClick={(e)=>{
+                          e.preventDefault()
+                          logClicked()}}/>
+                  </div>
+
+                  <div className="btn-item">
+                      <ProfileBtn onClick={(e)=>{
+                          e.preventDefault()
+                          profileClicked()}}/>
+                  </div>
+
+                  <div className="btn-item">
+                      <LogoutBtn onClick={logout}/>
+                  </div>
+              </div>
+          </div>
+      </nav>
     
-    // input 포커싱 --> UI 표시
-    const searchFocus = () => {
-      setAcShow(searchInput.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
-    }
-
-    // input 아웃 --> UI 숨기기
-    const searchBlur = () => {
-      setAcShow('');
-    }
-
-    // 추천 리스트에서 선택 --> input에 셋팅
-    const acSelect = (val) => {
-      searchInput.value = val
-    }
-    //===========================================================
-
-
-    // 등록버튼 클릭
-    const uploadClicked = () => {
-      dispatch(setVisible(true)) // 새 게시물 등록 모달 표시
-    }
-
-    // 로그버튼 클릭
-    const logClicked = () => {
-      navigate('/log')
-      scrollTop()
-    }
-    
-    // 프로필버튼 클릭
-    const profileClicked = () => {
-      navigate('/profile')
-      scrollTop()
-    }
-
-    // 컴포넌트의 사이즈를 동적으로 조절하기 위한 메서드
-    const resizeComponents = () => {
-      // **여기서 크기 조절하고 싶어**
-
-
-    }
-    
-
-    return (
-      <>
-        <nav className="nav-area">
-            <div className="navigation">
-                <div className="refresh">
-                    <a href="/renew" tabIndex="0" onClick={(e)=>{
-                        e.preventDefault();
-                        goMain();
-                    }}>
-                        <div className="logo_div">
-                            <img alt="Our Daily Life" className="logo_img" src={Logo}/>
-                        </div>
-                    </a>
-                </div>
-
-                <div className="user-search">
-                    <SearchBtn className="search-btn"/>
-                    <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
-                        onChange={(e)=> {searchRequest(e.target.value)}}
-                        onBlur={searchBlur}
-                        onFocus={searchFocus}/>
-                    {/* 검색어 자동완성 리스트 목록 */}
-                    <div className={`auto-complete-area transition-start ${acShow}`}>
-                      <ul className="ac-list">
-                        {/* 추천될 li 가 들어간다 */}
-                      </ul>
-                    </div>
-                </div>
-            
-                <div className="btn-list">
-                    <div className="btn-item">
-                        <HomeBtn onClick={(e)=>{
-                            e.preventDefault()
-                            goMain()}}/>
-                    </div>
-                    <div className="btn-item">
-                        <AddBtn onClick={(e)=>{
-                            e.preventDefault()
-                            uploadClicked()}}/>
-                    </div>
-
-                    <div className="btn-item">
-                        <LikeBtn onClick={(e)=>{
-                            e.preventDefault()
-                            logClicked()}}/>
-                    </div>
-
-                    <div className="btn-item">
-                        <ProfileBtn onClick={(e)=>{
-                            e.preventDefault()
-                            profileClicked()}}/>
-                    </div>
-
-                    <div className="btn-item">
-                        <LogoutBtn onClick={logout}/>
-                    </div>
-                </div>
-            </div>
-        </nav>
-      
-        <div className={`go-top-btn transition-start ${fade}`}>
-          <UpBtn onClick={(e)=>{
-              e.preventDefault()
-              scrollTop()}}/>
-        </div>
-      </>
-    );
+      <div className={`go-top-btn transition-start ${fade}`}>
+        <UpBtn onClick={(e)=>{
+            e.preventDefault()
+            scrollTop()}}/>
+      </div>
+    </>
+  );
 }
 
 export default Nav;
