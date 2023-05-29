@@ -38,7 +38,7 @@ function App() {
                 }
               />
 
-              {/* 활동페이지 */}
+              {/* 로그페이지 */}
               <Route path="/log" 
                 element={user?
                   <>
