@@ -16,8 +16,8 @@ function Nav(props) {
   let [fade, setFade] = useState('') // Animation Style State
   let [acShow, setAcShow] = useState('') // 자동완성 영역 표시 여부
   let [searchInfo, setSearchInfo] = useState('') // 검색 버튼으로 날릴 state (유저 UID)
-  const searchInput = document.querySelector('.search_input') // input 영역
-  const acList = document.querySelector('.ac-list') // 모달 ul 영역
+  const [searchInput, setSearchInput ] = useState(document.querySelector('.search_input')) // input 영역
+  const [acList, setAcList ] = useState(document.querySelector('.ac-list')) // 모달 ul 영역
 
   // 스크롤 이벤트, 스크롤이 내려갔을 경우에만 상단으로 이동버튼 보이도록
   window.addEventListener('scroll', () => {
@@ -35,16 +35,17 @@ function Nav(props) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  const reloadAndNavigate = (val) => {
+  // 프로필 페이지 이동
+  const goProfile = (val) => {
     navigate(`/profile/${val}`)
-    window.location.reload();
+    scrollTop()
   }
 
   // 검색 실행 --> 프로필 페이지로 이동
   const searchSubmit = () => {
     searchInfo.length === 0 ?
     alert('목록에서 선택해주세요! ( •̀ ω •́ )✧')
-    : reloadAndNavigate(searchInfo)
+    : goProfile(searchInfo)
   }
 
   //===========================================================
@@ -54,6 +55,12 @@ function Nav(props) {
   useEffect(()=>{
     fillAutoComplete()
   },[userList])
+  
+  // 재렌더링마다 실행
+  useEffect(()=>{
+    setSearchInput(document.querySelector('.search_input'));
+    setAcList(document.querySelector('.ac-list'));
+  })
 
   // 추천 li 초기값 셋팅
   const fillAutoComplete = () => {
@@ -101,20 +108,20 @@ function Nav(props) {
   
   // input 포커싱 --> UI 표시
   const searchFocus = () => {
-    setAcShow(searchInput.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
     setSearchInfo('') // UID 초기화
+    setAcShow(searchInput.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
   }
 
   // input 아웃 --> UI 숨기기
   const searchBlur = () => {
-    setAcShow('');
     setSearchInfo('') // UID 초기화
+    setAcShow('');
   }
 
   // 추천 리스트에서 선택 --> input에 표시되는 innerHTML / 실제 검색 키값 state 셋팅
   const acSelect = (e) => {
-    searchInput.value = e.target.innerHTML
     setSearchInfo(e.target.className) // 검색할 state --> UID로 변경 ( 선택 시에만 **유일하게 변경** )
+    searchInput.value = e.target.innerHTML
   }
   //===========================================================
 
@@ -132,9 +139,7 @@ function Nav(props) {
   
   // 프로필버튼 클릭
   const profileClicked = () => {
-    reloadAndNavigate(user.uid)
-    // navigate(`/profile/${user.uid}`)
-    scrollTop()
+    goProfile(user.uid)
   }
 
 
