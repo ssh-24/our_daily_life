@@ -1,8 +1,7 @@
 /* eslint-disable*/
-
 import { useState } from "react"
-import {appAuth} from '../firebase/config';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import { appAuth } from '../firebase/config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
@@ -40,5 +39,5 @@ export const useLogin = () => {
         })
 
     }
-    return {error, isPending,login}
+    return {error, isPending, login}
 }
