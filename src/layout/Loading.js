@@ -19,6 +19,8 @@ const Background = styled.div`
 `;
 
 const LoadingText = styled.div`
+    font-family: 'HSSaemaul-Regular';
+    font-size: larger;
     margin-top: 12px;
 `;
 
@@ -26,7 +28,7 @@ export default() => {
     return (
       <Background>
         <img src={Spinner} alt="로딩중" width="4%" />
-        <LoadingText>Loading...</LoadingText>
+        <LoadingText>로딩중...</LoadingText>
       </Background>
     );
 };
