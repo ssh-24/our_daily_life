@@ -39,6 +39,9 @@ function Nav(props) {
   const goProfile = (val) => {
     navigate(`/profile/${val}`)
     scrollTop()
+    
+    // **새로고침 해버리자**
+    window.location.reload();
   }
 
   // 검색 실행 --> 프로필 페이지로 이동
@@ -73,7 +76,7 @@ function Nav(props) {
         li.addEventListener('click',(e) => {
           acSelect(e)
         })
-        acList.appendChild(li);
+        acList != null ? acList.appendChild(li) : null // null 예외처리 *이놈때문이였음*
       })
     }
     console.log("검색 추천 리스트: ",acList)
