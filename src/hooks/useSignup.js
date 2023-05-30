@@ -1,8 +1,7 @@
 /* eslint-disable*/
-
 import { useState } from "react"
-import {appAuth} from '../firebase/config';
-import {createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { appAuth } from '../firebase/config';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useAuthContext } from "./useAuthContext";
 import { useFirestore } from "../hooks/useFirestore";
 
@@ -33,7 +32,7 @@ export const useSignup = () => {
         createUserWithEmailAndPassword(appAuth, email, password)
         .then((userCredential)=>{
             const user = userCredential.user;
-            console.log('회원가입user: ',user);
+            console.log('회원가입 user: ',user);
 
             if(!user){
                 throw new Error('회원가입에 실패했습니다.');
@@ -64,8 +63,11 @@ export const useSignup = () => {
             setIsPending(false);
             console.log(err.message);
         })
+        .finally(()=>{
+            alert('가입에 성공했어요!');
+        })
 
 
     }
-    return {error, isPending,signup}
+    return {error, isPending, signup}
 }

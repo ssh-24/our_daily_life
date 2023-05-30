@@ -33,7 +33,7 @@ function Signin(){
 
     // 폼이 제출되면 실행
     const onSubmit = (e) => {
-        e.preventDefault(); // submit시 페이지 reload 방지
+        e.preventDefault(); // submit시 페이지 reload 방지 --> **useLogin 에서 reload 하도록 했다**
         login(email, password);
     }
 
