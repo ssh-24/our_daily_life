@@ -5,7 +5,7 @@ import { useCollectionDtl } from '../hooks/useCollectionDtl';
 import { setVisible } from "../store/inputSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Profile(props) {
     const {user} = useAuthContext()
@@ -16,19 +16,6 @@ function Profile(props) {
     let [fade, setFade] = useState('') // Animation Style State
     let dispatch = useDispatch()
     let navigate = useNavigate() // 페이지 이동
-
-    //************************************************************
-    // [현재 이슈 사항] 같은 프로필 페이지에서 검색 버튼 시 변경이 제대로 안됨, 새로고침 하면 잘 됨
-    //************************************************************
-    const location = useLocation() // 현재 URL 정보 가져오기 위함
-    let [urlInfo, setUrlInfo] = useState('') // 얘로 새로고침 어떻게 구현해????
-    
-    useEffect(()=>{
-        console.log("URL이 바꼈자나여", location.pathname.replaceAll('/profile/',''))
-        setUrlInfo(location.pathname.replaceAll('/profile/',''))
-    }, [location])
-    //************************************************************
-    
     
     // 프로필 사진 변경
     const profileChange = () => {
