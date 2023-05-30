@@ -23,6 +23,8 @@ export const useLogout = () => {
         }).catch((err)=>{
             setError(err.message);
             setIsPending(false);
+        }).finally(()=>{
+            window.location.reload(); // 새로고침 해버리자
         });
     }
     return {error, isPending,logout}
