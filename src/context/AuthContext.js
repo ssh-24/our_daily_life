@@ -15,7 +15,7 @@ const authReducer = (state,action) => {
         case 'login':// 로그인,회원가입 case
             return {...state, user:action.payload}
         case 'logout':// 로그아웃 case
-            return {...state, user:null}//유저정보 null 로 세팅해둬서 자동으로 날아가게
+            return {...state, user:null, isAuthReady:false} //유저정보 null 로 세팅해둬서 자동으로 날아가게
         case 'isAuthReady':// 유저정보 setting case
             return {...state, user:action.payload, isAuthReady:true}
         default:
@@ -28,7 +28,7 @@ const authReducer = (state,action) => {
 // 이만큼을 context 로 관리할거임
 const AuthContextProvider = ({children}) =>{
     
-    // 유저 정보를 관리할 reduser 훅
+    // 유저 정보를 관리할 reducer 훅
     const [state,dispatch]  = useReducer(authReducer, { 
         user : null,    // user 정보 초기값
         isAuthReady: false // 사용자 인증정보 초기값
