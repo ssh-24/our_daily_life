@@ -402,6 +402,7 @@ textarea::-webkit-outer-spin-button {
   margin-bottom: 3px;
 }
 .auto-complete-area li:hover {
+  cursor: pointer;
   transform: scale(1.01);
   transition: 0.1s;
   font-weight: 700;

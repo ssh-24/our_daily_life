@@ -155,6 +155,7 @@
         padding-left: 8px;
         margin-bottom: 3px;
         &:hover {
+            cursor: pointer;
             -webkit-transform: scale(1.01);
             transform: scale(1.01);
             transition: 0.1s;
