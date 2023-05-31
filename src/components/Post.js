@@ -60,6 +60,59 @@ function Post(props) {
     }
   }
 
+  //============================================== 
+  // 이미지 저장 메서드
+  //============================================== 
+  function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {
+      type: mime
+    });
+  }
+  
+  function downloadImg(imgSrc) {
+    var image = new Image();
+    image.crossOrigin = "anonymous";
+    image.src = imgSrc;
+    var fileName = image.src.split("/").pop();
+    image.onload = function() {
+      var canvas = document.createElement('canvas');
+      canvas.width = this.width;
+      canvas.height = this.height;
+      canvas.getContext('2d').drawImage(this, 0, 0);
+      if (typeof window.navigator.msSaveBlob !== 'undefined') {
+        window.navigator.msSaveBlob(dataURLtoBlob(canvas.toDataURL()), fileName);
+      } else {
+        var link = document.createElement('a');
+        link.href = canvas.toDataURL();
+        link.download = fileName;
+        link.click();
+      }
+    };
+  }
+  //============================================== 
+
+
+  // 이미지 다운로드 ( id로 새창 열기.. )
+  const imageDownload = (id) => {
+    const image = document.getElementById(id);
+    const imageURL = image.src
+
+    const a = document.createElement('a')
+    a.href = imageURL
+    a.download = `${id}.png`; // 다운로드될 파일명 (확장자 포함)
+    // a.target = '_blank'; // 새 탭 또는 창에서 이미지 열기
+    a.click(); // 링크 클릭하여 이미지 저장
+  }
+
+
   return (
     <article className={`Post transition-start ${fade}`}>
       <div className="Post-area">
@@ -72,11 +125,10 @@ function Post(props) {
           <span className="Post-user-id">{props.post.displayName}</span>
         </div>
 
-        {/* 이미지 영역 */}
-        {/* 클릭 시 상세 페이지로 이동 */}
+        {/* 이미지 영역 - 클릭 - Detail로 이동 */}
         <div className="Post-img" onClick={()=>{goDetail(props.post)}}>
           <div className="Post-img-bg">
-            <img src={props.post.downloadURL} alt="게시물사진"/>
+            <img src={props.post.downloadURL} alt="게시물사진" id={props.post.id}/>
           </div>
         </div>
 
@@ -145,8 +197,10 @@ function Post(props) {
 
           {/* 떨어뜨린 곳에 저장 버튼 */}
           <div className="one-btn-area">
-            <button className="save-btn" onClick={(e) => {
-               alert('저장')
+            <button className="save-btn" onClick={()=>{
+              console.log("이미지 다운로드!!")
+              // imageDownload(props.post.id) // 저장 X, 새창만 열림
+              downloadImg(props.post.downloadURL) // CORS 에러 발생...
             }}>
               <svg aria-label="저장" color="#262626" fill="#262626"
                height="24" role="img" viewBox="0 0 24 24" width="24">
