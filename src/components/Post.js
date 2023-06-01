@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
@@ -63,6 +64,44 @@ function Post(props) {
   //============================================== 
   // 이미지 저장 메서드
   //============================================== 
+  // Create a reference to the file we want to download
+  const ImgDownload = (downloadURL, id) => {
+    const storage = getStorage();
+    const Ref = ref(storage, downloadURL);
+  
+    // Get the download URL
+    getDownloadURL(Ref)
+      .then((url) => {
+        // Insert url into an <img> tag to "download"
+        console.log("이미지 URL: ",url);
+        // downloadImg(url); // CORS 에러
+        const a = document.createElement('a')
+        a.href = url;
+        a.download = `${id}.png`; // 다운로드될 파일명 (확장자 포함)
+        a.target = '_blank'; // 새 탭 또는 창에서 이미지 열기
+        a.click(); // 링크 클릭하여 이미지 저장
+      })
+      .catch((error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/object-not-found':
+            // File doesn't exist
+            break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+          // ...
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            break;
+        }
+      });
+  }
+
   function dataURLtoBlob(dataurl) {
     var arr = dataurl.split(','),
       mime = arr[0].match(/:(.*?);/)[1],
@@ -96,20 +135,6 @@ function Post(props) {
         link.click();
       }
     };
-  }
-  //============================================== 
-
-
-  // 이미지 다운로드 ( id로 새창 열기.. )
-  const imageDownload = (id) => {
-    const image = document.getElementById(id);
-    const imageURL = image.src
-
-    const a = document.createElement('a')
-    a.href = imageURL
-    a.download = `${id}.png`; // 다운로드될 파일명 (확장자 포함)
-    // a.target = '_blank'; // 새 탭 또는 창에서 이미지 열기
-    a.click(); // 링크 클릭하여 이미지 저장
   }
 
 
@@ -198,9 +223,7 @@ function Post(props) {
           {/* 떨어뜨린 곳에 저장 버튼 */}
           <div className="one-btn-area">
             <button className="save-btn" onClick={()=>{
-              console.log("이미지 다운로드!!")
-              // imageDownload(props.post.id) // 저장 X, 새창만 열림
-              downloadImg(props.post.downloadURL) // CORS 에러 발생...
+              ImgDownload(props.post.downloadURL, props.post.id) // 이미지 다운로드, 현재는 새창에서 열기만 됨..
             }}>
               <svg aria-label="저장" color="#262626" fill="#262626"
                height="24" role="img" viewBox="0 0 24 24" width="24">
