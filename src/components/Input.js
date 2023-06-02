@@ -113,8 +113,12 @@ function Input(){
         console.log("게시물 등록 --> ",savedData);
 
         // [FireBase 저장 로직]
-        addDocument( savedData ,saveImg) // 저장
-        dispatch(setVisible(false))
+        // 저장
+        addDocument( savedData ,saveImg)
+        .then(()=>{
+            // 모달 끄기
+            dispatch(setVisible(false))
+        })
     }
 
     return(
