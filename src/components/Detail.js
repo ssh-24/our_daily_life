@@ -45,7 +45,9 @@ function Detail(props) {
   }, [post])
 
 
+  //============================================== 
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
+  //============================================== 
   const getLikeStatus = (likeYN) => {
     if (likeYN) {
       return (
@@ -78,6 +80,33 @@ function Detail(props) {
     }
   }
 
+  //============================================== 
+  // 저장 상태에 따른 버튼 이미지 반환
+  //============================================== 
+  const getSaveStatus = (saveYn) => {
+    if (saveYn) {
+      return (
+        <svg aria-label="저장 취소" color="#262626" fill="#262626"
+          height="24" role="img" viewBox="0 0 24 24" width="24">
+          <polygon points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+            stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+          </polygon>
+        </svg>
+      )
+    }
+    else {
+      return (
+        <svg aria-label="저장" color="#262626" fill="#262626"
+          height="24" role="img" viewBox="0 0 24 24" width="24">
+          <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+            stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+          </polygon>
+        </svg>
+      )
+    }
+  }
+
+
   return (
     ready ?
     <>
@@ -94,7 +123,6 @@ function Detail(props) {
           </div>
 
           {/* 이미지 영역 */}
-          {/* 클릭 시 상세 페이지로 이동 */}
           <div className="Post-img">
             <div className="Post-img-bg">
               <img src={post[0].downloadURL} alt="게시물사진"/>
@@ -168,14 +196,34 @@ function Detail(props) {
             {/* 떨어뜨린 곳에 저장 버튼 */}
             <div className="one-btn-area">
               <button className="save-btn" onClick={(e) => {
-                alert('저장')
+                // 저장 여부
+                let isSaved = post[0].peopleWhoSave.includes(user.uid)
+                // 저장한 사람들
+                let peopleWhoSave = [...post[0].peopleWhoSave]
+                if (peopleWhoSave.includes(user.uid)) {
+                  peopleWhoSave = peopleWhoSave.filter(a => a != user.uid)
+                } else {
+                  peopleWhoSave.push(user.uid)
+                }
+                
+                if (isSaved) {
+                  alert('게시물을 보관함에서 삭제할게요!')
+                } else {
+                  alert('게시물을 보관함에 추가할게요!')
+                }
+                console.log('저장한 사람들', peopleWhoSave)
+
+                //=========================================================
+                // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
+                //=========================================================
+                if (isSaved) {
+                  editDocument({ peopleWhoSave }, post[0].id)
+                } else {
+                  editDocument({ peopleWhoSave }, post[0].id)
+                }
               }}>
-                <svg aria-label="저장" color="#262626" fill="#262626"
-                height="24" role="img" viewBox="0 0 24 24" width="24">
-                  <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21"
-                  stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
-                  </polygon>
-                </svg>
+                {/* 받아온 props를 확인해서 저장 버튼 반환*/}
+                {getSaveStatus(post[0].peopleWhoSave.includes(user.uid))}
               </button>
             </div>
           </div>

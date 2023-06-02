@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
@@ -28,7 +27,9 @@ function Post(props) {
     navigate('/detail/'+props.id) // 게시물 id를 URL 파라미터로 넘긴다 (키값)
   }
 
+  //============================================== 
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
+  //============================================== 
   const getLikeStatus = (likeYN) => {
     if (likeYN) {
       return (
@@ -60,81 +61,31 @@ function Post(props) {
       )
     }
   }
-
-  //============================================== 
-  // 이미지 저장 메서드
-  //============================================== 
-  // Create a reference to the file we want to download
-  const ImgDownload = (downloadURL, id) => {
-    const storage = getStorage();
-    const Ref = ref(storage, downloadURL);
   
-    // Get the download URL
-    getDownloadURL(Ref)
-      .then((url) => {
-        // Insert url into an <img> tag to "download"
-        console.log("이미지 URL: ",url);
-        // downloadImg(url); // CORS 에러
-        const a = document.createElement('a')
-        a.href = url;
-        a.download = `${id}.png`; // 다운로드될 파일명 (확장자 포함)
-        a.target = '_blank'; // 새 탭 또는 창에서 이미지 열기
-        a.click(); // 링크 클릭하여 이미지 저장
-      })
-      .catch((error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case 'storage/object-not-found':
-            // File doesn't exist
-            break;
-          case 'storage/unauthorized':
-            // User doesn't have permission to access the object
-            break;
-          case 'storage/canceled':
-            // User canceled the upload
-            break;
-          // ...
-          case 'storage/unknown':
-            // Unknown error occurred, inspect the server response
-            break;
-        }
-      });
-  }
-
-  function dataURLtoBlob(dataurl) {
-    var arr = dataurl.split(','),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+  //============================================== 
+  // 저장 상태에 따른 버튼 이미지 반환
+  //============================================== 
+  const getSaveStatus = (saveYn) => {
+    if (saveYn) {
+      return (
+        <svg aria-label="저장 취소" color="#262626" fill="#262626"
+          height="24" role="img" viewBox="0 0 24 24" width="24">
+          <polygon points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+            stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+          </polygon>
+        </svg>
+      )
     }
-    return new Blob([u8arr], {
-      type: mime
-    });
-  }
-  
-  function downloadImg(imgSrc) {
-    var image = new Image();
-    image.crossOrigin = "anonymous";
-    image.src = imgSrc;
-    var fileName = image.src.split("/").pop();
-    image.onload = function() {
-      var canvas = document.createElement('canvas');
-      canvas.width = this.width;
-      canvas.height = this.height;
-      canvas.getContext('2d').drawImage(this, 0, 0);
-      if (typeof window.navigator.msSaveBlob !== 'undefined') {
-        window.navigator.msSaveBlob(dataURLtoBlob(canvas.toDataURL()), fileName);
-      } else {
-        var link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = fileName;
-        link.click();
-      }
-    };
+    else {
+      return (
+        <svg aria-label="저장" color="#262626" fill="#262626"
+          height="24" role="img" viewBox="0 0 24 24" width="24">
+          <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+            stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+          </polygon>
+        </svg>
+      )
+    }
   }
 
 
@@ -222,15 +173,35 @@ function Post(props) {
 
           {/* 떨어뜨린 곳에 저장 버튼 */}
           <div className="one-btn-area">
-            <button className="save-btn" onClick={()=>{
-              ImgDownload(props.post.downloadURL, props.post.id) // 이미지 다운로드, 현재는 새창에서 열기만 됨..
+            <button className="save-btn" onClick={(e)=>{
+              // 저장 여부
+              let isSaved = props.post.peopleWhoSave.includes(user.uid)
+              // 저장한 사람들
+              let peopleWhoSave = [...props.post.peopleWhoSave]
+              if (peopleWhoSave.includes(user.uid)) {
+                peopleWhoSave = peopleWhoSave.filter(a => a != user.uid)
+              } else {
+                peopleWhoSave.push(user.uid)
+              }
+              
+              if (isSaved) {
+                alert('게시물을 보관함에서 삭제할게요!')
+              } else {
+                alert('게시물을 보관함에 추가할게요!')
+              }
+              console.log('저장한 사람들', peopleWhoSave)
+
+              //=========================================================
+              // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
+              //=========================================================
+              if (isSaved) {
+                editDocument({ peopleWhoSave }, props.post.id)
+              } else {
+                editDocument({ peopleWhoSave }, props.post.id)
+              }
             }}>
-              <svg aria-label="저장" color="#262626" fill="#262626"
-               height="24" role="img" viewBox="0 0 24 24" width="24">
-                <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21"
-                 stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
-                </polygon>
-              </svg>
+              {/* 받아온 props를 확인해서 저장 버튼 반환*/}
+              {getSaveStatus(props.post.peopleWhoSave.includes(user.uid))}
             </button>
           </div>
         </div>
