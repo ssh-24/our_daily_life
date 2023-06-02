@@ -1,9 +1,12 @@
 /*eslint-disable */
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCollection } from '../hooks/useCollection';
 import { useParams } from "react-router-dom";
+import ReplyInput from "./ReplyInput";
+import { setRmVisible } from "../store/replySlice";
 
 function Detail(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
@@ -13,6 +16,8 @@ function Detail(props) {
   let {uid} = useParams() // 게시물 id 키값 (URL 파라미터)
   let [post, setPost] = useState([]) // 데이터 바인딩할 상세 정보 State
   let [ready, setReady] = useState(false)
+  let dispatch = useDispatch()
+  const rmVisible = useSelector((state) => state.replyState.rmVisible) // 댓글 모달 표시 여부 ( reply modal )
 
   // 뒤로가기 + 상단으로 스크롤 이동
   const goBack = () => {
@@ -168,7 +173,7 @@ function Detail(props) {
               </button>
               
               <button className="reply-btn" onClick={(e) => {
-                alert('댓글쓰기 구현중.. ^.^')
+                dispatch(setRmVisible(true))
               }}>
                 <svg aria-label="댓글쓰기" color="#262626" fill="#262626"
                 height="24" role="img" viewBox="0 0 24 24" width="24">
@@ -287,6 +292,13 @@ function Detail(props) {
       </div>
 
     </div>
+    {/* 댓글 등록 모달 */}
+    {
+      rmVisible ?
+      <ReplyInput post={post[0]}/>
+      : null
+    }
+
     </>
 
     : null

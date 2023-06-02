@@ -1,13 +1,16 @@
 /*eslint-disable */
 import React, { useState, useEffect } from "react";
 import { useFirestore } from "../hooks/useFirestore";
+import { useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { setRmVisible } from "../store/replySlice";
 
 function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const { isAuthReady, user } = useAuthContext();
   let navigate = useNavigate() // 페이지 이동
+  let dispatch = useDispatch()
   let [fade, setFade] = useState('') // Animation Style State
   let [isAll, setIsAll] = useState(false) // 댓글 모두보기 여부
 
@@ -147,7 +150,12 @@ function Post(props) {
             </button>
             
             {/* 댓글 작성 버튼 - Detail로 이동 */}
-            <button className="reply-btn" onClick={()=>{goDetail(props.post)}}>
+            <button className="reply-btn" onClick={()=>{
+              goDetail(props.post);
+              setTimeout(() => {
+                dispatch(setRmVisible(true)) // 바로 댓글 입력 열리게 state 변경, 로딩되고 바뀌게 약간 딜레이
+              }, 500);
+            }}>
               <svg aria-label="댓글쓰기" color="#262626" fill="#262626"
               height="24" role="img" viewBox="0 0 24 24" width="24">
                 <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none"
