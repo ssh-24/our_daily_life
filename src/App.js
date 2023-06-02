@@ -59,7 +59,7 @@ function App() {
                 element={user ?
                    <>
                     <Input/>
-                    <Nav/>
+                    <Nav status={'home'}/>
                     <Feeds/>
                    </>
                  : <Start/>
@@ -71,7 +71,7 @@ function App() {
                 element={user ?
                   <>
                     <Input/>
-                    <Nav/>
+                    <Nav status={'log'}/>
                     <Log/>
                   </>
                   :<Navigate replace={true} to="/" />
@@ -83,7 +83,7 @@ function App() {
                 element={user ?
                   <>
                     <Input/>
-                    <Nav/>
+                    <Nav status={'profile'}/>
                     <Profile/>
                   </>
                   :<Navigate replace={true} to="/" />

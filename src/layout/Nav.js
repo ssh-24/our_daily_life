@@ -13,6 +13,7 @@ function Nav(props) {
   let navigate = useNavigate()
   let dispatch = useDispatch()
   const userList = useSelector((state) => state.userList); // 검색 자동완성에 쓰일 redux store data
+  const visible = useSelector((state) => state.inputState.visible) // input 모달 여부, 버튼 색깔 분기처리에 사용
   let [fade, setFade] = useState('') // Animation Style State
   let [acShow, setAcShow] = useState('d-none') // 자동완성 영역 표시 여부, 초기값 안보이게
   let [searchInfo, setSearchInfo] = useState('') // 검색 버튼으로 날릴 state (유저 UID)
@@ -179,26 +180,50 @@ function Nav(props) {
           
               <div className="btn-list">
                   <div className="btn-item">
-                      <HomeBtn onClick={(e)=>{
+                      { props.status === 'home' ?
+                        <HomeBtnOn onClick={(e)=>{
                           e.preventDefault()
                           goMain()}}/>
+                       : 
+                        <HomeBtn onClick={(e)=>{
+                          e.preventDefault()
+                          goMain()}}/>
+                      }
                   </div>
                   <div className="btn-item">
-                      <AddBtn onClick={(e)=>{
+                      { visible ?
+                        <AddBtnOn onClick={(e)=>{
                           e.preventDefault()
                           uploadClicked()}}/>
+                      : 
+                        <AddBtn onClick={(e)=>{
+                          e.preventDefault()
+                          uploadClicked()}}/>
+                      }
                   </div>
 
                   <div className="btn-item">
-                      <LikeBtn onClick={(e)=>{
+                      { props.status === 'log' ?
+                        <LikeBtnOn onClick={(e)=>{
                           e.preventDefault()
                           logClicked()}}/>
+                      :
+                        <LikeBtn onClick={(e)=>{
+                          e.preventDefault()
+                          logClicked()}}/>
+                      }
                   </div>
 
                   <div className="btn-item">
-                      <ProfileBtn onClick={(e)=>{
+                      { props.status === 'profile' ?
+                        <ProfileBtnOn onClick={(e)=>{
                           e.preventDefault()
                           profileClicked()}}/>
+                      :
+                        <ProfileBtn onClick={(e)=>{
+                          e.preventDefault()
+                          profileClicked()}}/>
+                      }
                   </div>
 
                   <div className="btn-item">
@@ -209,7 +234,7 @@ function Nav(props) {
       </nav>
     
       <div className={`go-top-btn transition-start ${fade}`}>
-        <UpBtn onClick={(e)=>{
+        <ScrollTopBtn onClick={(e)=>{
             e.preventDefault()
             scrollTop()}}/>
       </div>
@@ -250,6 +275,13 @@ const HomeBtn = (props) => (
     </svg>
 );
 
+const HomeBtnOn = (props) => (
+  <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>{"home"}</title>
+    <path d="M7.8254 0.120372C7.63815 -0.0401239 7.36185 -0.0401239 7.1746 0.120372L0 6.27003V13.5C0 14.3284 0.671573 15 1.5 15H5.5C5.77614 15 6 14.7761 6 14.5V11.5C6 10.6716 6.67157 10 7.5 10C8.32843 10 9 10.6716 9 11.5V14.5C9 14.7761 9.22386 15 9.5 15H13.5C14.3284 15 15 14.3284 15 13.5V6.27003L7.8254 0.120372Z" fill="#000000"/>
+  </svg>
+);
+
 const AddBtn = (props) => (
     <svg
     id="Capa_1"
@@ -274,6 +306,20 @@ const AddBtn = (props) => (
   </svg>
 );
 
+const AddBtnOn = (props) => (
+  <svg
+    fill="#000000"
+    // width="800px"
+    // height="800px"
+    viewBox="0 0 1000 1000"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <title>{"new post"}</title>
+    <path d="M856 40H142q-42 0-72 30t-30 72v714q0 42 30 72t72 30h714q42 0 72-30t30-72V142q0-42-30-72t-72-30zM754 550H550v204H448V550H244V448h204V244h102v204h204v102z" />
+  </svg>
+);
+
 const LikeBtn = (props) => (
     <svg
     fill="#000000"
@@ -291,6 +337,23 @@ const LikeBtn = (props) => (
       className="clr-i-outline clr-i-outline-path-1"
     />
     <rect x={0} y={0} width={36} height={36} fillOpacity={0} />
+  </svg>
+);
+
+const LikeBtnOn = (props) => (
+  <svg
+    // width="800px"
+    // height="800px"
+    viewBox="0 0 15 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <title>{"log"}</title>
+    <path
+      d="M4.03553 1C1.80677 1 0 2.80677 0 5.03553C0 6.10582 0.42517 7.13228 1.18198 7.88909L7.14645 13.8536C7.34171 14.0488 7.65829 14.0488 7.85355 13.8536L13.818 7.88909C14.5748 7.13228 15 6.10582 15 5.03553C15 2.80677 13.1932 1 10.9645 1C9.89418 1 8.86772 1.42517 8.11091 2.18198L7.5 2.79289L6.88909 2.18198C6.13228 1.42517 5.10582 1 4.03553 1Z"
+      fill="#000000"
+    />
   </svg>
 );
 
@@ -323,6 +386,34 @@ const ProfileBtn = (props) => (
   </svg>
 );
 
+const ProfileBtnOn = (props) => (
+  <svg
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 472.615 472.615"
+    style={{
+      enableBackground: "new 0 0 472.615 472.615",
+    }}
+    xmlSpace="preserve"
+    {...props}
+  >
+    <title>{"profile"}</title>
+    <g>
+      <g>
+        <circle cx={236.308} cy={117.504} r={111.537} />
+      </g>
+    </g>
+    <g>
+      <g>
+        <path d="M369,246.306c-1.759-1.195-5.297-3.493-5.297-3.493c-28.511,39.583-74.993,65.402-127.395,65.402 c-52.407,0-98.894-25.825-127.404-65.416c0,0-2.974,1.947-4.451,2.942C41.444,288.182,0,360.187,0,441.87v24.779h472.615V441.87 C472.615,360.549,431.538,288.822,369,246.306z" />
+      </g>
+    </g>
+  </svg>
+);
+
 const LogoutBtn = (props) => (
     <svg
     fill="#000000"
@@ -347,7 +438,7 @@ const LogoutBtn = (props) => (
   </svg>
 );
 
-const UpBtn = (props) => (
+const ScrollTopBtn = (props) => (
 <svg
     width="36px"
     height="36px"
@@ -364,21 +455,4 @@ const UpBtn = (props) => (
       strokeLinejoin="round"
     />
   </svg>
-);
-
-const LikeBtnColor = (props) => (
-    <svg
-      // width="800px"
-      // height="800px"
-      viewBox="0 0 48 48"
-      xmlns="http://www.w3.org/2000/svg"
-      enableBackground="new 0 0 48 48"
-      {...props}
-    >
-      <title>{"like"}</title>
-      <path
-        fill="#F44336"
-        d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
-      />
-    </svg>
 );
