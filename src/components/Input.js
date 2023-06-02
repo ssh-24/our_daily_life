@@ -137,7 +137,7 @@ function Input(){
                                 { showImg.length > 0 && <img src={showImg ?? showImg} alt="" style={{marginBottom : '13px',width : '80%', maxHeight:'200px'}}/>}
                                 
                                 <div className="form-group">
-                                    <input type="text" value={inputState.postText} onChange={onChange} className="form-control" name="postText" placeholder="문구 입력" required/>
+                                    <input type="text" value={inputState.postText} onChange={onChange} className="form-control post-text-input" name="postText" placeholder="내용을 입력해 주세요!" required/>
                                 </div>
                                 <input type="submit" className="post-btn" value="공유하기"/>
                                 <div className="close-btn">
