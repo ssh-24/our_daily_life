@@ -665,6 +665,12 @@ textarea::-webkit-outer-spin-button {
   border-radius: 10px;
 }
 
+.post-text-input {
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
+}
+
 @font-face {
   font-family: "HSSaemaul-Regular";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff") format("woff");
@@ -955,4 +961,10 @@ section {
   color: #fff;
   transform: scale(1.02);
   transition: 0.1s;
+}
+
+.reply-text-input {
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+  font-size: larger;
 }/*# sourceMappingURL=styles.css.map */
