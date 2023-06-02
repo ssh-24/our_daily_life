@@ -34,6 +34,7 @@ let feeds = createSlice({
                 replyText: '별로?',
                 }
             ],
+            peopleWhoSave: []
         },
         // 2
         {
@@ -63,6 +64,7 @@ let feeds = createSlice({
                 replyText: '별로?',
                 }
             ],
+            peopleWhoSave: []
         }
     ],
     reducers : {
