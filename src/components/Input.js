@@ -1,5 +1,5 @@
 /*eslint-disable */
-import { useEffect, useState, useRef} from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCollectionDtl } from '../hooks/useCollectionDtl';
@@ -16,7 +16,6 @@ function Input(){
     let [showImg, setShowImg] = useState('') // 미리보기 이미지
     let [saveImg, setSaveImg] = useState('') // 실물저장 이미지
     let [fade, setFade] = useState('') // Animation Style State
-    const targetRef = useRef("")
 
     // 글 등록 모달 on --> 스크롤 X
     // 이전 작성 정보 --> 글, 미리보기 이미지 초기화
@@ -126,7 +125,7 @@ function Input(){
                     {/* 뒤에 요소들 덮어서 모달만 보이게 */}
                     <div className={`dimmed-layer ${fade}`}/>
 
-                    <div ref={targetRef} className={`input-area transition-start ${fade}`}>
+                    <div className={`input-area transition-start ${fade}`}>
                         <div className="form-container">
                             <form onSubmit={onSubmit}>
                                 <h3>새 게시물 만들기</h3>
