@@ -30,7 +30,6 @@ function Input(){
         // mount, 초기로딩 완료 --> 작성자 정보 미리 셋팅
         dispatch(setUserEmail(user.email))
         dispatch(setUID(user.uid))
-        dispatch(setDisplayName(user.displayName))
 
         // unmount 시 초기화
         return () => {
@@ -46,6 +45,7 @@ function Input(){
         console.log("로그인 유저(firebase)|",documents)
         if (documents != null && documents.length !== 0) {
             let obj = documents[0]
+            dispatch(setDisplayName(documents[0].displayName))
             delete obj.createdTime // createdTime이 객체 형태라서 non-serializable value 에러가 나서 지워줬다
             dispatch(setLoginUserInfo(obj)) // redux state에 저장
         }
