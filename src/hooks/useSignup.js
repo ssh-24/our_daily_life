@@ -54,7 +54,7 @@ export const useSignup = () => {
                 let profileImage = '/assets/profile_default.png'; // 최초가입 시 디폴트 이미지 추가
 
                 // 유저 최초 저장 시 컬렉션 생성
-                addUser({email, password, UID, profileIntro, profileImage});
+                addUser({email, password, UID, profileIntro, profileImage, displayName});
             })
 
         })
