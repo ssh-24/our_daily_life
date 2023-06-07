@@ -5,6 +5,7 @@ import feeds from './store/feedsSlice'
 import userList from './store/searchSlice'
 import loginUserInfo from './store/loginUserSlice'
 import replyState from './store/replySlice'
+import profileState from './store/profileSlice'
 
 export default configureStore({
    reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
        feeds : feeds.reducer,
        userList : userList.reducer,
        loginUserInfo : loginUserInfo.reducer,
-       replyState : replyState.reducer
+       replyState : replyState.reducer,
+       profileState : profileState.reducer,
    }
 })
