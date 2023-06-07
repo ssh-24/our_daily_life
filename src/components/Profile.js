@@ -6,22 +6,25 @@ import { setVisible } from "../store/inputSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ProfileInput from './ProfileInput';
+import { setPfVisible } from "../store/profileSlice";
 
 function Profile(props) {
     const {user} = useAuthContext()
     let {uid} = useParams() // 사용자 id 키값 (URL 파라미터)
-    const {documents,error} = useCollectionDtl("FeedData",["UID","==",uid]) // URL 파라미터 --> UID로 프로필 조회
+    const {documents : FeedInfo} = useCollectionDtl("FeedData",["UID","==",uid]) // URL 파라미터 --> UID로 프로필 조회
+    const {documents : UserInfo} = useCollectionDtl("UserData",["UID","==",uid]) // URL 파라미터 --> UID로 프로필 조회
     const [docReady, setDocReady] = useState(false)
     const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보, (Input.js 에서 초기 셋팅)
     let [fade, setFade] = useState('') // Animation Style State
+    const pfVisible = useSelector((state) => state.profileState.pfVisible) // 프로필 변경 모달 표시 여부 ( profile change modal )
     let dispatch = useDispatch()
     let navigate = useNavigate() // 페이지 이동
     
     // 프로필 사진 변경
     const profileChange = () => {
-        // 로직 구현해야 함..
-        window.blur()
-        alert("기능 구현 중 ^.^")
+        // 프로필 변경 모달 on
+        dispatch(setPfVisible(true))
     }
 
     // 게시물 등록
@@ -47,20 +50,20 @@ function Profile(props) {
         if (user.uid === uid) {
             console.log("user :",user)
             console.log("이메일 :",user.email)
-            console.log("닉네임 :",user.displayName)
+            console.log("최초가입 시 닉네임 (user.displayName) :",user.displayName)
         }
     },[])
-
+    
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(true)
         // 내 프로필이면
         if (user.uid === uid) {
-            console.log("내 글 :",documents)
+            console.log("내 글 :",FeedInfo)
         } else {
-            console.log("검색 :",documents)
+            console.log("검색 :",FeedInfo)
         }
-    },[documents])
+    },[FeedInfo])
 
     useEffect(()=>{
         setFade(docReady? 'transition-end': '') // 애니메이션 효과
@@ -72,35 +75,36 @@ function Profile(props) {
             <section>
                 <div className={`container transition-start ${fade}`}>
                     <div className='container-wrap'>
-                        <img className="profile-img" src={
-                            user.uid === uid ?
-                             loginUserInfo.profileImage
-                             : docReady && documents != null && documents.length !== 0 ?
-                                documents[0].profileImage
-                                : '/assets/profile_default.png'
+                        <img className="profile-img" src=
+                            {
+                                user.uid === uid ?
+                                loginUserInfo.profileImage
+                                : docReady && UserInfo != null && UserInfo.length !== 0 ?
+                                    UserInfo[0].profileImage
+                                    : '/assets/profile_default.png'
                              } alt="프로필 사진"/>
                         <div className="profile-info">
                             <h3>{
-                                user.uid === uid ?
-                                user.email
-                                : docReady && documents != null && documents.length !== 0 ?
-                                    documents[0].userEmail
+                                    user.uid === uid ?
+                                    user.email
+                                    : docReady && FeedInfo != null && FeedInfo.length !== 0 ?
+                                        FeedInfo[0].userEmail
+                                        : '데이터가 없어요!'
+                                }
+                            </h3>
+                            <h4>@
+                                {
+                                    docReady && FeedInfo != null && FeedInfo.length !== 0 ?
+                                    FeedInfo[0].displayName
                                     : '데이터가 없어요!'
-                            }</h3>
-                            <h4>@{
-                                user.uid === uid ?
-                                user.displayName
-                                : docReady && documents != null && documents.length !== 0 ?
-                                    documents[0].displayName
-                                    : '데이터가 없어요!'
-                            }</h4>
+                                }
+                            </h4>
                             <p>
                                 {/* 소개글 내용이 짧을 때 줄어드는 거 막아야 할 듯*/}
                                 {
-                                    user.uid === uid ?
-                                    loginUserInfo.profileIntro
-                                    : //** 소개글 데이터는 따로 받아와야할듯 **
-                                     '안녕하세요! 저의 프로필 페이지를 방문해주셔서 감사합니다.'
+                                    docReady && UserInfo != null && UserInfo.length !== 0 ?
+                                    UserInfo[0].profileIntro
+                                    : '데이터가 없어요!' 
                                 }
                             </p>
                             {
@@ -119,8 +123,8 @@ function Profile(props) {
                 <div className={`content-list transition-start ${fade}`}>
                     <div className='content-wrap'>
                         {
-                            docReady && documents != null && documents.length !== 0
-                            ? documents.map((a,i)=>{
+                            docReady && FeedInfo != null && FeedInfo.length !== 0
+                            ? FeedInfo.map((a,i)=>{
                                 return (
                                     // 클릭 시 상세로 이동!
                                     <img key={i} src={a.downloadURL} alt='#' onClick={(e) => goDetail(a)}/>
@@ -144,6 +148,13 @@ function Profile(props) {
                 </div>
 
             </section>
+
+            {/* 프로필 변경 모달 */}
+            {
+                pfVisible ?
+                <ProfileInput/>
+                : null
+            }
         </>
     )
 }
