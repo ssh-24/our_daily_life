@@ -94,9 +94,11 @@ function Profile(props) {
                             </h3>
                             <h4>@
                                 {
-                                    docReady && FeedInfo != null && FeedInfo.length !== 0 ?
-                                    FeedInfo[0].displayName
-                                    : '데이터가 없어요!'
+                                    user.uid === uid ?
+                                    loginUserInfo.displayName
+                                    : docReady && FeedInfo != null && FeedInfo.length !== 0 ?
+                                        FeedInfo[0].displayName
+                                        : '데이터가 없어요!'
                                 }
                             </h4>
                             <p>
