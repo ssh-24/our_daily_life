@@ -47,7 +47,7 @@ const AuthContextProvider = ({children}) =>{
         return unsubscribe;
 
     },[])
-    console.log('담겨있는 userstate:', state);
+    // console.log('담겨있는 userstate:', state);
 
     return(
         // state 값이 늘어날 수 있기 때문에 spread operator 사용
