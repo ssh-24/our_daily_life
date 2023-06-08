@@ -92,7 +92,7 @@ function ProfileInput(props) {
                     // 모달 끄고
                     dispatch(setPfVisible(false))
                 })
-            }, 2000); // 1초는 부족하당..
+            }, 3000); // 1초는 부족하당..
         }
         else {
             /* ************************************
