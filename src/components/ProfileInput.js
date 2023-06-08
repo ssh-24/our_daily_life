@@ -7,8 +7,8 @@ import { useFirestore } from "../hooks/useFirestore";
 import { setPfVisible } from "../store/profileSlice";
 import { Label } from "@material-ui/icons";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../firebase/config"
-
+import { storage } from "../firebase/config";
+import Loading from "../layout/Loading";
 
 
 function ProfileInput(props) {
@@ -28,7 +28,9 @@ function ProfileInput(props) {
         profileIntro: '',
     }); // 변경할 profile state
     let [imageChangeYN, setImageChangeYN] = useState(false) // 프로필사진 변경 여부
-    let [resultURL, setResultURL] = useState('') // URL 어케 가져오징??
+    let [resultURL, setResultURL] = useState('') // 업로드 결과 이미지 URL
+    let [uploadYN, setUploadYN] = useState(false) // 사진 업로드 여부
+    let [loading, setLoading] = useState(false) // 로딩 ( 업로드 중에 보여주도록 )
     const { displayName, profileImage, profileIntro } = newProfile; // 구조분해 할당 --> 값 추출
 
     // OnChange
@@ -58,92 +60,106 @@ function ProfileInput(props) {
         setSaveImg(e.target.files[0]);
     }
 
-    
+
+    //=========================================================
     // 폼이 제출되면 실행 [프로필 변경]
+    // Feed : displayName, profileImage 변경
+    // User : displayName, profileIntro, profileImage 변경
+    //=========================================================
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
-        let np = newProfile // 변경할 프로필 정보
+        setLoading(true) // 로딩 표시
 
-        console.log("변경할 프로필 --> ",np)
-        console.log("사진도 변경 ? --> ",imageChangeYN)
-        console.log("각자는 ???? ", displayName, profileImage, profileIntro);
-
-        //=========================================================
-        // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
-        //=========================================================
-        // 프로필 사진이 변경되었으면 Firebase에 저장부터
+        console.log('사진 변경 여부 --> ',imageChangeYN)
         if (imageChangeYN) {
-            // 이미지 업로드 경로 저장 & 가져오기
+            /* ************************************
+            *     프로필 사진 포함 O 변경
+            *********************************** */
+           // 이미지 업로드 경로 저장 & 가져오기
             const storageRef = ref(storage, 'images/'+profileImage.name );
-            const uploadTask = uploadBytesResumable(storageRef, profileImage);
-            getDownloadURL(uploadTask.snapshot.ref)
-            .then((downloadURL) => {
-                console.log('업로드된 경로는', downloadURL);
-                // 업로드된 경로로 state 변경
-                setResultURL(downloadURL)
-                // setNewProfile({
-                //     ...newProfile,
-                //     profileImage: downloadURL
-                // }).then(()=>console.log(newProfile));
-                // profileImage = downloadURL;
-            })
+            const uploadTask = uploadBytesResumable(storageRef, profileImage); // 서버에 업로드
 
-            // 게시물이 있다면
-            if (MyFeedInfo.length !== 0) {
-                MyFeedInfo.map((a,i)=>{
-                    FeedEdit({ displayName, profileImage }, a.id)
+            // 저장될때까지 시간이 걸리는 듯 함 --> setTimeout 드가자
+            setTimeout(() => {
+                getDownloadURL(uploadTask.snapshot.ref)
+                .then((downloadURL) => {
+                    console.log('downloadURL --> ', downloadURL);
+                    // 업로드된 경로로 state 변경 --> **useEffect[resultURL] 로 이어진당**
+                    setResultURL(downloadURL)
                 })
-            }
-
-            UserEdit({ profileIntro, displayName, profileImage }, UserInfo[0].id)
-            .then(()=>{
-                // 모달 끄고
-                dispatch(setPfVisible(false))
-            })
-
+                .catch((err)=> {
+                    alert("서버에 문제가 발생했어요😥 \n 다시 시도해주세요!")
+                    // 모달 끄고
+                    dispatch(setPfVisible(false))
+                })
+            }, 2000); // 1초는 부족하당..
         }
         else {
-            // Feed : 모든 글의 displayName, profileImage 를 변경해줘야 함
-            // User : profileImage, profileIntro 를 변경해줘야 함
-
-            // 게시물이 있다면
+            /* ************************************
+            *     프로필 사진 포함 X 변경
+            *********************************** */
             if (MyFeedInfo.length !== 0) {
                 MyFeedInfo.map((a,i)=>{
                     FeedEdit({ displayName }, a.id)
                 })
             }
-
             UserEdit({ profileIntro, displayName }, UserInfo[0].id)
             .then(()=>{
                 // 모달 끄고
                 dispatch(setPfVisible(false))
             })
         }
-        
+
     }
+    //=========================================================
 
 
+
+    // 프로필 변경시 URL 변경되면 ( 사진 O )
     useEffect(()=>{
         if (resultURL !== '' && resultURL !== undefined) {
             setNewProfile({
                 ...newProfile,
                 profileImage: resultURL
             })
+
+            console.log("최종 URL --> ",resultURL)
+            setUploadYN(true); // 사진 업로드 여부 추가
         }
     },[resultURL])
 
+    // 업로드, state 변경 전처리 끝나면 --> **프로필 최종 변경**
+    useEffect(()=>{
+        if (uploadYN) {
+            console.log("프로필 변경 ( 사진 O ) --> ",newProfile);
+            // 게시물이 있다면
+            if (MyFeedInfo.length !== 0) {
+                MyFeedInfo.map((a,i)=>{
+                    FeedEdit({ displayName, profileImage }, a.id)
+                })
+            }
+            UserEdit({ profileIntro, displayName, profileImage }, UserInfo[0].id)
+            .then(()=>{
+                // 모달 끄고
+                dispatch(setPfVisible(false))
+            })
+        }
+    },[uploadYN])
 
     // 초기 mount 시
     useEffect(()=>{
         setFade('transition-end')
         setShowImg('')
         setImageChangeYN(false)
+        setUploadYN(false)
+        setLoading(false)
     },[])
     
+    // 컬렉션 데이터 받아오면 초기화
     useEffect(()=>{
         if (MyFeedInfo != null && UserInfo != null) {
-            console.log("게시글 : ", MyFeedInfo);
-            console.log("사용자 : ", UserInfo);
+            console.log("게시글 : ", MyFeedInfo)
+            console.log("사용자 : ", UserInfo)
             
             // 받아올 경우에 셋팅
             setNewProfile({
@@ -158,14 +174,16 @@ function ProfileInput(props) {
     useEffect(()=>{
         setNewProfile({
             ...newProfile, // 기존의 input 객체를 복사한 뒤
-            profileImage : saveImg // profileImage에 이미지 추가
+            profileImage : saveImg // profileImage에 이미지 추가 (file)
         });
-        setImageChangeYN(true);
+        setImageChangeYN(true)
     },[saveImg])
 
     // 모달 on/off 시
     useEffect(()=>{
-        setImageChangeYN(false);
+        setImageChangeYN(false)
+        setUploadYN(false)
+        setLoading(false)
     },[pfVisible])
 
     // Esc로 모달 끄기
@@ -183,6 +201,12 @@ function ProfileInput(props) {
 
     return (
         <>
+            {
+                // 로딩중
+                loading ? 
+                <Loading/>
+                : null
+            }
             {/* 뒤에 요소들 덮어서 모달만 보이게 */}
             <div className={`dimmed-layer ${fade}`}/>
 
