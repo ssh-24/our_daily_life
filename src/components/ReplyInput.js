@@ -1,20 +1,19 @@
 /*eslint-disable */
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useSelector, useDispatch } from "react-redux";
 import { useFirestore } from "../hooks/useFirestore";
 import { setRmVisible } from "../store/replySlice";
 
 
 function ReplyInput(props) {
     const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
-    const {user} = useAuthContext()
     let dispatch = useDispatch()
+    const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보, (Input.js 에서 초기 셋팅)
     let [fade, setFade] = useState('') // Animation Style State
     let [newReply, setNewReply] = useState({
-        displayName: user.displayName,
+        displayName: loginUserInfo.displayName,
         replyText: '',
-    }); // 로그인한 user 정보로 displayName은 박아놓는다
+    }); // 로그인한 loginUserInfo 에서 받아온 displayName으로 박아놓는다 ( user 에서는 초기값으로 들어가 있어서 다름 )
 
     const { displayName, replyText } = newReply; // 구조분해 할당 --> 값 추출
 
@@ -54,7 +53,7 @@ function ReplyInput(props) {
     useEffect(()=>{
         setFade('transition-end')
         console.log("props", props.post);
-        console.log("댓글 누가 써??", user.displayName);
+        console.log("댓글 누가 써??", loginUserInfo.displayName);
     },[])
 
     // Esc로 모달 끄기
