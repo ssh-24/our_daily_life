@@ -451,6 +451,9 @@ textarea::-webkit-outer-spin-button {
   padding: 10px;
   align-items: center;
 }
+.Post-user-area:hover {
+  cursor: pointer;
+}
 
 .Post-user-profileImage {
   width: 30px;

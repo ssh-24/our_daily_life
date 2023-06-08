@@ -25,6 +25,20 @@ function Post(props) {
     }
   },[])
 
+  // 상단으로 스크롤 이동
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // 프로필 페이지 이동
+  const goProfile = (val) => {
+    navigate(`/profile/${val}`)
+    scrollTop()
+    
+    // **새로고침 해버리자**
+    window.location.reload();
+  }
+
   // 게시물 상세 화면으로 이동
   const goDetail = (props) => {
     navigate('/detail/'+props.id) // 게시물 id를 URL 파라미터로 넘긴다 (키값)
@@ -97,7 +111,7 @@ function Post(props) {
       <div className="Post-area">
 
         {/* 프로필 영역 */}
-        <div className="Post-user-area">
+        <div className="Post-user-area" onClick={()=>{goProfile(props.post.UID)}}>
           <div className="Post-user-profileImage">
             <img src={props.post.profileImage} alt="프로필사진"/>
           </div>

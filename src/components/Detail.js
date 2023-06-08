@@ -5,6 +5,7 @@ import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCollection } from '../hooks/useCollection';
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ReplyInput from "./ReplyInput";
 import { setRmVisible } from "../store/replySlice";
 
@@ -16,6 +17,7 @@ function Detail(props) {
   let {uid} = useParams() // 게시물 id 키값 (URL 파라미터)
   let [post, setPost] = useState([]) // 데이터 바인딩할 상세 정보 State
   let [ready, setReady] = useState(false)
+  let navigate = useNavigate() // 페이지 이동
   let dispatch = useDispatch()
   const rmVisible = useSelector((state) => state.replyState.rmVisible) // 댓글 모달 표시 여부 ( reply modal )
 
@@ -23,6 +25,20 @@ function Detail(props) {
   const goBack = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     window.history.back() // 뒤로가기
+  }
+
+  // 상단으로 스크롤 이동
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // 프로필 페이지 이동
+  const goProfile = (val) => {
+    navigate(`/profile/${val}`)
+    scrollTop()
+    
+    // **새로고침 해버리자**
+    window.location.reload();
   }
 
   useEffect(()=>{
@@ -120,7 +136,7 @@ function Detail(props) {
         <div className="Post-area">
 
           {/* 프로필 영역 */}
-          <div className="Post-user-area">
+          <div className="Post-user-area" onClick={()=>goProfile(post[0].UID)}>
             <div className="Post-user-profileImage">
               <img src={post[0].profileImage} alt="프로필사진"/>
             </div>
