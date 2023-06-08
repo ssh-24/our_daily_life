@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import Post from "./Post";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useCollectionDtl } from '../hooks/useCollectionDtl';
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Log(props) {
     const {user} = useAuthContext()
     let navigate = useNavigate() // 페이지 이동
+    const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보, (Input.js 에서 초기 셋팅)
     const {documents,error} = useCollectionDtl("FeedData", ["peopleWhoLike","array-contains",user.uid] );
     const [docReady, setDocReady] = useState(false)
     let [fade, setFade] = useState('') // Animation Style State
@@ -23,7 +25,7 @@ function Log(props) {
         setDocReady(false)
         console.log("user :",user)
         console.log("이메일 :",user.email)
-        console.log("닉네임 :",user.displayName)
+        console.log("닉네임 :",loginUserInfo.displayName)
     },[])
 
     useEffect(()=>{
