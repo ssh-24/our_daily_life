@@ -2,6 +2,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    min-width: 390px; // 줄어들었을때 방어, 제목 텍스트 안떨어지는 정도로
     background-color: #fff;
     z-index: 100;
     border-bottom: 1px solid rgba(122, 122, 122, 0.25);
@@ -21,13 +22,16 @@
     justify-content: center;
     align-items: center;
 
-    .logo_img {
-        height: 2.2vh;
+    .logo-text {
+        font-family: 'SDSamliphopangche_Outline';
+        font-size: x-large;
+        letter-spacing: -1.5px;
         &:hover {
             -webkit-transform: scale(1.02);
             transform: scale(1.02);
             transition: 0.1s;
             cursor: pointer;
+            color: #000000;
         }
     }
 }
@@ -91,8 +95,8 @@
         height: 2.5vh;
         object-fit: cover;
         &:hover {
-            -webkit-transform: scale(1.02);
-            transform: scale(1.02);
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
             transition: 0.1s;
             cursor: pointer;
         }

@@ -1,33 +1,31 @@
-@font-face {
-    font-family: 'HSSaemaul-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 .login-area {
     box-sizing: border-box;
     border: 1px solid #fff;
     border-radius: 20px;
-    width: 40vw;
-    min-width: 500px; // 줄어들었을때 방어
+    min-width: 380px; // 줄어들었을때 방어, 제목 텍스트 안떨어지는 정도로
     max-width: 500px;
     margin: auto;
     padding: 10px;
     text-align: center;
     align-items: center;
 
-    .logo_img{
+    .logo-text {
+        font-family: 'SDSamliphopangche_Outline';
+        font-size: xx-large;
         height: 36px;
         margin: 32px 80px 32px;
     }
 
     .form-container {
         margin: auto;
-        padding: 40px 100px 40px;
+        padding: 35px 0px 35px;
         border: 2px solid rgba(0, 0, 0, 0.055);
         border-radius: 30px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+        .sign-form {
+            margin: auto;
+        }
         
         h2, p {
             text-align: center;
@@ -38,9 +36,8 @@
         }
     
         input.form-control {
-            width: calc(100% - 1.4vw);
-            margin-right: 16px;
-            margin-bottom: 10px;
+            display: inline-block; // block 일 때 왼쪽에 붙더라
+            width: 65%; // 딱 적당한 듯
             padding: 5px 10px;
             border: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -68,12 +65,9 @@
 
     }
 
-
     .form-group {
-        width: 300px;
         margin-bottom: 15px;
     }
-
 
     .another-area {
         display: flex;

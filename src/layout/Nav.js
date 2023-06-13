@@ -1,6 +1,5 @@
 /*eslint-disable */
 import React, { useEffect, useState } from "react";
-import Logo from "../assets/images/logo.png";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 import { useSelector, useDispatch } from "react-redux";
@@ -157,9 +156,9 @@ function Nav(props) {
                       e.preventDefault();
                       goMain();
                   }}>
-                      <div className="logo_div">
-                          <img alt="Our Daily Life" className="logo_img" src={Logo}/>
-                      </div>
+                    <div className="logo_div">
+                      <div className="logo-text">Our Daily Life</div>
+                    </div>
                   </a>
               </div>
 

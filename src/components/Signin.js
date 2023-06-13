@@ -2,7 +2,6 @@
 import React from "react"
 import {useState} from "react"
 import {useLogin} from '../hooks/useLogin'
-import Logo from "../assets/images/logo.png"
 import { useSelector, useDispatch } from "react-redux"
 import { setIsSigned } from "../store/signedSlice"
 
@@ -41,11 +40,11 @@ function Signin(){
         <>
             <div className="login-area">
                 <div className="logo_div">
-                    <img alt="Our Daily Life" className="logo_img" src={Logo}/>
+                    <div className="logo-text">Our Daily Life</div>
                 </div>
 
                 <div className="form-container">
-                    <form onSubmit={onSubmit}>
+                    <form className="sign-form" onSubmit={onSubmit}>
                         <h2>시작하기</h2>
                         <p>우리의 일상을 함께 공유해봐요:)</p>
                         {/* 이메일, 비밀번호, 로그인 버튼 */}
