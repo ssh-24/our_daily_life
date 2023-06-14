@@ -95,20 +95,16 @@ textarea {
   font-size: inherit;
   border: 0;
 }
-input::-moz-placeholder, textarea::-moz-placeholder {
-  /* Chrome, Safari, Firefox */
-  color: #c9c9c9;
-  opacity: 1;
-}
 input::placeholder,
 textarea::placeholder {
   /* Chrome, Safari, Firefox */
   color: #c9c9c9;
   opacity: 1;
 }
-input[readonly]::-moz-placeholder, input:disabled::-moz-placeholder, textarea[readonly]::-moz-placeholder, textarea:disabled::-moz-placeholder {
-  /* Chrome, Safari, Firefox */
-  color: rgba(0, 0, 0, 0.2);
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* IE, Edge */
+  color: #c9c9c9;
   opacity: 1;
 }
 input[readonly]::placeholder, input:disabled::placeholder,
@@ -244,6 +240,7 @@ textarea::-webkit-outer-spin-button {
 .login-area .form-container .signup-btn:focus, .login-area .form-container .signup-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -272,6 +269,7 @@ textarea::-webkit-outer-spin-button {
 .login-area .another-btn:focus, .login-area .another-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -307,6 +305,7 @@ textarea::-webkit-outer-spin-button {
   letter-spacing: -1.5px;
 }
 .refresh .logo-text:hover {
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
   cursor: pointer;
@@ -340,6 +339,7 @@ textarea::-webkit-outer-spin-button {
   background-color: #fff;
 }
 .user-search .search_input:hover {
+  -webkit-transform: scale(1.01);
   transform: scale(1.01);
   transition: 0.1s;
   border: 1px solid #b1b1b1;
@@ -356,6 +356,7 @@ textarea::-webkit-outer-spin-button {
 }
 .user-search .search-btn:hover, .user-search .search-btn:focus {
   cursor: pointer;
+  -webkit-transform: scale(1.15);
   transform: scale(1.15);
   transition: 0.1s;
 }
@@ -374,10 +375,10 @@ textarea::-webkit-outer-spin-button {
   min-width: 21px;
   max-height: 35px;
   max-width: 35px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .btn-list .btn-item:hover {
+  -webkit-transform: scale(1.1);
   transform: scale(1.1);
   transition: 0.1s;
   cursor: pointer;
@@ -392,6 +393,7 @@ textarea::-webkit-outer-spin-button {
   z-index: 100;
 }
 .go-top-btn:hover {
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
   cursor: pointer;
@@ -416,6 +418,7 @@ textarea::-webkit-outer-spin-button {
   background-color: #fff;
 }
 .auto-complete-area:hover {
+  -webkit-transform: scale(1.01);
   transform: scale(1.01);
   transition: 0.1s;
 }
@@ -430,6 +433,7 @@ textarea::-webkit-outer-spin-button {
 }
 .auto-complete-area li:hover {
   cursor: pointer;
+  -webkit-transform: scale(1.01);
   transform: scale(1.01);
   transition: 0.1s;
   font-weight: 700;
@@ -541,8 +545,7 @@ textarea::-webkit-outer-spin-button {
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .Post-user-id {
@@ -559,8 +562,7 @@ textarea::-webkit-outer-spin-button {
 .Post-img img {
   display: block;
   width: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .Post-icon-btn-area {
@@ -670,13 +672,13 @@ textarea::-webkit-outer-spin-button {
   height: 2.5vh;
   top: 10vh;
   right: 5vw;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .close-btn:hover, .close-btn:focus {
   border: 1px solid #fff;
   border-radius: 5px;
   background-color: #000;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
   cursor: pointer;
@@ -734,6 +736,7 @@ textarea::-webkit-outer-spin-button {
 .input-area .form-container .post-btn:focus, .input-area .form-container .post-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -796,7 +799,7 @@ section {
 }
 
 .container {
-  margin-top: 100px;
+  margin-top: 70px;
   display: flex;
   justify-content: center;
 }
@@ -820,21 +823,28 @@ section {
   font-family: "HSSaemaul-Regular";
 }
 
-.profile-info h3 {
+.profile-email {
   margin: 0;
   margin-bottom: 10px;
   font-size: xx-large;
+  min-width: 370px;
+  min-height: 40px;
 }
 
-.profile-info h4 {
+.profile-displayname {
   margin-top: 0;
   margin-bottom: 10px;
   font-size: x-large;
+  min-width: 370px;
+  min-height: 30px;
 }
 
-.profile-info p {
+.profile-intro {
+  white-space: pre-wrap;
   margin-bottom: 10px;
   width: 100%;
+  min-width: 370px;
+  min-height: 45px;
 }
 
 .profile-info button {
@@ -852,6 +862,7 @@ section {
 .profile-info button:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -870,9 +881,23 @@ section {
   flex-direction: column;
   align-items: center;
   border-top: 1px solid gray;
-  padding-top: 30px;
-  margin-top: 50px;
+  padding-top: 20px;
+  margin-top: 30px;
   padding-bottom: 30px;
+}
+
+.content-wrap-one {
+  display: grid;
+  grid-template-columns: repeat(3, 100%);
+  justify-content: center;
+  align-items: center;
+}
+
+.content-wrap-two {
+  display: grid;
+  grid-template-columns: repeat(3, 50%);
+  justify-content: center;
+  align-items: center;
 }
 
 .content-wrap {
@@ -882,11 +907,11 @@ section {
   align-items: center;
 }
 
-.content-wrap img {
+.my-img {
   width: 230px;
   height: 230px;
-  margin-left: 7px;
-  margin-top: 10px;
+  margin-left: 8px;
+  margin-top: 8px;
 }
 
 .no-post {
@@ -914,6 +939,7 @@ section {
 .no-post .upload-btn-profile:focus, .no-post .upload-btn-profile:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -939,38 +965,74 @@ section {
 .profile-go-main-btn-area .go-main-btn:focus, .profile-go-main-btn-area .go-main-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
 
 @media (max-width: 1000px) {
   section {
-    width: 600px;
+    width: 700px;
+  }
+  .content-list {
+    padding-top: 18px;
+  }
+  .my-img {
+    width: 210px;
+    height: 210px;
   }
 }
 @media (max-width: 900px) {
   section {
-    width: 550px;
+    width: 650px;
+  }
+  .content-list {
+    padding-top: 16px;
+  }
+  .my-img {
+    width: 200px;
+    height: 200px;
   }
 }
 @media (max-width: 800px) {
   section {
-    width: 500px;
+    width: 600px;
+  }
+  .content-list {
+    padding-top: 14px;
+  }
+  .my-img {
+    width: 180px;
+    height: 180px;
   }
 }
 @media (max-width: 700px) {
   section {
-    width: 450px;
+    width: 550px;
+  }
+  .content-list {
+    padding-top: 12px;
+  }
+  .my-img {
+    width: 170px;
+    height: 170px;
   }
 }
 @media (max-width: 600px) {
   section {
-    width: 400px;
+    width: 500px;
+  }
+  .content-list {
+    padding-top: 10px;
+  }
+  .my-img {
+    width: 160px;
+    height: 160px;
   }
 }
 @media (max-width: 500px) {
   section {
-    width: 350px;
+    width: 400px;
   }
   .container-wrap {
     flex-direction: column;
@@ -978,6 +1040,32 @@ section {
   }
   .profile-img {
     margin-bottom: 30px;
+  }
+  .profile-info button {
+    display: block;
+    margin: auto;
+    margin-top: 6px;
+  }
+  .content-list {
+    margin-top: 20px;
+    padding-top: 12px;
+  }
+  .my-img {
+    width: 130px;
+    height: 130px;
+    margin-left: 7px;
+    margin-top: 7px;
+  }
+}
+@media (max-width: 425px) {
+  .content-list {
+    padding-top: 12px;
+  }
+  .my-img {
+    width: 115px;
+    height: 115px;
+    margin-left: 6px;
+    margin-top: 6px;
   }
 }
 .liked-feeds {
@@ -1017,6 +1105,7 @@ section {
 .no-like .lookaround-btn:focus, .no-like .lookaround-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -1042,6 +1131,7 @@ section {
 .log-go-main-btn-area .go-main-btn:focus, .log-go-main-btn-area .go-main-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }
@@ -1066,6 +1156,7 @@ section {
 .detail-btn-area .go-main-btn:focus, .detail-btn-area .go-main-btn:hover {
   background-color: rgb(83, 83, 83);
   color: #fff;
+  -webkit-transform: scale(1.02);
   transform: scale(1.02);
   transition: 0.1s;
 }

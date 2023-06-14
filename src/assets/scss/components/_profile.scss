@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
 }
+
 section{
     width: 800px;
     margin: 0 auto;
@@ -8,10 +9,11 @@ section{
 }
 
 .container {
-    margin-top: 100px;
+    margin-top: 70px;
     display: flex;
     justify-content: center;
 }
+
 .container-wrap{
     display: flex;
 }
@@ -30,20 +32,31 @@ section{
     /* 이쁜 글씨 */
     font-family: 'HSSaemaul-Regular';
 }
-.profile-info h3 {
+
+.profile-email {
     margin: 0;
     margin-bottom: 10px;
     font-size: xx-large;
+    min-width: 370px; // 수축 방어
+    min-height: 40px;
 }
-.profile-info h4 {
+
+.profile-displayname {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: x-large;
+    min-width: 370px; // 수축 방어
+    min-height: 30px;
 }
-.profile-info p {
+
+.profile-intro {
+    white-space: pre-wrap;
     margin-bottom: 10px;
     width: 100%;
+    min-width: 370px; // 수축 방어
+    min-height: 45px;
 }
+
 .profile-info button {
     width: 50%;
     margin-top: 6px;
@@ -64,10 +77,12 @@ section{
         transition: 0.1s;
     }
 }
+
 .profile-stats {
     display: flex;
     justify-content: space-between;
 }
+
 .profile-stats p {
     margin: 0;
 }
@@ -77,29 +92,42 @@ section{
     flex-direction: column;
     align-items: center;
     border-top: 1px solid gray;
-    padding-top: 30px;
-    margin-top: 50px;
+    padding-top: 20px;
+    margin-top: 30px;
     padding-bottom: 30px;
 }
+
+// 게시물이 한 개 있는 경우 예외처리용 css
+.content-wrap-one{
+    display: grid;
+    grid-template-columns: repeat(3, 100%);
+    justify-content: center;
+    align-items: center;
+}
+
+// 게시물이 두 개 있는 경우 예외처리용 css
+.content-wrap-two{
+    display: grid;
+    grid-template-columns: repeat(3, 50%);
+    justify-content: center;
+    align-items: center;
+}
+
 .content-wrap{
-    // display: flex;
-    // flex-direction: row;
-    // justify-content: flex-start;
-    // flex-wrap: wrap;
-    // margin-left: 40px;
-    // &:nth-child(n+2){
-    //     margin-top: 7px;  
-    // }
     display: grid;
     grid-template-columns: repeat(3, 33%);
     justify-content: center;
     align-items: center;
 }
-.content-wrap img{
+
+.my-img {
+    // width: 95%;
+    // height: 95%;
+    // 퍼센트로 하니까 정사각형 이쁘게 안 나온다.. 반응형으로 알잘딱 처리 ㄱㄱ
     width: 230px;
     height: 230px;
-    margin-left: 7px;
-    margin-top: 10px;
+    margin-left: 8px;
+    margin-top: 8px;
 }
 
 .no-post {
@@ -166,46 +194,101 @@ section{
 // 반응형
 @media (max-width: 1000px){
     section{
-        width: 600px;
+        width: 700px;
+    }
+    .content-list{
+        padding-top: 18px;
+    }
+    .my-img{
+        width: 210px;
+        height: 210px;
     }
 }
 @media (max-width: 900px){
     section{
-        width: 550px;
+        width: 650px;
+    }
+    .content-list{
+        padding-top: 16px;
+    }
+    .my-img{
+        width: 200px;
+        height: 200px;
     }
 }
 @media (max-width: 800px){
     section{
-        width: 500px;
+        width: 600px;
+    }
+    .content-list{
+        padding-top: 14px;
+    }
+    .my-img{
+        width: 180px;
+        height: 180px;
     }
 }
 @media (max-width: 700px){
     section{
-        width: 450px;
+        width: 550px;
+    }
+    .content-list{
+        padding-top: 12px;
+    }
+    .my-img{
+        width: 170px;
+        height: 170px;
     }
 }
 @media (max-width: 600px){
     section{
-        width: 400px;
+        width: 500px;
+    }
+    .content-list{
+        padding-top: 10px;
+    }
+    .my-img{
+        width: 160px;
+        height: 160px;
     }
 }
 @media (max-width: 500px){
     section{
-        width: 350px;
+        width: 400px;
     }
     .container-wrap{
+        // 여기부터 모바일 버전처럼 세로로 보여주기
         flex-direction: column;
         align-items: center;
     }
     .profile-img{
         margin-bottom: 30px;
     }
+    .profile-info button {
+        // 여기부터 버튼 가운데 보내주기
+        display: block;
+        margin: auto;
+        margin-top: 6px;
+    }
+    .content-list{
+        margin-top: 20px; // 마진도 좀 줄여
+        padding-top: 12px;
+    }
+    .my-img{
+        width: 130px;
+        height: 130px;
+        margin-left: 7px;
+        margin-top: 7px;
+    }
 }
 @media (max-width: 425px){
-    // .content-wrap{
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    // }
-    
+    .content-list{
+        padding-top: 12px;
+    }
+    .my-img{
+        width: 115px;
+        height: 115px;
+        margin-left: 6px;
+        margin-top: 6px;
+    }
 }

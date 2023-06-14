@@ -84,7 +84,7 @@ function Profile(props) {
                                     : '/assets/profile_default.png'
                              } alt="프로필 사진"/>
                         <div className="profile-info">
-                            <h3>{
+                            <h3 className='profile-email'>{
                                     user.uid === uid ?
                                     user.email
                                     : docReady && FeedInfo != null && FeedInfo.length !== 0 ?
@@ -92,7 +92,7 @@ function Profile(props) {
                                         : '데이터가 없어요!'
                                 }
                             </h3>
-                            <h4>@
+                            <h4 className='profile-displayname'>@
                                 {
                                     user.uid === uid ?
                                     loginUserInfo.displayName
@@ -101,8 +101,7 @@ function Profile(props) {
                                         : '데이터가 없어요!'
                                 }
                             </h4>
-                            <p>
-                                {/* 소개글 내용이 짧을 때 줄어드는 거 막아야 할 듯*/}
+                            <p className='profile-intro'>
                                 {
                                     docReady && UserInfo != null && UserInfo.length !== 0 ?
                                     UserInfo[0].profileIntro
@@ -120,13 +119,21 @@ function Profile(props) {
                 </div>
 
                 <div className={`content-list transition-start ${fade}`}>
-                    <div className='content-wrap'>
+                    <div className={
+                        // 게시물 수에 따라서 스타일을 다르게 설정
+                        docReady && FeedInfo != null && FeedInfo.length > 2 ?
+                         'content-wrap' 
+                         : 
+                            docReady && FeedInfo != null && FeedInfo.length > 1 ?
+                             'content-wrap-two'
+                             : 'content-wrap-one'
+                    }>
                         {
                             docReady && FeedInfo != null && FeedInfo.length !== 0
                             ? FeedInfo.map((a,i)=>{
                                 return (
                                     // 클릭 시 상세로 이동!
-                                    <img key={i} src={a.downloadURL} alt='#' onClick={(e) => goDetail(a)}/>
+                                    <img key={a.createdUqe} className='my-img' src={a.downloadURL} alt='#' onClick={(e) => goDetail(a)}/>
                                 )
                             })
                             : // 유저 검색 --> 게시물 작성한 사람만 되기 때문에 예외처리 X
