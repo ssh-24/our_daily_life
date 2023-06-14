@@ -82,37 +82,24 @@ section{
     padding-bottom: 30px;
 }
 .content-wrap{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin-left: 40px;
-    &:nth-child(n+2){
-        margin-top: 7px;  
-    }
-    // display: grid;
-    // grid-template-columns: repeat(3, 34%);
-    // justify-content: center;
-    // align-items: center;
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: flex-start;
+    // flex-wrap: wrap;
+    // margin-left: 40px;
+    // &:nth-child(n+2){
+    //     margin-top: 7px;  
+    // }
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    justify-content: center;
+    align-items: center;
 }
 .content-wrap img{
     width: 230px;
     height: 230px;
     margin-left: 7px;
     margin-top: 10px;
-}
-
-@media (max-width: 425px){
-    .container-wrap{
-        flex-direction: column;
-        align-items: center;
-    }
-    .profile-img{
-        margin-bottom: 30px;
-    }
-    section{
-        width: unset;
-    }
 }
 
 .no-post {
@@ -174,4 +161,51 @@ section{
             transition: 0.1s;
         }
     }
+}
+
+// 반응형
+@media (max-width: 1000px){
+    section{
+        width: 600px;
+    }
+}
+@media (max-width: 900px){
+    section{
+        width: 550px;
+    }
+}
+@media (max-width: 800px){
+    section{
+        width: 500px;
+    }
+}
+@media (max-width: 700px){
+    section{
+        width: 450px;
+    }
+}
+@media (max-width: 600px){
+    section{
+        width: 400px;
+    }
+}
+@media (max-width: 500px){
+    section{
+        width: 350px;
+    }
+    .container-wrap{
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-img{
+        margin-bottom: 30px;
+    }
+}
+@media (max-width: 425px){
+    // .content-wrap{
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    // }
+    
 }
