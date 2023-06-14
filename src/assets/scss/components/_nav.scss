@@ -55,6 +55,7 @@
         height: 4vh;
         min-height: 33px;
         max-height: 43px;
+        min-width: 60px; // 검색창 크기 안깨지게
         background-color: #EFEFEF;
         border: 1px solid #EFEFEF;
     
@@ -74,10 +75,10 @@
 
     .search-btn {
         margin-left: 1vh;
-        width: 2.5vh;
-        height: 2.5vh;
-        min-height: 24px;
-        min-width: 24px;
+        width: 2.4vh;
+        height: 2.4vh;
+        min-height: 21px;
+        min-width: 21px;
         max-height: 32px;
         max-width: 32px;
         &:hover, &:focus {
@@ -95,13 +96,13 @@
     justify-content: center;
     align-items: baseline; // center 로 하면 height 줄어들때 밑으로 내려오는데 baseline 하면 중간에 배치됨
     padding: 1vh 1.2vh;
-    
+
     .btn-item {
-        margin-right: 0.5vw;
-        width: 2.5vh;
-        height: 2.5vh;
-        min-height: 24px;
-        min-width: 24px;
+        margin: 0.2vw;
+        width: 2.4vh;
+        height: 2.4vh;
+        min-height: 21px;
+        min-width: 21px;
         max-height: 35px;
         max-width: 35px;
         object-fit: cover;
@@ -191,8 +192,8 @@
         font-size: larger!important;
     }
     .btn-item {
-        width: 2.4vh!important;
-        height: 2.4vh!important;
+        width: 2.35vh!important;
+        height: 2.35vh!important;
     }
 }
 @media (max-width: 540px){
@@ -250,7 +251,7 @@
         font-size: medium!important;
     }
     .btn-item {
-        width: 2.2vh!important;
-        height: 2.2vh!important;
+        width: 2.25vh!important;
+        height: 2.25vh!important;
     }
 }

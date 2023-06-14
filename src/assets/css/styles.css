@@ -331,6 +331,7 @@ textarea::-webkit-outer-spin-button {
   height: 4vh;
   min-height: 33px;
   max-height: 43px;
+  min-width: 60px;
   background-color: #EFEFEF;
   border: 1px solid #EFEFEF;
 }
@@ -346,10 +347,10 @@ textarea::-webkit-outer-spin-button {
 }
 .user-search .search-btn {
   margin-left: 1vh;
-  width: 2.5vh;
-  height: 2.5vh;
-  min-height: 24px;
-  min-width: 24px;
+  width: 2.4vh;
+  height: 2.4vh;
+  min-height: 21px;
+  min-width: 21px;
   max-height: 32px;
   max-width: 32px;
 }
@@ -366,11 +367,11 @@ textarea::-webkit-outer-spin-button {
   padding: 1vh 1.2vh;
 }
 .btn-list .btn-item {
-  margin-right: 0.5vw;
-  width: 2.5vh;
-  height: 2.5vh;
-  min-height: 24px;
-  min-width: 24px;
+  margin: 0.2vw;
+  width: 2.4vh;
+  height: 2.4vh;
+  min-height: 21px;
+  min-width: 21px;
   max-height: 35px;
   max-width: 35px;
   -o-object-fit: cover;
@@ -449,8 +450,8 @@ textarea::-webkit-outer-spin-button {
     font-size: larger !important;
   }
   .btn-item {
-    width: 2.4vh !important;
-    height: 2.4vh !important;
+    width: 2.35vh !important;
+    height: 2.35vh !important;
   }
 }
 @media (max-width: 540px) {
@@ -502,8 +503,8 @@ textarea::-webkit-outer-spin-button {
     font-size: medium !important;
   }
   .btn-item {
-    width: 2.2vh !important;
-    height: 2.2vh !important;
+    width: 2.25vh !important;
+    height: 2.25vh !important;
   }
 }
 .all-feeds {
