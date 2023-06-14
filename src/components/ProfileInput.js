@@ -148,11 +148,17 @@ function ProfileInput(props) {
 
     // 초기 mount 시
     useEffect(()=>{
+        document.body.style.overflow = 'hidden'; // 스크롤 제거
         setFade('transition-end')
         setShowImg('')
         setImageChangeYN(false)
         setUploadYN(false)
         setLoading(false)
+
+        // unmount 시 초기화
+        return () => {
+            document.body.style.overflow = ''; // 스크롤 보이기
+        }
     },[])
     
     // 컬렉션 데이터 받아오면 초기화

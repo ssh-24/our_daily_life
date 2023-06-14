@@ -112,10 +112,7 @@ function Profile(props) {
                             {
                                 // 프로필 변경 버튼 --> 내 프로필에서만 표시
                                 user.uid === uid ?
-                                <button onClick={(e)=>{
-                                    e.preventDefault()
-                                    profileChange()
-                                }}>프로필 변경</button>
+                                <button onClick={profileChange}>프로필 변경</button>
                                 : null
                             }
                         </div>

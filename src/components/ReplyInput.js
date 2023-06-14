@@ -51,9 +51,15 @@ function ReplyInput(props) {
 
     // 초기 mount 시
     useEffect(()=>{
+        document.body.style.overflow = 'hidden'; // 스크롤 제거
         setFade('transition-end')
         console.log("props", props.post);
         console.log("댓글 누가 써??", loginUserInfo.displayName);
+        
+        // unmount 시 초기화
+        return () => {
+            document.body.style.overflow = ''; // 스크롤 보이기
+        }
     },[])
 
     // Esc로 모달 끄기
