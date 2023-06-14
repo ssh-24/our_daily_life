@@ -15,6 +15,7 @@ const Feeds = lazy(()=> import('./components/Feeds'))
 const Input = lazy(()=> import('./components/Input'))
 const Profile = lazy(()=> import('./components/Profile'))
 const Log = lazy(()=> import('./components/Log'))
+const Saved = lazy(()=> import('./components/Saved'))
 const Detail = lazy(()=> import('./components/Detail'))
 
 
@@ -73,6 +74,18 @@ function App() {
                     <Input/>
                     <Nav status={'log'}/>
                     <Log/>
+                  </>
+                  :<Navigate replace={true} to="/" />
+                }
+              />
+
+              {/* 보관함 페이지 */}
+              <Route path="/saved" 
+                element={user ?
+                  <>
+                    <Input/>
+                    <Nav status={'saved'}/>
+                    <Saved/>
                   </>
                   :<Navigate replace={true} to="/" />
                 }

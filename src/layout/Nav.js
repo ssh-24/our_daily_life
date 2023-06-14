@@ -140,6 +140,12 @@ function Nav(props) {
     navigate('/log')
     scrollTop()
   }
+
+  // 보관함버튼 클릭
+  const savedClicked = () => {
+    navigate('/saved')
+    scrollTop()
+  }
   
   // 프로필버튼 클릭
   const profileClicked = () => {
@@ -198,6 +204,14 @@ function Nav(props) {
                         <LikeBtnOn onClick={logClicked}/>
                       :
                         <LikeBtn onClick={logClicked}/>
+                      }
+                  </div>
+
+                  <div className="btn-item">
+                      { props.status === 'saved' ?
+                        <SavedBtnOn onClick={savedClicked}/>
+                      :
+                        <SavedBtn onClick={savedClicked}/>
                       }
                   </div>
 
@@ -332,6 +346,30 @@ const LikeBtnOn = (props) => (
       d="M4.03553 1C1.80677 1 0 2.80677 0 5.03553C0 6.10582 0.42517 7.13228 1.18198 7.88909L7.14645 13.8536C7.34171 14.0488 7.65829 14.0488 7.85355 13.8536L13.818 7.88909C14.5748 7.13228 15 6.10582 15 5.03553C15 2.80677 13.1932 1 10.9645 1C9.89418 1 8.86772 1.42517 8.11091 2.18198L7.5 2.79289L6.88909 2.18198C6.13228 1.42517 5.10582 1 4.03553 1Z"
       fill="#000000"
     />
+  </svg>
+);
+
+const SavedBtn = (props) => (
+  <svg color="#262626" fill="#262626"
+    role="img" viewBox="0 0 24 24"
+    {...props}
+  >
+    <title>{"saved"}</title>
+    <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+      stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4">
+    </polygon>
+  </svg>
+);
+
+const SavedBtnOn = (props) => (
+  <svg color="#262626" fill="#262626"
+    role="img" viewBox="0 0 24 24"
+    {...props}
+  >
+    <title>{"saved"}</title>
+    <polygon points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+      stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4">
+    </polygon>
   </svg>
 );
 
