@@ -193,7 +193,7 @@ textarea::-webkit-outer-spin-button {
   box-sizing: border-box;
   border: 1px solid #fff;
   border-radius: 20px;
-  min-width: 380px;
+  min-width: 360px;
   max-width: 500px;
   margin: auto;
   padding: 10px;
@@ -280,7 +280,6 @@ textarea::-webkit-outer-spin-button {
   position: fixed;
   top: 0;
   width: 100%;
-  min-width: 390px;
   background-color: #fff;
   z-index: 100;
   border-bottom: 1px solid rgba(122, 122, 122, 0.25);
@@ -293,6 +292,8 @@ textarea::-webkit-outer-spin-button {
   align-items: center;
   text-align: center;
   height: 6vh;
+  min-height: 46px;
+  max-height: 68px;
 }
 
 .refresh {
@@ -328,6 +329,8 @@ textarea::-webkit-outer-spin-button {
   margin-left: 0.8vw;
   letter-spacing: -0.3px;
   height: 4vh;
+  min-height: 33px;
+  max-height: 43px;
   background-color: #EFEFEF;
   border: 1px solid #EFEFEF;
 }
@@ -345,6 +348,10 @@ textarea::-webkit-outer-spin-button {
   margin-left: 1vh;
   width: 2.5vh;
   height: 2.5vh;
+  min-height: 24px;
+  min-width: 24px;
+  max-height: 32px;
+  max-width: 32px;
 }
 .user-search .search-btn:hover, .user-search .search-btn:focus {
   cursor: pointer;
@@ -355,13 +362,17 @@ textarea::-webkit-outer-spin-button {
 .btn-list {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   padding: 1vh 1.2vh;
 }
 .btn-list .btn-item {
-  margin-right: 0.8vw;
+  margin-right: 0.5vw;
   width: 2.5vh;
   height: 2.5vh;
+  min-height: 24px;
+  min-width: 24px;
+  max-height: 35px;
+  max-width: 35px;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -369,9 +380,6 @@ textarea::-webkit-outer-spin-button {
   transform: scale(1.1);
   transition: 0.1s;
   cursor: pointer;
-}
-.btn-list .btn-item:last-child {
-  margin-right: 0;
 }
 
 .go-top-btn {
@@ -426,13 +434,50 @@ textarea::-webkit-outer-spin-button {
   font-weight: 700;
 }
 
-@media (max-width: 540px) {
-  /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
+@media (max-width: 655px) {
+  /* 브라우저 사이즈 655px 이하일때 ㄱㄱ*/
   .refresh {
-    margin-left: 2%;
+    width: 95%;
+  }
+  .btn-list {
+    width: 95%;
+  }
+}
+@media (max-width: 580px) {
+  /* 브라우저 사이즈 580px 이하일때 ㄱㄱ*/
+  .logo-text {
+    font-size: larger !important;
+  }
+  .btn-item {
+    width: 2.4vh !important;
+    height: 2.4vh !important;
+  }
+}
+@media (max-width: 540px) {
+  /* 브라우저 사이즈 540px 이하일때 ㄱㄱ*/
+  .refresh {
+    width: 90%;
+  }
+  .btn-list {
+    width: 90%;
   }
   .user-search input {
-    width: 80%;
+    width: 95%;
+  }
+}
+@media (max-width: 510px) {
+  /* 브라우저 사이즈 510px 이하일때 ㄱㄱ*/
+  .refresh {
+    width: 85%;
+  }
+  .btn-list {
+    width: 85%;
+  }
+  .user-search input {
+    width: 90%;
+  }
+  .logo-text {
+    font-size: large !important;
   }
 }
 @media (max-width: 425px) {
@@ -444,7 +489,21 @@ textarea::-webkit-outer-spin-button {
     width: 80%;
   }
   .user-search input {
-    width: 80%;
+    width: 85%;
+  }
+  .btn-item {
+    width: 2.3vh !important;
+    height: 2.3vh !important;
+  }
+}
+@media (max-width: 340px) {
+  /* 브라우저 사이즈 340px 이하일때 ㄱㄱ*/
+  .logo-text {
+    font-size: medium !important;
+  }
+  .btn-item {
+    width: 2.2vh !important;
+    height: 2.2vh !important;
   }
 }
 .all-feeds {
@@ -634,14 +693,15 @@ textarea::-webkit-outer-spin-button {
   box-sizing: border-box;
   border: 1px solid #fff;
   border-radius: 30px;
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 360px;
+  max-width: 500px;
   padding: 5px;
   text-align: center;
   align-items: center;
 }
 .input-area .form-container {
-  padding: 40px 10px 40px;
+  margin: auto;
+  padding: 35px 0px 35px;
   border: 2px solid rgba(0, 0, 0, 0.055);
   border-radius: 30px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -653,9 +713,9 @@ textarea::-webkit-outer-spin-button {
   /* 이쁜 글씨 */
   font-family: "HSSaemaul-Regular";
 }
-.input-area .form-container .form-control {
-  margin-right: 16px;
-  margin-bottom: 10px;
+.input-area .form-container input.form-control {
+  display: inline-block;
+  width: 85%;
   padding: 5px 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -684,6 +744,7 @@ textarea::-webkit-outer-spin-button {
   /* 이쁜 글씨 */
   font-family: "HSSaemaul-Regular";
   font-size: larger;
+  width: 85%;
   padding: 5px 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;

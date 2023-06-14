@@ -2,7 +2,6 @@
     position: fixed;
     top: 0;
     width: 100%;
-    min-width: 390px; // 줄어들었을때 방어, 제목 텍스트 안떨어지는 정도로
     background-color: #fff;
     z-index: 100;
     border-bottom: 1px solid rgba(122, 122, 122, 0.25);
@@ -15,6 +14,8 @@
     align-items: center;
     text-align: center;
     height: 6vh;
+    min-height: 46px;
+    max-height: 68px;
 }
 
 .refresh {
@@ -52,6 +53,8 @@
         margin-left: 0.8vw;
         letter-spacing: -0.3px;
         height: 4vh;
+        min-height: 33px;
+        max-height: 43px;
         background-color: #EFEFEF;
         border: 1px solid #EFEFEF;
     
@@ -73,6 +76,10 @@
         margin-left: 1vh;
         width: 2.5vh;
         height: 2.5vh;
+        min-height: 24px;
+        min-width: 24px;
+        max-height: 32px;
+        max-width: 32px;
         &:hover, &:focus {
             cursor: pointer;
             -webkit-transform: scale(1.15);
@@ -86,22 +93,23 @@
 .btn-list {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: baseline; // center 로 하면 height 줄어들때 밑으로 내려오는데 baseline 하면 중간에 배치됨
     padding: 1vh 1.2vh;
     
     .btn-item {
-        margin-right: 0.8vw;
+        margin-right: 0.5vw;
         width: 2.5vh;
         height: 2.5vh;
+        min-height: 24px;
+        min-width: 24px;
+        max-height: 35px;
+        max-width: 35px;
         object-fit: cover;
         &:hover {
             -webkit-transform: scale(1.1);
             transform: scale(1.1);
             transition: 0.1s;
             cursor: pointer;
-        }
-        &:last-child {
-            margin-right: 0;
         }
     }
 }
@@ -168,18 +176,55 @@
     }
 }
 
-
-@media (max-width: 540px){
-    /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
+@media (max-width: 655px){
+    /* 브라우저 사이즈 655px 이하일때 ㄱㄱ*/
     .refresh{
-        margin-left: 2%;
+        width: 95%;
+    }
+    .btn-list{
+        width: 95%;
+    }
+}
+@media (max-width: 580px){
+    /* 브라우저 사이즈 580px 이하일때 ㄱㄱ*/
+    .logo-text{
+        font-size: larger!important;
+    }
+    .btn-item {
+        width: 2.4vh!important;
+        height: 2.4vh!important;
+    }
+}
+@media (max-width: 540px){
+    /* 브라우저 사이즈 540px 이하일때 ㄱㄱ*/
+    .refresh{
+        width: 90%;
+    }
+    .btn-list{
+        width: 90%;
     }
     .user-search{
         input{
-            width: 80%;
+            width: 95%;
         }
     }
-
+}
+@media (max-width: 510px){
+    /* 브라우저 사이즈 510px 이하일때 ㄱㄱ*/
+    .refresh{
+        width: 85%;
+    }
+    .btn-list{
+        width: 85%;
+    }
+    .user-search{
+        input{
+            width: 90%;
+        }
+    }
+    .logo-text{
+        font-size: large!important;
+    }
 }
 @media (max-width: 425px){
     /* 브라우저 사이즈 425px 이하일때 ㄱㄱ*/
@@ -191,8 +236,21 @@
     }
     .user-search{
         input{
-            width: 80%;
+            width: 85%;
         }
     }
-
+    .btn-item {
+        width: 2.3vh!important;
+        height: 2.3vh!important;
+    }
+}
+@media (max-width: 340px){
+    /* 브라우저 사이즈 340px 이하일때 ㄱㄱ*/
+    .logo-text{
+        font-size: medium!important;
+    }
+    .btn-item {
+        width: 2.2vh!important;
+        height: 2.2vh!important;
+    }
 }

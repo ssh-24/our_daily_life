@@ -213,6 +213,7 @@ function ProfileInput(props) {
             <div className={`input-area transition-start ${fade}`}>
                 <div className="form-container">
                     <form onSubmit={onSubmit}>
+                        <h3>내 프로필</h3>
                         <div className="form-group profile-input">
                             <Label/>
                             <input accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime" className="img-input profile-text-input" multiple="" type="file" onChange={onChange}/>
