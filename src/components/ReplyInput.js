@@ -12,8 +12,9 @@ function ReplyInput(props) {
     let [fade, setFade] = useState('') // Animation Style State
     let [newReply, setNewReply] = useState({
         displayName: loginUserInfo.displayName,
+        UID: loginUserInfo.UID,
         replyText: '',
-    }); // 로그인한 loginUserInfo 에서 받아온 displayName으로 박아놓는다 ( user 에서는 초기값으로 들어가 있어서 다름 )
+    }); // 로그인한 loginUserInfo 에서 받아온 displayName, UID 로 박아놓는다 ( displayName의 경우, user 에서는 초기값으로 들어가 있어서 다름 )
 
     const { displayName, replyText } = newReply; // 구조분해 할당 --> 값 추출
 
