@@ -588,6 +588,9 @@ textarea::-webkit-outer-spin-button {
   font-family: "HSSaemaul-Regular";
   font-size: large;
 }
+.Post-like-area .Post-like-count {
+  margin-bottom: 4px;
+}
 .Post-like-area .Post-like-count::before {
   content: "🤍 ";
 }
@@ -646,6 +649,14 @@ textarea::-webkit-outer-spin-button {
   margin: 0 16px 8px;
   border-bottom: 1px solid black;
   opacity: 0.1;
+}
+
+.post-date {
+  padding: 0px 16px 6px;
+  /* 둘기마요 */
+  font-family: "Dovemayo_gothic";
+  font-size: smaller;
+  opacity: 0.8;
 }
 
 @font-face {

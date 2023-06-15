@@ -13,6 +13,7 @@ function Post(props) {
   let dispatch = useDispatch()
   let [fade, setFade] = useState('') // Animation Style State
   let [isAll, setIsAll] = useState(false) // 댓글 모두보기 여부
+  const THIS_YEAR = new Date().getFullYear(); // 현재 년도
 
   useEffect(()=>{
     // Automatic batching 때문에 타이머 준다
@@ -322,6 +323,17 @@ function Post(props) {
           </>
           : null
         }
+
+        {/* 작성일자 */}
+        <div className="post-date">
+          { 
+            // 작성년도가 올해와 같으면 년도는 표시하지 않기 
+            THIS_YEAR === props.post.createdDate.substring(0,4)*1
+            ? props.post.createdDate.substring(5,7) + "월 " + props.post.createdDate.substring(8,10) + "일 " + props.post.createdDate.substring(11)
+            : props.post.createdDate.substring(0,4)+"년 " + props.post.createdDate.substring(5,7) + "월 " + props.post.createdDate.substring(8,10) + "일 " + props.post.createdDate.substring(11)
+          }
+        </div>
+
       </div>
     </article>
   );

@@ -20,6 +20,7 @@ function Detail(props) {
   let navigate = useNavigate() // 페이지 이동
   let dispatch = useDispatch()
   const rmVisible = useSelector((state) => state.replyState.rmVisible) // 댓글 모달 표시 여부 ( reply modal )
+  const THIS_YEAR = new Date().getFullYear(); // 현재 년도
 
   // 뒤로가기 + 상단으로 스크롤 이동
   const goBack = () => {
@@ -298,6 +299,16 @@ function Detail(props) {
 
             : null
           }
+
+          {/* 작성일자 */}
+          <div className="post-date">
+            { 
+              // 작성년도가 올해와 같으면 년도는 표시하지 않기 
+              THIS_YEAR === post[0].createdDate.substring(0,4)*1
+              ? post[0].createdDate.substring(5,7) + "월 " + post[0].createdDate.substring(8,10) + "일 " + post[0].createdDate.substring(11)
+              : post[0].createdDate.substring(0,4)+"년 " + post[0].createdDate.substring(5,7) + "월 " + post[0].createdDate.substring(8,10) + "일 " + post[0].createdDate.substring(11)
+            }
+          </div>
         </div>
       </article>
 
