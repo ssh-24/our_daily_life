@@ -238,7 +238,7 @@ function Post(props) {
         {/* 게시글 영역 */}
         <div className="Post-text-area">
           <div className="Post-text">
-            <div className="Post-writer-name">
+            <div className="Post-writer-name" onClick={()=>{goProfile(props.post.UID)}}>
               <b>{props.post.displayName}</b>
             </div>
             <div className="Post-text-postText">
@@ -275,7 +275,7 @@ function Post(props) {
                     return (
                       <>
                         <div className="Post-reply" key={i}>
-                          <span className="Post-reply-nickname">
+                          <span className="Post-reply-nickname" onClick={()=>{goProfile(a.UID)}}>
                             <b>{a.displayName}</b>
                           </span>
                           <span className="Post-reply-text">
@@ -290,7 +290,7 @@ function Post(props) {
                     <>
                       {/* 댓글 1 - 2개 정도 표시 */}
                       <div className="Post-reply">
-                        <span className="Post-reply-nickname">
+                        <span className="Post-reply-nickname" onClick={()=>{goProfile(props.post.peopleWhoReply[0].UID)}}>
                           <b>{props.post.peopleWhoReply[0].displayName}</b>
                         </span>
                         <span className="Post-reply-text">
@@ -298,7 +298,7 @@ function Post(props) {
                         </span>
                       </div>
                       <div className="Post-reply">
-                        <span className="Post-reply-nickname">
+                        <span className="Post-reply-nickname" onClick={()=>{goProfile(props.post.peopleWhoReply[1].UID)}}>
                           <b>{props.post.peopleWhoReply[1].displayName}</b>
                         </span>
                         <span className="Post-reply-text">
@@ -309,7 +309,7 @@ function Post(props) {
                   : 
                     <>
                       <div className="Post-reply">
-                        <span className="Post-reply-nickname">
+                        <span className="Post-reply-nickname" onClick={()=>{goProfile(props.post.peopleWhoReply[0].UID)}}>
                           <b>{props.post.peopleWhoReply[0].displayName}</b>
                         </span>
                         <span className="Post-reply-text">

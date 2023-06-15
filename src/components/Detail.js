@@ -259,7 +259,7 @@ function Detail(props) {
           {/* 게시글 영역 */}
           <div className="Post-text-area">
             <div className="Post-text">
-              <div className="Post-writer-name">
+              <div className="Post-writer-name" onClick={()=>{goProfile(post[0].UID)}}>
                 <b>{post[0].displayName}</b>
               </div>
               <div className="Post-text-postText">
@@ -282,7 +282,7 @@ function Detail(props) {
                     return (
                       <>
                         <div className="Post-reply" key={i}>
-                          <span className="Post-reply-nickname">
+                          <span className="Post-reply-nickname" onClick={()=>{goProfile(a.UID)}}>
                             <b>{a.displayName}</b>
                           </span>
                           <span className="Post-reply-text">
