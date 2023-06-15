@@ -84,23 +84,39 @@ function Profile(props) {
                                     : '/assets/profile_default.png'
                              } alt="프로필 사진"/>
                         <div className="profile-info">
-                            <h3 className='profile-email'>{
-                                    user.uid === uid ?
-                                    user.email
-                                    : docReady && FeedInfo != null && FeedInfo.length !== 0 ?
-                                        FeedInfo[0].userEmail
-                                        : '데이터가 없어요!'
-                                }
-                            </h3>
-                            <h4 className='profile-displayname'>@
-                                {
-                                    user.uid === uid ?
-                                    loginUserInfo.displayName
-                                    : docReady && FeedInfo != null && FeedInfo.length !== 0 ?
+                            {
+                                user.uid === uid ?
+                                <h3 className='profile-displayname'>@
+                                    {
+                                        loginUserInfo.displayName
+                                    }
+                                </h3>
+                                : 
+                                <h3 className='profile-displayname'>@
+                                    {
+                                        docReady && FeedInfo != null && FeedInfo.length !== 0 ?
                                         FeedInfo[0].displayName
                                         : '데이터가 없어요!'
-                                }
-                            </h4>
+                                    }
+                                </h3>
+                            }
+
+                            {
+                                // Email --> 내 프로필에서만 표시
+                                user.uid === uid ?
+                                <h4 className='profile-email'>✉&nbsp;
+                                    {
+                                        // 밑에 처럼 하면 내 정보가 아닌 프로필의 Email 정보도 보여줄 수 있긴 함
+                                        user.uid === uid ?
+                                        user.email
+                                        : docReady && FeedInfo != null && FeedInfo.length !== 0 ?
+                                            FeedInfo[0].userEmail
+                                            : '데이터가 없어요!'
+                                    }
+                                </h4>
+                                : null
+                            }
+
                             <p className='profile-intro'>
                                 {
                                     docReady && UserInfo != null && UserInfo.length !== 0 ?
