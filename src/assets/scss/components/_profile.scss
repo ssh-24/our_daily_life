@@ -28,12 +28,12 @@ section{
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    margin-left: 15px;
+    margin-left: 18px;
     /* 이쁜 글씨 */
     font-family: 'HSSaemaul-Regular';
 }
 
-.profile-email {
+.profile-displayname {
     margin: 0;
     margin-bottom: 10px;
     font-size: xx-large;
@@ -41,7 +41,7 @@ section{
     min-height: 40px;
 }
 
-.profile-displayname {
+.profile-email {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: x-large;

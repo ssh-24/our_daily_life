@@ -94,6 +94,7 @@
     display: flex;
 
     .Post-writer-name {
+      cursor: pointer; // 클릭시 프로필로 이동
       font-size: 15px;
     }
     .Post-text-postText {
@@ -129,6 +130,7 @@
     
     
     .Post-reply-nickname {
+      cursor: pointer; // 클릭시 프로필로 이동
       padding-right: 2px;
     }
     .Post-reply-text {
