@@ -146,7 +146,8 @@ function Profile(props) {
                     }>
                         {
                             docReady && FeedInfo != null && FeedInfo.length !== 0
-                            ? FeedInfo.map((a,i)=>{
+                            // createUqe --> 생성일시 기준으로 정렬 ( 최신 순이 먼저 오게 )
+                            ? FeedInfo.sort((a,b)=>b.createdUqe.substring(0,10) - a.createdUqe.substring(0,10)).map((a,i)=>{
                                 return (
                                     // 클릭 시 상세로 이동!
                                     <img key={a.createdUqe} className='my-img' src={a.downloadURL} alt='#' onClick={(e) => goDetail(a)}/>

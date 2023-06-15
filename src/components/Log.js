@@ -50,7 +50,8 @@ function Log(props) {
 
                 {
                     docReady && documents != null && documents.length !== 0
-                    ? documents.map((a,i) => {
+                    // createUqe --> 생성일시 기준으로 정렬 ( 최신 순이 먼저 오게 )
+                    ? documents.sort((a,b)=>b.createdUqe.substring(0,10) - a.createdUqe.substring(0,10)).map((a,i)=>{
                         let post = {...a}
                         return (<Post key={i} post={post}/>) 
                     })
