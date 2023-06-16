@@ -225,7 +225,7 @@ function ProfileInput(props) {
                             <input accept="image/jpeg,image/png,image/heic,image/heif,video/mp4,video/quicktime" className="img-input profile-text-input" multiple="" type="file" onChange={onChange}/>
                         </div>
                         {/* 이미지 미리보기 */}
-                        { showImg.length > 0 && <img src={showImg ?? showImg} alt="" style={{marginBottom : '13px',width : '80%', maxHeight:'200px'}}/>}
+                        { showImg.length > 0 && <img src={showImg ?? showImg} alt="" style={{marginBottom : '13px',width : '70%', maxWidth:'200px', maxHeight:'200px', borderRadius:'100%'}}/>}
                         
                         <div className="form-group profile-input">
                             <Label/>
