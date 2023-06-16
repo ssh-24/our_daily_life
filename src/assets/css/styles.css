@@ -528,8 +528,29 @@ textarea::-webkit-outer-spin-button {
   display: flex;
   padding: 10px;
   align-items: center;
+  justify-content: space-between;
 }
-.Post-user-area:hover {
+
+.Post-writer-info {
+  display: flex;
+  align-items: center;
+}
+.Post-writer-info:hover {
+  cursor: pointer;
+}
+
+.Post-delete-btn {
+  margin: 0.2vw;
+  width: 2.4vh;
+  height: 2.4vh;
+  min-height: 21px;
+  min-width: 21px;
+  max-height: 35px;
+  max-width: 35px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.Post-delete-btn:hover {
   cursor: pointer;
 }
 

@@ -12,12 +12,32 @@
 }
 
 .Post-user-area {
-  &:hover {
-    cursor: pointer;
-  }
   display: flex;
   padding: 10px;
   align-items: center;
+  justify-content: space-between; // 삭제버튼과 작성자 정보 띄우기 위함
+}
+
+.Post-writer-info {
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.Post-delete-btn {
+  margin: 0.2vw;
+  width: 2.4vh;
+  height: 2.4vh;
+  min-height: 21px;
+  min-width: 21px;
+  max-height: 35px;
+  max-width: 35px;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .Post-user-profileImage {
