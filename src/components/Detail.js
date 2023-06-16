@@ -137,7 +137,26 @@ function Detail(props) {
       //=========================  
       deleteDocument(post[0].id)
       alert('게시물이 삭제됐어요!')
-      goBack() // 이전 페이지로 이동
+      goBack() // 이전 페이지로 이동 ( 디테일 페이지에서 보여줄 게 없으니까.. )
+    }
+  }
+
+  // 댓글 삭제
+  const replyDelete = (reply) => {
+    if (confirm("이 댓글을 삭제하시겠어요?")) {
+      console.log("삭제할 댓글 --> ", reply);
+    
+      let peopleWhoReply = [...post[0].peopleWhoReply] // 기존 댓글 리스트
+      
+      // UID + replyText 의 값이 다른 것만 뽑아주기 ( 삭제할 댓글만 제외시키기 )
+      peopleWhoReply = peopleWhoReply.filter((val)=>val.UID+val.replyText !== reply.UID+reply.replyText)
+      let replies = peopleWhoReply.length; // 댓글 수 맞춰주기
+
+      console.log("댓글 삭제 결과 --> ", peopleWhoReply, replies);
+      //=========================  
+      // firebase 수정
+      //=========================  
+      editDocument({ peopleWhoReply, replies }, post[0].id)
     }
   }
 
@@ -157,7 +176,7 @@ function Detail(props) {
               <span className="Post-user-id">{post[0].displayName}</span>
             </div>
             {
-              // 내 글이면 삭제 버튼 보여주기
+              // 내 글 --> 삭제버튼 표시
               loginUserInfo.UID === post[0].UID ?
                 <div className="Post-delete-btn">
                   <DeleteBtn onClick={postDelete}/>
@@ -305,13 +324,25 @@ function Detail(props) {
                   post[0].peopleWhoReply.map((a,i)=>{
                     return (
                       <>
-                        <div className="Post-reply" key={i}>
-                          <span className="Post-reply-nickname" onClick={()=>{goProfile(a.UID)}}>
-                            <b>{a.displayName}</b>
-                          </span>
-                          <span className="Post-reply-text">
-                            {a.replyText}
-                          </span>
+                        <div className="Post-reply-with-btn">
+                          <div className="Post-reply" key={a.UID+i}>
+                            <span className="Post-reply-nickname" onClick={()=>{goProfile(a.UID)}}>
+                              <b>{a.displayName}</b>
+                            </span>
+                            <span className="Post-reply-text">
+                              {a.replyText}
+                            </span>
+                          </div>
+
+                          {
+                            // 내 글 --> 댓글 삭제버튼 표시
+                            loginUserInfo.UID === post[0].UID ?
+                              <div className="reply-delete-btn">
+                                <DeleteReplyBtn onClick={()=>{replyDelete(a)}}/>
+                              </div>
+                            :
+                              null
+                          }
                         </div>
                       </>
                     )
@@ -369,6 +400,25 @@ const DeleteBtn = (props) => (
     {...props}
   >
     <polyline points="3 6 5 6 21 6" />
-    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+    <path id="post-delete-btn" d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+  </svg>
+);
+
+const DeleteReplyBtn = (props) => (
+  <svg
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    {...props}
+  >
+    <path
+      id="reply-delete-btn"
+      opacity={0.5}
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.4}
+      d="M12 12 7 7m5 5 5 5m-5-5 5-5m-5 5-5 5"
+    />
   </svg>
 );
