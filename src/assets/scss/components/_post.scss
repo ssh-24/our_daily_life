@@ -26,20 +26,6 @@
   }
 }
 
-.Post-delete-btn {
-  margin: 0.2vw;
-  width: 2.4vh;
-  height: 2.4vh;
-  min-height: 21px;
-  min-width: 21px;
-  max-height: 35px;
-  max-width: 35px;
-  object-fit: cover;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 .Post-user-profileImage {
   width: 30px;
   height: 30px;
@@ -147,17 +133,16 @@
   font-size: 14px;
   flex-direction: column;
   
-  
   .Post-reply {
-    padding-bottom: 2px;
-    
+    padding-bottom: 3.5px;
     
     .Post-reply-nickname {
       cursor: pointer; // 클릭시 프로필로 이동
-      padding-right: 2px;
+      padding-right: 3px;
     }
+
     .Post-reply-text {
-      padding-left: 2px;
+      padding-left: 3px;
     }
   }
 }

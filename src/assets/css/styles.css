@@ -539,21 +539,6 @@ textarea::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-.Post-delete-btn {
-  margin: 0.2vw;
-  width: 2.4vh;
-  height: 2.4vh;
-  min-height: 21px;
-  min-width: 21px;
-  max-height: 35px;
-  max-width: 35px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.Post-delete-btn:hover {
-  cursor: pointer;
-}
-
 .Post-user-profileImage {
   width: 30px;
   height: 30px;
@@ -656,14 +641,14 @@ textarea::-webkit-outer-spin-button {
   flex-direction: column;
 }
 .Post-reply-area .Post-reply {
-  padding-bottom: 2px;
+  padding-bottom: 3.5px;
 }
 .Post-reply-area .Post-reply .Post-reply-nickname {
   cursor: pointer;
-  padding-right: 2px;
+  padding-right: 3px;
 }
 .Post-reply-area .Post-reply .Post-reply-text {
-  padding-left: 2px;
+  padding-left: 3px;
 }
 
 .Post-reply-border {
@@ -1184,6 +1169,50 @@ section {
   color: #fff;
   transform: scale(1.02);
   transition: 0.1s;
+}
+
+.Post-delete-btn {
+  margin: 0.2vw;
+  width: 2.4vh;
+  height: 2.4vh;
+  min-height: 21px;
+  min-width: 21px;
+  max-height: 35px;
+  max-width: 35px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.Post-delete-btn:hover {
+  cursor: pointer;
+}
+.Post-delete-btn:hover #post-delete-btn {
+  stroke-width: 2;
+}
+
+.Post-reply-with-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reply-delete-btn {
+  margin: 0.2vw;
+  margin-right: 0.4vw;
+  width: 2.4vh;
+  height: 2.4vh;
+  min-height: 20px;
+  min-width: 20px;
+  max-height: 35px;
+  max-width: 35px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.reply-delete-btn:hover {
+  cursor: pointer;
+}
+.reply-delete-btn:hover #reply-delete-btn {
+  opacity: 1;
+  stroke-width: 2;
 }
 
 .reply-text-input {
