@@ -10,7 +10,7 @@ import ReplyInput from "./ReplyInput";
 import { setRmVisible } from "../store/replySlice";
 
 function Detail(props) {
-  const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
+  const { editDocument, deleteDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
   const {documents,error} = useCollection("FeedData"); // 서버 리얼 데이터
   const { isAuthReady, user } = useAuthContext();
   let [fade, setFade] = useState('') // Animation Style State
@@ -21,6 +21,7 @@ function Detail(props) {
   let dispatch = useDispatch()
   const rmVisible = useSelector((state) => state.replyState.rmVisible) // 댓글 모달 표시 여부 ( reply modal )
   const THIS_YEAR = new Date().getFullYear(); // 현재 년도
+  const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보, (Input.js 에서 초기 셋팅)
 
   // 뒤로가기 + 상단으로 스크롤 이동
   const goBack = () => {
@@ -128,6 +129,17 @@ function Detail(props) {
     }
   }
 
+  // 게시물 삭제
+  const postDelete = () => {
+    if (confirm("게시물을 삭제하시겠어요?")) {
+      //=========================  
+      // firebase 삭제
+      //=========================  
+      deleteDocument(post[0].id)
+      alert('게시물이 삭제됐어요!')
+      goBack() // 이전 페이지로 이동
+    }
+  }
 
   return (
     ready ?
@@ -137,11 +149,22 @@ function Detail(props) {
         <div className="Post-area">
 
           {/* 프로필 영역 */}
-          <div className="Post-user-area" onClick={()=>goProfile(post[0].UID)}>
-            <div className="Post-user-profileImage">
-              <img src={post[0].profileImage} alt="프로필사진"/>
+          <div className="Post-user-area">
+            <div className="Post-writer-info" onClick={()=>goProfile(post[0].UID)}>
+              <div className="Post-user-profileImage">
+                <img src={post[0].profileImage} alt="프로필사진"/>
+              </div>
+              <span className="Post-user-id">{post[0].displayName}</span>
             </div>
-            <span className="Post-user-id">{post[0].displayName}</span>
+            {
+              // 내 글이면 삭제 버튼 보여주기
+              loginUserInfo.UID === post[0].UID ?
+                <div className="Post-delete-btn">
+                  <DeleteBtn onClick={postDelete}/>
+                </div>
+              :
+                null
+            }
           </div>
 
           {/* 이미지 영역 */}
@@ -333,3 +356,19 @@ function Detail(props) {
 }
 
 export default Detail;
+
+const DeleteBtn = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#000000"
+    strokeWidth={1.4}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <polyline points="3 6 5 6 21 6" />
+    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+  </svg>
+);
