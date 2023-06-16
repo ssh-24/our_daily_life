@@ -118,3 +118,23 @@
     font-family: 'HSSaemaul-Regular';
     font-size: larger;
 }
+
+
+// input 모달창, 닫기버튼 관련 반응형 작업
+@media (max-width: 600px){
+    .input-area {
+        top: 15vh; // 원래 20vh
+    }
+    .close-btn {
+        top: 5vh; // 원래 10vh
+    }
+}
+
+@media (max-width: 500px){
+    .input-area {
+        top: 8vh; // 원래 20vh
+    }
+    .close-btn {
+        top: 2.5vh; // 원래 10vh
+    }
+}

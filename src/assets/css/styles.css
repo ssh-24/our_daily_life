@@ -776,6 +776,22 @@ textarea::-webkit-outer-spin-button {
   font-size: larger;
 }
 
+@media (max-width: 600px) {
+  .input-area {
+    top: 15vh;
+  }
+  .close-btn {
+    top: 5vh;
+  }
+}
+@media (max-width: 500px) {
+  .input-area {
+    top: 8vh;
+  }
+  .close-btn {
+    top: 2.5vh;
+  }
+}
 @font-face {
   font-family: "HSSaemaul-Regular";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff") format("woff");
