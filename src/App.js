@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/css/styles.css"; // 최종 스타일로 지정
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useCollection } from './hooks/useCollection';
+import { useLogout } from "./hooks/useLogout";
 import { useDispatch } from "react-redux";
 import { setUserList } from "../src/store/searchSlice";
 import Loading from './layout/Loading';
@@ -22,6 +23,7 @@ const Detail = lazy(()=> import('./components/Detail'))
 function App() {
   const { isAuthReady, user } = useAuthContext()
   const { documents, error } = useCollection("FeedData") // 전체 글 데이터
+  const {logout} = useLogout()
   let dispatch = useDispatch()
 
   //===========================================================
@@ -46,7 +48,25 @@ function App() {
     console.log("유저 리스트", uniqUsers)
     dispatch(setUserList(uniqUsers))
   }, [documents])
+
+
   //===========================================================
+  // 로그인, 회원가입 시 로그아웃 타이머 실행 --> 세션의 역할
+  //===========================================================
+  useEffect(()=>{
+    user ? console.log("======로그인 O======") : console.log("======로그인 X======")
+    let timer;
+    // 로그인했다면!
+    if (user) {
+      timer = setTimeout(() => {
+        alert("세션이 만료되었어요! 다시 로그인해 주세요!");
+        logout(); // 로그아웃 시켜버리기
+      }, 600000); // 10분 뒤 로그아웃
+    }
+    return () => {
+      clearTimeout(timer);
+    }
+  },[user])
 
   return(
     <>
