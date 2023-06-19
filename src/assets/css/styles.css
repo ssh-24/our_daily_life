@@ -595,6 +595,7 @@ textarea::-webkit-outer-spin-button {
   font-size: large;
 }
 .Post-like-area .Post-like-count {
+  cursor: pointer;
   margin-bottom: 4px;
 }
 .Post-like-area .Post-like-count::before {
@@ -679,7 +680,7 @@ textarea::-webkit-outer-spin-button {
   bottom: 0;
   left: 0;
   background: #000;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .close-btn {
@@ -1249,4 +1250,68 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.dimmed-layer-detail {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7450980392);
+  opacity: 0.1;
+}
+
+.like-detail-area {
+  position: fixed;
+  z-index: 300;
+  top: 20vh;
+  right: 0;
+  left: 0;
+  background: #fff;
+  margin: auto;
+  width: 40vw;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 5px;
+  text-align: center;
+  align-items: center;
+}
+.like-detail-area .like-detail-container {
+  margin: auto;
+  padding: 35px 0px 35px;
+  border: 2px solid rgba(0, 0, 0, 0.055);
+  border-radius: 25px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+.like-detail-area .like-detail-container .go-profile-btn {
+  margin-top: 12px;
+  padding: 8px 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  /* 이쁜 글씨 */
+  font-family: "HSSaemaul-Regular";
+}
+.like-detail-area .like-detail-container .go-profile-btn:focus, .like-detail-area .like-detail-container .go-profile-btn:hover {
+  background-color: rgb(83, 83, 83);
+  color: #fff;
+  transform: scale(1.02);
+  transition: 0.1s;
+}
+
+@media (max-width: 600px) {
+  .like-detail-area {
+    top: 15vh;
+  }
+}
+@media (max-width: 500px) {
+  .like-detail-area {
+    top: 8vh;
+  }
 }/*# sourceMappingURL=styles.css.map */

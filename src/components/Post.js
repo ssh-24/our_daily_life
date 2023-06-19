@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { setRmVisible } from "../store/replySlice";
+import { setLmVisible } from "../store/likeSlice";
 
 function Post(props) {
   const { editDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
@@ -233,7 +234,12 @@ function Post(props) {
 
         {/* 좋아요 Count */}
         <div className="Post-like-area">
-          <p className="Post-like-count">
+          <p className="Post-like-count" onClick={()=>{
+            goDetail(props.post);
+            setTimeout(() => {
+              dispatch(setLmVisible(true)) // 좋아요 상세 모달 표시, 로딩되고 바뀌게 약간 딜레이
+            }, 500);
+          }}>
             <b>{props.post.likes}</b>
           </p>
         </div>

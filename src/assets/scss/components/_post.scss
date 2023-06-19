@@ -84,6 +84,7 @@
   font-size: large;
 
   .Post-like-count{
+    cursor: pointer;
     margin-bottom: 4px;
   }
   .Post-like-count::before {

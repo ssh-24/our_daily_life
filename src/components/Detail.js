@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReplyInput from "./ReplyInput";
 import { setRmVisible } from "../store/replySlice";
+import { setLmVisible } from "../store/likeSlice";
+import LikeDetail from "./LikeDetail";
 
 function Detail(props) {
   const { editDocument, deleteDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
@@ -20,6 +22,7 @@ function Detail(props) {
   let navigate = useNavigate() // 페이지 이동
   let dispatch = useDispatch()
   const rmVisible = useSelector((state) => state.replyState.rmVisible) // 댓글 모달 표시 여부 ( reply modal )
+  const lmVisible = useSelector((state) => state.likeState.lmVisible) // 좋아요 상세 모달 여부
   const THIS_YEAR = new Date().getFullYear(); // 현재 년도
   const loginUserInfo = useSelector((state) => state.loginUserInfo) // 로그인 유저 정보, (Input.js 에서 초기 셋팅)
 
@@ -294,10 +297,19 @@ function Detail(props) {
 
           {/* 좋아요 Count */}
           <div className="Post-like-area">
-            <p className="Post-like-count">
+            <p className="Post-like-count" onClick={()=>{
+              dispatch(setLmVisible(true)) // 좋아요 상세 모달 표시
+            }}>
               <b>{post[0].likes}</b>
             </p>
           </div>
+
+          {/* 좋아요 상세 */}
+          {
+            lmVisible ?
+            <LikeDetail peopleWhoLike={post[0].peopleWhoLike}/>
+            : null
+          }
 
           {/* 게시글 영역 */}
           <div className="Post-text-area">
