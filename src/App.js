@@ -68,6 +68,13 @@ function App() {
     }
   },[user])
 
+  // mount 시 카카오 API 초기화
+  useEffect(()=>{
+    Kakao.cleanup();
+    Kakao.init('463e9862b26af654e7269407deb51b63'); // 앱 키 - JavaScript 키 넣어주기
+    console.log("카카오 API 초기화 --> ",Kakao.isInitialized()); // 완료 여부 찍어주기
+  },[])
+
   return(
     <>
       {
