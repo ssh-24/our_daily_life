@@ -61,7 +61,7 @@ function App() {
       timer = setTimeout(() => {
         alert("세션이 만료되었어요! 다시 로그인해 주세요!");
         logout(); // 로그아웃 시켜버리기
-      }, 600000); // 10분 뒤 로그아웃
+      }, 1800000); // 30분 뒤 로그아웃
     }
     return () => {
       clearTimeout(timer);
