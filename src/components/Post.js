@@ -46,6 +46,45 @@ function Post(props) {
     navigate('/detail/'+props.id) // 게시물 id를 URL 파라미터로 넘긴다 (키값)
   }
 
+  // 보내기 버튼 - 카카오 공유, **원래 개발자 모드 모바일에서는 동작하지 않음**
+  const kakaoShare = (post) => {
+    console.log("공유할 게시물 --> ",post);
+    if(confirm("카카오톡으로 공유하시겠어요?")){
+      // 카카오톡 공유 로직 실행
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: post.displayName,
+          description: post.postText+'\n'+post.createdDate,
+          imageUrl:
+            post.downloadURL,
+          link: {
+            mobileWebUrl: window.location.href+`detail/${post.id}`,
+            webUrl: window.location.href+`detail/${post.id}`,
+          },
+        },
+        social: {
+          likeCount: post.likes,
+          commentCount: post.replies,
+          sharedCount: post.shares,
+        },
+        buttons: [
+          {
+            title: '보러가기',
+            link: {
+              mobileWebUrl: window.location.href+`detail/${post.id}`,
+              webUrl: window.location.href+`detail/${post.id}`,
+            },
+          }
+        ],
+      });
+
+      // 보내기 +1
+      let shares = post.shares + 1
+      editDocument({ shares }, post.id)
+    }
+  }
+
   //============================================== 
   // 좋아요 눌린 상태에 따른 버튼 이미지 반환
   //============================================== 
@@ -182,8 +221,9 @@ function Post(props) {
               </svg>
             </button>
 
-            <button className="share-btn" onClick={(e) => {
-              alert('보내기 구현중.. ^.^')
+            {/* 공유 버튼 - 카카오 공유하기 */}
+            <button className="share-btn" onClick={() => {
+              kakaoShare(props.post);
             }}>
               <svg aria-label="보내기" color="#262626" fill="#262626"
               height="24" role="img" viewBox="0 0 24 24" width="24">
