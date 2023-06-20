@@ -13,7 +13,8 @@ import LikeDetail from "./LikeDetail";
 
 function Detail(props) {
   const { editDocument, deleteDocument, response } = useFirestore("FeedData");// 컬렉션 이름 파라미터로 넣어주기
-  const {documents,error} = useCollection("FeedData"); // 서버 리얼 데이터
+  const { documents : AllFeed } = useCollection("FeedData"); // 전체 게시글 데이터
+  const { documents : Users } = useCollection("UserData"); // 전체 유저 데이터 ( 좋아요 상세에 props로 전송 )
   const { isAuthReady, user } = useAuthContext();
   let [fade, setFade] = useState('') // Animation Style State
   let {uid} = useParams() // 게시물 id 키값 (URL 파라미터)
@@ -61,9 +62,9 @@ function Detail(props) {
   },[])
 
   useEffect(()=>{
-    // documents 받아오면 a.id가 같은 것을 post 에 담아주기
-    setPost(documents?.filter((a,i)=> a.id === uid))
-  }, [documents])
+    // AllFeed 받아오면 a.id가 같은 것을 post 에 담아주기
+    setPost(AllFeed?.filter((a,i)=> a.id === uid))
+  }, [AllFeed])
 
   useEffect(()=>{
     // 데이터 받아오는 과정에서 undefined 되는 경우가 있어서 예외처리 해줬다..
@@ -307,7 +308,7 @@ function Detail(props) {
           {/* 좋아요 상세 */}
           {
             lmVisible ?
-            <LikeDetail peopleWhoLike={post[0].peopleWhoLike}/>
+            <LikeDetail users={Users} peopleWhoLike={post[0].peopleWhoLike}/>
             : null
           }
 

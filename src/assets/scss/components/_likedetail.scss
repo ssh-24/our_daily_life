@@ -22,14 +22,14 @@
     border: 1px solid #fff;
     border-radius: 25px;
     min-width: 300px; // 줄어들었을때 방어, 제목 텍스트 안떨어지는 정도로
-    max-width: 500px;
+    max-width: 350px;
     padding: 5px;
     text-align: center;
     align-items: center;
 
     .like-detail-container {
         margin: auto;
-        padding: 35px 0px 35px;
+        padding: 22px 10px 22px;
         border: 2px solid rgba(0, 0, 0, 0.055);
         border-radius: 25px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -55,6 +55,55 @@
     }
 }
 
+.like-detail-header {
+    /* 이쁜 글씨 */
+    font-family: 'HSSaemaul-Regular';
+    font-size: x-large;
+    margin-bottom: 12px;
+}
+
+.like-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    margin-left: 5px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.like-user-profileImage {
+    width: 32px;
+    height: 32px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+}
+
+.like-user-name {
+    padding: 0px 12px;
+    font-weight: bold;
+}
+
+.like-no-user-text {
+    /* 이쁜 글씨 */
+    font-family: 'HSSaemaul-Regular';
+    font-size: larger;
+    margin-top: 28px;
+    margin-bottom: 6px;
+}
+
+.like-no-user-text-small {
+    /* 이쁜 글씨 */
+    font-family: 'HSSaemaul-Regular';
+    font-size: large;
+    color: #3a3a3a57;
+    margin-bottom: 12px;
+}
 
 // 모달창 관련 반응형 작업
 @media (max-width: 600px){

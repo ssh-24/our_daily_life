@@ -1,55 +1,45 @@
 /*eslint-disable */
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useFirestore } from "../hooks/useFirestore";
+import { useDispatch } from "react-redux";
 import { setLmVisible } from "../store/likeSlice"; 
-import { useCollection } from "../hooks/useCollection";
-import { useCollectionDtl } from "../hooks/useCollectionDtl";
+import { useNavigate } from "react-router-dom";
 
 function LikeDetail(props) {
     let [fade, setFade] = useState('') // Animation Style State
-    const { documents : Users, error } = useCollection("UserData"); // 일단 다 가져와보자 UserData..
-    let [likeList, setLikeList] = useState([]); // 필터링한 정보를 여기에 담아줄 생각임
+    let [likeList, setLikeList] = useState([]); // 필터링한 정보를 여기에 담아준다 --> 좋아요 리스트
     let dispatch = useDispatch()
+    let navigate = useNavigate()
+
+    // 상단으로 스크롤 이동
+    const scrollTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // 프로필 페이지 이동
+    const goProfile = (val) => {
+        navigate(`/profile/${val}`)
+        scrollTop()
+        
+        // **새로고침 해버리자**
+        window.location.reload();
+    }
 
     // 초기 mount 시
     useEffect(()=>{
-        // document.body.style.overflow = 'hidden'; // 스크롤 제거
         setFade('transition-end')
-        console.log(props.peopleWhoLike);
-        // let temp = []
-        // props.peopleWhoLike.map((a,i)=>{
-        //     if (Users != null && Users != undefined) {
-        //         Users.forEach((el) => {
-        //             if (el.UID === a.UID) {
-        //                 temp.push(el);   
-        //             }
-        //         });
-        //     }
-        // })
-        // console.log("잘들어왔을까??????",temp);
 
-        
-        // // unmount 시 초기화
-        // return () => {
-        //     document.body.style.overflow = ''; // 스크롤 보이기
-        // }
-    },[])
-
-    useEffect(()=>{
-        let temp = []
+        let likePeople = []
         props.peopleWhoLike.map((a,i)=>{
-            if (Users != null && Users != undefined) {
-                Users.forEach((el) => {
-                        if (el.UID === a.UID) {
-                            temp.push(el);   
-                        }
-                });
-            }
+            props.users.forEach((el) => {
+                if (el.UID === a) {
+                    likePeople.push(el);   
+                }
+            });
         })
-        console.log("잘들어왔을까??????",temp);
+        console.log("좋아요 상세 리스트 --> ",likePeople);
 
-    },[Users])
+        setLikeList(likePeople); // 필터링한 정보로 state 셋팅
+    },[])
 
     // Esc로 모달 끄기
     window.onkeydown = (e) => {
@@ -70,7 +60,25 @@ function LikeDetail(props) {
             <div className={`dimmed-layer-detail ${fade}`} onClick={()=>{dispatch(setLmVisible(false))}}/>
             <div className={`like-detail-area transition-start ${fade}`}>
                 <div className="like-detail-container">
-                    test
+                    <h3 className="like-detail-header">좋아하는 사람들</h3>
+                    {
+                        likeList.length !== 0 ?
+                            likeList.map((a,i)=>{
+                                return (
+                                    <div className="like-user-info" onClick={()=>{goProfile(a.UID)}}>
+                                        <div className="like-user-profileImage">
+                                            <img src={a.profileImage} alt="프로필사진"/>
+                                        </div>
+                                        <span className="like-user-name">{a.displayName}</span>
+                                    </div>
+                                )
+                            })
+                        : 
+                            <>
+                                <h3 className="like-no-user-text">아직 좋아요가 없어요 😥</h3>
+                                <h4 className="like-no-user-text-small">첫 좋아요를 눌러볼까요?</h4>
+                            </>
+                    }
                 </div>
             </div>
         </>
