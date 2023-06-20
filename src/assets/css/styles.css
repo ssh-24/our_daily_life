@@ -715,7 +715,7 @@ textarea::-webkit-outer-spin-button {
   border: 1px solid #fff;
   border-radius: 30px;
   min-width: 360px;
-  max-width: 500px;
+  max-width: 400px;
   padding: 5px;
   text-align: center;
   align-items: center;
@@ -832,7 +832,7 @@ section {
 }
 
 .container {
-  margin-top: 70px;
+  margin-top: 80px;
   display: flex;
   justify-content: center;
 }
@@ -918,11 +918,19 @@ section {
   padding-bottom: 30px;
 }
 
+.content-wrap-no-post {
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 60px;
+}
+
 .content-wrap-one {
   display: grid;
   grid-template-columns: repeat(3, 100%);
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .content-wrap-two {
@@ -930,6 +938,7 @@ section {
   grid-template-columns: repeat(3, 50%);
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .content-wrap {
@@ -937,6 +946,7 @@ section {
   grid-template-columns: repeat(3, 33%);
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .my-img {

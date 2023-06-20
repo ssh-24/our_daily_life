@@ -9,7 +9,7 @@ section{
 }
 
 .container {
-    margin-top: 70px;
+    margin-top: 80px;
     display: flex;
     justify-content: center;
 }
@@ -97,12 +97,21 @@ section{
     padding-bottom: 30px;
 }
 
+// 게시물 한 개도 없는 경우 예외처리용 css
+.content-wrap-no-post {
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 60px;
+}
+
 // 게시물이 한 개 있는 경우 예외처리용 css
 .content-wrap-one{
     display: grid;
     grid-template-columns: repeat(3, 100%);
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 // 게시물이 두 개 있는 경우 예외처리용 css
@@ -111,6 +120,7 @@ section{
     grid-template-columns: repeat(3, 50%);
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .content-wrap{
@@ -118,6 +128,7 @@ section{
     grid-template-columns: repeat(3, 33%);
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .my-img {

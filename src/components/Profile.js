@@ -94,8 +94,8 @@ function Profile(props) {
                                 : 
                                 <h3 className='profile-displayname'>@
                                     {
-                                        docReady && FeedInfo != null && FeedInfo.length !== 0 ?
-                                        FeedInfo[0].displayName
+                                        docReady && UserInfo != null && UserInfo.length !== 0 ?
+                                        UserInfo[0].displayName
                                         : '데이터가 없어요!'
                                     }
                                 </h3>
@@ -140,9 +140,11 @@ function Profile(props) {
                         docReady && FeedInfo != null && FeedInfo.length > 2 ?
                          'content-wrap' 
                          : 
-                            docReady && FeedInfo != null && FeedInfo.length > 1 ?
+                            docReady && FeedInfo != null && FeedInfo.length === 2 ?
                              'content-wrap-two'
-                             : 'content-wrap-one'
+                             : docReady && FeedInfo != null && FeedInfo.length === 1 ?
+                                'content-wrap-one'
+                                : 'content-wrap-no-post'
                     }>
                         {
                             docReady && FeedInfo != null && FeedInfo.length !== 0
@@ -153,13 +155,19 @@ function Profile(props) {
                                     <img key={a.createdUqe} className='my-img' src={a.downloadURL} alt='#' onClick={(e) => goDetail(a)}/>
                                 )
                             })
-                            : // 유저 검색 --> 게시물 작성한 사람만 되기 때문에 예외처리 X
-                              <div className="no-post">
-                                <p>작성된 게시물이 없어요!</p>
-                                <button className="upload-btn-profile" onClick={uploadClicked}>
-                                    게시물 작성하기
-                                </button>
-                              </div>
+                            : 
+                                <div className="no-post">
+                                    <p>작성된 게시물이 없어요!</p>
+                                    {
+                                        // 본인 프로필일 때만 게시글 작성 버튼
+                                        user.uid === uid ?
+                                            <button className="upload-btn-profile" onClick={uploadClicked}>
+                                                게시물 작성하기
+                                            </button>
+                                        : 
+                                            null
+                                    }
+                                </div>
                         }
                     </div>
 
