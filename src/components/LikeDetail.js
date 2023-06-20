@@ -65,7 +65,7 @@ function LikeDetail(props) {
                         likeList.length !== 0 ?
                             likeList.map((a,i)=>{
                                 return (
-                                    <div className="like-user-info" onClick={()=>{goProfile(a.UID)}}>
+                                    <div className="like-user-info" key={a.UID} onClick={()=>{goProfile(a.UID)}}>
                                         <div className="like-user-profileImage">
                                             <img src={a.profileImage} alt="프로필사진"/>
                                         </div>

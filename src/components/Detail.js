@@ -337,8 +337,8 @@ function Detail(props) {
                   post[0].peopleWhoReply.map((a,i)=>{
                     return (
                       <>
-                        <div className="Post-reply-with-btn">
-                          <div className="Post-reply" key={a.UID+i}>
+                        <div className="Post-reply-with-btn" key={a.UID}>
+                          <div className="Post-reply">
                             <span className="Post-reply-nickname" onClick={()=>{goProfile(a.UID)}}>
                               <b>{a.displayName}</b>
                             </span>
@@ -350,7 +350,7 @@ function Detail(props) {
                           {
                             // 내 글 --> 댓글 삭제버튼 표시
                             loginUserInfo.UID === post[0].UID ?
-                              <div className="reply-delete-btn">
+                              <div className="reply-delete-btn" key={a.UID}>
                                 <DeleteReplyBtn onClick={()=>{replyDelete(a)}}/>
                               </div>
                             :
