@@ -107,6 +107,7 @@ function Input(){
         savedData.peopleWhoReply = []
         savedData.replies = 0
         savedData.peopleWhoSave = []
+        savedData.shares = 0
         // 회원의 프로필 사진 정보를 가져와서 넣어줌, 프로필 사진은 회원가입(useSignup) 시, 기본 이미지로 등록된다
         savedData.profileImage = documents[0].profileImage
 
