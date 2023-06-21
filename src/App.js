@@ -19,10 +19,9 @@ const Log = lazy(()=> import('./components/Log'))
 const Saved = lazy(()=> import('./components/Saved'))
 const Detail = lazy(()=> import('./components/Detail'))
 
-
 function App() {
   const { isAuthReady, user } = useAuthContext()
-  const { documents, error } = useCollection("FeedData") // 전체 글 데이터
+  const { documents : Users } = useCollection("UserData") // 전체 유저 데이터
   const {logout} = useLogout()
   let dispatch = useDispatch()
 
@@ -30,24 +29,15 @@ function App() {
   // 사용자 검색 추천 리스트 세팅
   //===========================================================
   useEffect(()=>{
-    console.log('App Load DOC',documents)
-    // 전체 글의 사용자 정보(UID , displayName)를 받아서 redux store에 넣기 (for 검색 자동완성)
-    let users = [] // 전체 유저
+    // 사용자 정보(UID , displayName, profileImage)를 받아서 redux store에 넣기 (for 검색 자동완성)
+    let users = []
     // 있을 때만 돌립시다?
-    documents?.map((a,i)=>{
-        users.push({UID : a.UID, Name : a.displayName})
+    Users?.map((a,i)=>{
+        users.push({UID : a.UID, Name : a.displayName, ProfileImage : a.profileImage})
     });
-    let uniqUsers = [] // 중복 X 유저
-    // 중복 제거
-    uniqUsers = users.reduce((acc, cur)=>{
-      if (acc.findIndex(({ UID }) => UID === cur.UID) === -1) {
-        acc.push(cur)
-      }
-      return acc;
-    }, []);
-    console.log("유저 리스트", uniqUsers)
-    dispatch(setUserList(uniqUsers))
-  }, [documents])
+    // console.log('유저 리스트 ( 자동완성 ) --> ',users)
+    dispatch(setUserList(users))
+  }, [Users])
 
 
   //===========================================================
