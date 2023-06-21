@@ -81,12 +81,12 @@ export const useFirestore = (transaction) => {
                 null
             }, 
             (error) => {
-                console.error('실패사유는', error);
+                console.error('실패 사유 --> ', error);
             }, 
             () => {
               getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 
-                console.log('업로드된 경로는', downloadURL);
+                console.log('업로드 경로 --> ', downloadURL);
                 /*===============================================
                 * 데이터 저장
                 *===================================================*/

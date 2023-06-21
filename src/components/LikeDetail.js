@@ -36,7 +36,7 @@ function LikeDetail(props) {
                 }
             });
         })
-        console.log("좋아요 상세 리스트 --> ",likePeople);
+        // console.log("좋아요 상세 리스트 --> ",likePeople);
 
         setLikeList(likePeople); // 필터링한 정보로 state 셋팅
     },[])

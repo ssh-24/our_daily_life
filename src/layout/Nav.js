@@ -79,7 +79,7 @@ function Nav(props) {
         acList != null ? acList.appendChild(li) : null // null 예외처리 *이놈때문이였음*
       })
     }
-    console.log("검색 추천 리스트: ",acList)
+    // console.log("검색 추천 리스트: ",acList)
   }
 
   // input onChange --> 추천 UI 표시

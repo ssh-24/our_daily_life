@@ -23,16 +23,15 @@ function Log(props) {
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(false)
-        console.log("user :",user)
-        console.log("이메일 :",user.email)
-        console.log("닉네임 :",loginUserInfo.displayName)
+        // console.log("user :",user)
+        // console.log("이메일 :",user.email)
+        // console.log("닉네임 :",loginUserInfo.displayName)
     },[])
 
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(true)
-        // 날짜, 최근 좋아요 등 기준 잡고 정렬하면 좋을 듯
-        console.log("좋아하는 글 :",documents)
+        // console.log("좋아하는 글 :",documents)
     },[documents])
 
     useEffect(()=>{

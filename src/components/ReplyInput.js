@@ -34,8 +34,7 @@ function ReplyInput(props) {
         let peopleWhoReply = props.post.peopleWhoReply // 댓글 리스트
         let replies = props.post.replies // 댓글 수
 
-        console.log("신규 댓글 --> ",addReply)
-
+        // console.log("신규 댓글 --> ",addReply)
         // 기존 댓글 리스트에 밀어넣자
         peopleWhoReply.push(addReply)
 
@@ -52,15 +51,7 @@ function ReplyInput(props) {
 
     // 초기 mount 시
     useEffect(()=>{
-        document.body.style.overflow = 'hidden'; // 스크롤 제거
         setFade('transition-end')
-        console.log("props", props.post);
-        console.log("댓글 누가 써??", loginUserInfo.displayName);
-        
-        // unmount 시 초기화
-        return () => {
-            document.body.style.overflow = ''; // 스크롤 보이기
-        }
     },[])
 
     // Esc로 모달 끄기

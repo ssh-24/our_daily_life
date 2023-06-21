@@ -148,7 +148,7 @@ function Detail(props) {
   // 댓글 삭제
   const replyDelete = (reply) => {
     if (confirm("이 댓글을 삭제하시겠어요?")) {
-      console.log("삭제할 댓글 --> ", reply);
+      // console.log("삭제할 댓글 --> ", reply);
     
       let peopleWhoReply = [...post[0].peopleWhoReply] // 기존 댓글 리스트
       
@@ -156,7 +156,7 @@ function Detail(props) {
       peopleWhoReply = peopleWhoReply.filter((val)=>val.UID+val.replyText !== reply.UID+reply.replyText)
       let replies = peopleWhoReply.length; // 댓글 수 맞춰주기
 
-      console.log("댓글 삭제 결과 --> ", peopleWhoReply, replies);
+      // console.log("댓글 삭제 결과 --> ", peopleWhoReply, replies);
       //=========================  
       // firebase 수정
       //=========================  
@@ -166,7 +166,7 @@ function Detail(props) {
 
   // 보내기 버튼 - 카카오 공유, **원래 개발자 모드 모바일에서는 동작하지 않음**
   const kakaoShare = (post) => {
-    console.log("공유할 게시물 --> ",post);
+    // console.log("공유할 게시물 --> ",post);
     if(confirm("카카오톡으로 공유하시겠어요?")){
       // 카카오톡 공유 로직 실행
       Kakao.Share.sendDefault({
@@ -257,7 +257,7 @@ function Detail(props) {
                 } else {
                   console.log('좋아요')
                 }
-                console.log('좋아하는 사람들', peopleWhoLike)
+                // console.log('좋아하는 사람들', peopleWhoLike)
 
                 //=========================================================
                 // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
@@ -318,7 +318,7 @@ function Detail(props) {
                 } else {
                   alert('게시물을 보관함에 추가할게요!')
                 }
-                console.log('저장한 사람들', peopleWhoSave)
+                // console.log('저장한 사람들', peopleWhoSave)
 
                 //=========================================================
                 // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다

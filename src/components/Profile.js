@@ -46,23 +46,23 @@ function Profile(props) {
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(false)
-        // 내 프로필이면
-        if (user.uid === uid) {
-            console.log("user :",user)
-            console.log("이메일 :",user.email)
-            console.log("최초가입 시 닉네임 (user.displayName) :",user.displayName)
-        }
+        // // 내 프로필이면
+        // if (user.uid === uid) {
+        //     console.log("user :",user)
+        //     console.log("이메일 :",user.email)
+        //     console.log("최초가입 시 닉네임 (user.displayName) :",user.displayName)
+        // }
     },[])
     
     useEffect(()=>{
         // documents 여부 state 변경
         setDocReady(true)
-        // 내 프로필이면
-        if (user.uid === uid) {
-            console.log("내 글 :",FeedInfo)
-        } else {
-            console.log("검색 :",FeedInfo)
-        }
+        // // 내 프로필이면
+        // if (user.uid === uid) {
+        //     console.log("내 글 :",FeedInfo)
+        // } else {
+        //     console.log("검색 :",FeedInfo)
+        // }
     },[FeedInfo])
 
     useEffect(()=>{

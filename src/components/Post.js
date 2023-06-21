@@ -48,7 +48,7 @@ function Post(props) {
 
   // 보내기 버튼 - 카카오 공유, **원래 개발자 모드 모바일에서는 동작하지 않음**
   const kakaoShare = (post) => {
-    console.log("공유할 게시물 --> ",post);
+    // console.log("공유할 게시물 --> ",post);
     if(confirm("카카오톡으로 공유하시겠어요?")){
       // 카카오톡 공유 로직 실행
       Kakao.Share.sendDefault({
@@ -189,7 +189,7 @@ function Post(props) {
               } else {
                 console.log('좋아요')
               }
-              console.log('좋아하는 사람들', peopleWhoLike)
+              // console.log('좋아하는 사람들', peopleWhoLike)
 
               //=========================================================
               // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
@@ -255,7 +255,7 @@ function Post(props) {
               } else {
                 alert('게시물을 보관함에 추가할게요!')
               }
-              console.log('저장한 사람들', peopleWhoSave)
+              // console.log('저장한 사람들', peopleWhoSave)
 
               //=========================================================
               // 수정 firebase 태우기, 변경하는 필드를 객체 형식으로 넣어준다
@@ -307,7 +307,7 @@ function Post(props) {
               // 모두보기 안눌렀고, 댓글 2개보다 많으면
               !isAll && props.post.replies > 2 ?
               <div className="Post-reply-count" onClick={()=>{
-                  console.log('댓글 전체보기!')
+                  // console.log('댓글 전체보기!')
                   // 모두보기 on
                   setIsAll(true)
                 }}>{props.post.replies}

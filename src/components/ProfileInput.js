@@ -49,7 +49,7 @@ function ProfileInput(props) {
 
     // 이미지 onChange
     const setPreviewImg = (e) => {
-        console.log("변경할 파일 -->", e.target.files[0]);
+        // console.log("변경할 파일 -->", e.target.files[0]);
 
         let reader = new FileReader();
         reader.onload = function(e) {
@@ -70,7 +70,7 @@ function ProfileInput(props) {
         e.preventDefault(); // submit시 페이지 reload 방지
         setLoading(true) // 로딩 표시
 
-        console.log('사진 변경 여부 --> ',imageChangeYN)
+        // console.log('사진 변경 여부 --> ',imageChangeYN)
         if (imageChangeYN) {
             /* ************************************
             *     프로필 사진 포함 O 변경
@@ -83,7 +83,7 @@ function ProfileInput(props) {
             setTimeout(() => {
                 getDownloadURL(uploadTask.snapshot.ref)
                 .then((downloadURL) => {
-                    console.log('downloadURL --> ', downloadURL);
+                    // console.log('downloadURL --> ', downloadURL);
                     // 업로드된 경로로 state 변경 --> **useEffect[resultURL] 로 이어진당**
                     setResultURL(downloadURL)
                 })
@@ -123,7 +123,7 @@ function ProfileInput(props) {
                 profileImage: resultURL
             })
 
-            console.log("최종 URL --> ",resultURL)
+            // console.log("최종 URL --> ",resultURL)
             setUploadYN(true); // 사진 업로드 여부 추가
         }
     },[resultURL])
@@ -131,7 +131,7 @@ function ProfileInput(props) {
     // 업로드, state 변경 전처리 끝나면 --> **프로필 최종 변경**
     useEffect(()=>{
         if (uploadYN) {
-            console.log("프로필 변경 ( 사진 O ) --> ",newProfile);
+            // console.log("프로필 변경 ( 사진 O ) --> ",newProfile);
             // 게시물이 있다면
             if (MyFeedInfo.length !== 0) {
                 MyFeedInfo.map((a,i)=>{
@@ -164,8 +164,8 @@ function ProfileInput(props) {
     // 컬렉션 데이터 받아오면 초기화
     useEffect(()=>{
         if (MyFeedInfo != null && UserInfo != null) {
-            console.log("게시글 : ", MyFeedInfo)
-            console.log("사용자 : ", UserInfo)
+            // console.log("게시글 : ", MyFeedInfo)
+            // console.log("사용자 : ", UserInfo)
             
             // 받아올 경우에 셋팅
             setNewProfile({
