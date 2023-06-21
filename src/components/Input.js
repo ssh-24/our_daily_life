@@ -1,21 +1,31 @@
 /*eslint-disable */
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCollectionDtl } from '../hooks/useCollectionDtl';
 import { setUserEmail, setUID, setPostText, setVisible, setDisplayName } from "../store/inputSlice";
 import { useFirestore } from "../hooks/useFirestore";
 import { setLoginUserInfo } from "../store/loginUserSlice";
+import Loading from "../layout/Loading";
 
 function Input(){
     const { isAuthReady, user } = useAuthContext();
-    const {documents,error} = useCollectionDtl("UserData",["UID","==",user.uid]) // firebase에 저장된 UserData 컬렉션에서 가져온다!
+    const { documents : LOGIN_USER } = useCollectionDtl("UserData",["UID","==",user.uid]) // firebase에 저장된 UserData 컬렉션에서 가져온다!
     const inputState = useSelector((state) => state.inputState)
     const visible = useSelector((state) => state.inputState.visible) // input 모달 여부
     let dispatch = useDispatch()
+    let navigate = useNavigate() // 페이지 이동
     let [showImg, setShowImg] = useState('') // 미리보기 이미지
     let [saveImg, setSaveImg] = useState('') // 실물저장 이미지
+    let [loading, setLoading] = useState(false) // 로딩 ( 업로드 중에 보여주도록 )
     let [fade, setFade] = useState('') // Animation Style State
+
+    // 메인페이지로 이동 + 상단으로 스크롤 이동
+    const goMain = () => {
+        navigate('/')
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     // 글 등록 모달 on --> 스크롤 X
     // 이전 작성 정보 --> 글, 미리보기 이미지 초기화
@@ -24,12 +34,14 @@ function Input(){
         dispatch(setPostText(''))
         setShowImg('')
         setFade(visible? 'transition-end': '') // 애니메이션 효과
+        setLoading(false) // 로딩중 X
     },[visible])
 
     useEffect(()=>{
         // mount, 초기로딩 완료 --> 작성자 정보 미리 셋팅
         dispatch(setUserEmail(user.email))
         dispatch(setUID(user.uid))
+        setLoading(false) // 로딩중 X
 
         // unmount 시 초기화
         return () => {
@@ -42,14 +54,14 @@ function Input(){
 
     // 로그인 사용자 정보 받아와서, Redux State에도 저장한다
     useEffect(()=>{
-        console.log("로그인 유저(firebase)|",documents)
-        if (documents != null && documents.length !== 0) {
-            let obj = documents[0]
-            dispatch(setDisplayName(documents[0].displayName))
+        // console.log("로그인 유저(firebase)|",LOGIN_USER)
+        if (LOGIN_USER != null && LOGIN_USER.length !== 0) {
+            let obj = LOGIN_USER[0]
+            dispatch(setDisplayName(LOGIN_USER[0].displayName))
             delete obj.createdTime // createdTime이 객체 형태라서 non-serializable value 에러가 나서 지워줬다
             dispatch(setLoginUserInfo(obj)) // redux state에 저장
         }
-    },[documents])
+    },[LOGIN_USER])
     
     window.onkeydown = (e) => {
         if(e.key === 'Escape') {
@@ -86,8 +98,7 @@ function Input(){
     // 이미지 value 값 넣기
     // 이미지 미리보기
     const setPreviewImg = (e) => {
-        console.log("저장할 파일 -->", e.target.files[0]);
-
+        // console.log("저장할 파일 -->", e.target.files[0]);
         let reader = new FileReader();
         reader.onload = function(e) {
             // 미리보기에 보여줄 state 변경
@@ -100,6 +111,9 @@ function Input(){
     // 폼이 제출되면 실행 [게시물 등록]
     const onSubmit = (e) => {
         e.preventDefault(); // submit시 페이지 reload 방지
+        window.scrollTo({ top: 0, behavior: "smooth" }); // 로딩이 안보여서 일단 위로 끌어올리기
+        setLoading(true) // 로딩 표시
+
         let savedData = {...inputState}
         // 저장 시 없는 데이터 추가로 넣어주기
         savedData.peopleWhoLike = []
@@ -109,14 +123,22 @@ function Input(){
         savedData.peopleWhoSave = []
         savedData.shares = 0
         // 회원의 프로필 사진 정보를 가져와서 넣어줌, 프로필 사진은 회원가입(useSignup) 시, 기본 이미지로 등록된다
-        savedData.profileImage = documents[0].profileImage
-
-        console.log("게시물 등록 --> ",savedData);
+        savedData.profileImage = LOGIN_USER[0].profileImage
+        // console.log("게시물 등록 --> ",savedData);
 
         // [FireBase 저장 로직]
         // 저장
         addDocument( savedData ,saveImg)
         .then(()=>{
+            // 모달 끄기
+            // 저장될때까지 시간이 걸리는 듯 함 --> setTimeout 드가자
+            setTimeout(() => {
+                dispatch(setVisible(false))
+                goMain()
+            },3000)
+        })
+        .catch((err)=> {
+            alert("서버에 문제가 발생했어요😥 \n 다시 시도해주세요!")
             // 모달 끄기
             dispatch(setVisible(false))
         })
@@ -127,6 +149,12 @@ function Input(){
             {
                 visible?
                 <>
+                    {
+                        // 로딩중
+                        loading ? 
+                        <Loading/>
+                        : null
+                    }
                     {/* 뒤에 요소들 덮어서 모달만 보이게 */}
                     <div className={`dimmed-layer ${fade}`}/>
 
