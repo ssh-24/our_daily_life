@@ -141,6 +141,25 @@ section{
     margin-top: 8px;
 }
 
+// 동영상 감싸는 틀
+.my-vid-container {
+    position: relative; // **relative를 줘야 자식 요소 absolute 시 부모요소 기준으로 설정됨**
+}
+
+// 동영상은 한 겹 더 싸여 있어서 margin 을 0으로 줬음
+.my-vid {
+    margin: 0!important;
+}
+
+// 동영상이란 것을 알려주는 아이콘 감싸는 컨테이너
+.i-am-video {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 15px;
+    right: 15px;
+}
+
 .no-post {
     display: flex;
     flex-direction: column;
@@ -290,6 +309,12 @@ section{
         height: 130px;
         margin-left: 7px;
         margin-top: 7px;
+    }
+    .i-am-video {
+        width: 24px;
+        height: 24px;
+        top: 8px;
+        right: 8px;
     }
 }
 @media (max-width: 425px){
