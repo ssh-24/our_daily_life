@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 import { useSelector, useDispatch } from "react-redux";
@@ -15,9 +15,9 @@ function Nav(props) {
   const visible = useSelector((state) => state.inputState.visible) // input 모달 여부, 버튼 색깔 분기처리에 사용
   let [fade, setFade] = useState('') // Animation Style State
   let [acShow, setAcShow] = useState('d-none') // 자동완성 영역 표시 여부, 초기값 안보이게
+  const userSearchInput = useRef() // 검색 input 영역
+  const acList = useRef() // 모달 ul 영역
   let [searchInfo, setSearchInfo] = useState('') // 검색 버튼으로 날릴 state (유저 UID)
-  const [searchInput, setSearchInput ] = useState(document.querySelector('.search_input')) // input 영역
-  const [acList, setAcList ] = useState(document.querySelector('.ac-list')) // 모달 ul 영역
 
   // 스크롤 이벤트, 스크롤이 내려갔을 경우에만 상단으로 이동버튼 보이도록
   window.addEventListener('scroll', () => {
@@ -46,9 +46,15 @@ function Nav(props) {
 
   // 검색 실행 --> 프로필 페이지로 이동
   const searchSubmit = () => {
-    searchInfo.length === 0 ?
-    alert('목록에서 선택해주세요! ( •̀ ω •́ )✧')
-    : goProfile(searchInfo)
+    // 선택 안했으면
+    if (searchInfo.length === 0) {
+      alert('목록에서 선택해주세요! ( •̀ ω •́ )✧')
+      // 검색창에 포커싱
+      userSearchInput.current.focus();
+    }
+    else {
+      goProfile(searchInfo)
+    }
   }
 
   //===========================================================
@@ -58,17 +64,11 @@ function Nav(props) {
   useEffect(()=>{
     fillAutoComplete()
   },[userList])
-  
-  // 재렌더링마다 실행
-  useEffect(()=>{
-    setSearchInput(document.querySelector('.search_input'));
-    setAcList(document.querySelector('.ac-list'));
-  })
 
   // 추천 li 초기값 셋팅
   const fillAutoComplete = () => {
     if (userList != null && userList.length !== 0 && userList != undefined) {
-      acList != null ? acList.innerHTML = '' : null // 초기화, null 예외 처리
+      acList.current.innerHTML = '' // 추천 모달 innerHTML 초기화
       userList.map((a,i)=>{
         const li = document.createElement("li")
         li.innerHTML = a.Name
@@ -76,10 +76,10 @@ function Nav(props) {
         li.addEventListener('click',(e) => {
           acSelect(e)
         })
-        acList != null ? acList.appendChild(li) : null // null 예외처리 *이놈때문이였음*
+        acList.current.appendChild(li)
       })
     }
-    // console.log("검색 추천 리스트: ",acList)
+    // console.log("검색 추천 리스트: ", acList.current)
   }
 
   // input onChange --> 추천 UI 표시
@@ -89,7 +89,7 @@ function Nav(props) {
     // childNodes --> NodeList 반환, forEach() 사용
 
     // 각 요소별로 보이기/숨김 처리
-    acList.childNodes.forEach((a,i)=>{
+    acList.current.childNodes.forEach((a,i)=>{
       // 두 개 입력받았을 때부터 자동완성 추천
       if (search_text.length >= 2 ) {
         // 입력값과 innerHTML의 첫 글자 다르면 숨김
@@ -112,7 +112,7 @@ function Nav(props) {
   // input 포커싱 --> UI 표시
   const searchFocus = () => {
     setSearchInfo('') // UID 초기화
-    setAcShow(searchInput.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
+    setAcShow(userSearchInput.current.value.length > 0 ? 'transition-end' : ''); // *포커스 있어도*, input 입력값이 있을 때만 표시
   }
 
   // input 포커스 아웃 --> UI 숨기기
@@ -124,7 +124,7 @@ function Nav(props) {
   // 추천 리스트에서 선택 --> input에 표시되는 innerHTML / 실제 검색 키값 state 셋팅
   const acSelect = (e) => {
     setSearchInfo(e.target.className) // 검색할 state --> UID로 변경 ( 선택 시에만 **유일하게 변경** )
-    searchInput.value = e.target.innerHTML
+    userSearchInput.current.value = e.target.innerHTML
     setAcShow('d-none'); // 선택 후 d-none 처리
   }
   //===========================================================
@@ -171,13 +171,13 @@ function Nav(props) {
               <div className="user-search">
                   {/* 검색 실행 */}
                   <SearchBtn className="search-btn" onClick={searchSubmit}/>
-                  <input aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
+                  <input ref={userSearchInput} aria-label="검색" autoCapitalize="none" className="search_input" placeholder="검색" type="text"
                       onChange={(e)=> {searchRequest(e.target.value)}}
                       onBlur={searchBlur}
                       onFocus={searchFocus}/>
                   {/* 검색어 자동완성 리스트 목록 */}
                   <div className={`auto-complete-area transition-start ${acShow}`}>
-                    <ul className="ac-list">
+                    <ul ref={acList} className="ac-list">
                       {/* 추천될 li 가 들어간다 */}
                     </ul>
                   </div>
