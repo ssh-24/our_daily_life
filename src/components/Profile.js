@@ -150,9 +150,18 @@ function Profile(props) {
                             docReady && FeedInfo != null && FeedInfo.length !== 0
                             // createUqe --> 생성일시 기준으로 정렬 ( 최신 순이 먼저 오게 )
                             ? FeedInfo.sort((a,b)=>b.createdUqe.substring(0,10) - a.createdUqe.substring(0,10)).map((a,i)=>{
+                                // 클릭 시 상세로 이동!
                                 return (
-                                    // 클릭 시 상세로 이동!
-                                    <img key={a.createdUqe} className='my-img' src={a.downloadURL} alt='#' onClick={(e) => goDetail(a)}/>
+                                    // 동영상 / 사진 분기처리
+                                    a.downloadURL.includes('mov') || a.downloadURL.includes('mp4') || a.downloadURL.includes('m4v') ?
+                                        <div className="my-img my-vid-container" onClick={(e) => goDetail(a)}>
+                                            <video key={a.createdUqe} className='my-img my-vid' src={a.downloadURL}/>
+                                            <div className="i-am-video">
+                                                <PlayBtn/>
+                                            </div>
+                                        </div>
+                                    :
+                                        <img key={a.createdUqe} className='my-img' src={a.downloadURL} alt='사진' onClick={(e) => goDetail(a)}/>
                                 )
                             })
                             : 
@@ -191,3 +200,22 @@ function Profile(props) {
 }
 
 export default Profile;
+
+
+const PlayBtn = (props) => (
+    <svg
+        fill="#ffffff"
+        viewBox="0 0 36 36"
+        preserveAspectRatio="xMidYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        {...props}
+    >
+    <title>{"play"}</title>
+    <path
+        className="clr-i-solid clr-i-solid-path-1"
+        d="M32.16,16.08,8.94,4.47A2.07,2.07,0,0,0,6,6.32V29.53a2.06,2.06,0,0,0,3,1.85L32.16,19.77a2.07,2.07,0,0,0,0-3.7Z"
+    />
+    <rect x={0} y={0} width={36} height={36} fillOpacity={0} />
+    </svg>
+);

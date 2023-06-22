@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useFirestore } from "../hooks/useFirestore";
 import { useDispatch } from "react-redux";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -162,9 +162,15 @@ function Post(props) {
         </div>
 
         {/* 이미지 영역 - 클릭 - Detail로 이동 */}
-        <div className="Post-img" onClick={()=>{goDetail(props.post)}}>
+        <div className="Post-img">
           <div className="Post-img-bg">
-            <img src={props.post.downloadURL} alt="게시물사진" id={props.post.id}/>
+            {
+              // 동영상 / 사진 분기처리
+              props.post.downloadURL.includes('mov') || props.post.downloadURL.includes('mp4') || props.post.downloadURL.includes('m4v') ?
+                <video src={props.post.downloadURL} controls onClick={(e)=>{goDetail(props.post)}}/>
+              :
+                <img src={props.post.downloadURL} alt="게시물사진" id={props.post.id} onClick={(e)=>{goDetail(props.post)}}/>
+            }
           </div>
         </div>
 

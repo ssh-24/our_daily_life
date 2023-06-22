@@ -232,7 +232,13 @@ function Detail(props) {
           {/* 이미지 영역 */}
           <div className="Post-img">
             <div className="Post-img-bg">
-              <img src={post[0].downloadURL} alt="게시물사진"/>
+              {
+                // 동영상 / 사진 분기처리
+                post[0].downloadURL.includes('mov') || post[0].downloadURL.includes('mp4') || post[0].downloadURL.includes('m4v') ?
+                  <video src={post[0].downloadURL} controls/>
+                :
+                  <img src={post[0].downloadURL} alt="게시물사진"/>
+              }
             </div>
           </div>
 
