@@ -57,7 +57,11 @@ function Post(props) {
           title: post.displayName,
           description: post.postText+'\n'+post.createdDate,
           imageUrl:
-            post.downloadURL,
+            post.downloadURL.includes('mov') || post.downloadURL.includes('mp4') || post.downloadURL.includes('m4v') ?
+              // 동영상인 경우 썸네일 만들면 좋은데.. 잘 모르겠어서 일단 업로드 해놓은 영상재생 아이콘을 보낸다
+              `https://firebasestorage.googleapis.com/v0/b/our-daily-life-a5c62.appspot.com/o/images%2Fvideo_icon.jpg?alt=media&token=468de73a-e6cc-4e28-8f14-35887673d630`
+            : 
+              post.downloadURL,
           link: {
             mobileWebUrl: window.location.href+`detail/${post.id}`,
             webUrl: window.location.href+`detail/${post.id}`,
