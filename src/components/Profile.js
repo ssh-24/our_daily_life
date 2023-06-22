@@ -155,7 +155,8 @@ function Profile(props) {
                                     // 동영상 / 사진 분기처리
                                     a.downloadURL.includes('mov') || a.downloadURL.includes('mp4') || a.downloadURL.includes('m4v') ?
                                         <div className="my-img my-vid-container" onClick={(e) => goDetail(a)}>
-                                            <video key={a.createdUqe} className='my-img my-vid' src={a.downloadURL}/>
+                                            {/* +`#t=0.001` 추가해서 첫 프레임으로 미리보기를 구현할 수 있음 */}
+                                            <video key={a.createdUqe} className='my-img my-vid' src={a.downloadURL+`#t=0.001`}/>
                                             <div className="i-am-video">
                                                 <PlayBtn/>
                                             </div>

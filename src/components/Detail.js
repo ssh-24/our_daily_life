@@ -235,7 +235,8 @@ function Detail(props) {
               {
                 // 동영상 / 사진 분기처리
                 post[0].downloadURL.includes('mov') || post[0].downloadURL.includes('mp4') || post[0].downloadURL.includes('m4v') ?
-                  <video src={post[0].downloadURL} controls/>
+                  // +`#t=0.001` 추가해서 첫 프레임으로 미리보기를 구현할 수 있음
+                  <video src={post[0].downloadURL+`#t=0.001`} controls/>
                 :
                   <img src={post[0].downloadURL} alt="게시물사진"/>
               }

@@ -167,7 +167,8 @@ function Post(props) {
             {
               // 동영상 / 사진 분기처리
               props.post.downloadURL.includes('mov') || props.post.downloadURL.includes('mp4') || props.post.downloadURL.includes('m4v') ?
-                <video src={props.post.downloadURL} controls onClick={(e)=>{goDetail(props.post)}}/>
+                // +`#t=0.001` 추가해서 첫 프레임으로 미리보기를 구현할 수 있음
+                <video src={props.post.downloadURL+`#t=0.001`} controls onClick={(e)=>{goDetail(props.post)}}/>
               :
                 <img src={props.post.downloadURL} alt="게시물사진" id={props.post.id} onClick={(e)=>{goDetail(props.post)}}/>
             }
