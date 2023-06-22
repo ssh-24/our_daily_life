@@ -568,6 +568,12 @@ textarea::-webkit-outer-spin-button {
   -o-object-fit: contain;
      object-fit: contain;
 }
+.Post-img video {
+  display: block;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 
 .Post-icon-btn-area {
   padding: 8px 15px 2px;
